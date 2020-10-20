@@ -45,7 +45,7 @@ class ParkingLot
     //search by id and return employee method get
     //add employee method - set 
     //delete employee - set
-    ArrayList<Employee> allEmployees()
+    ArrayList<Employee> getAllEmployees()
     {
         return employeeList;
     }
@@ -67,6 +67,11 @@ class ParkingLot
         }
         return false;
     }
+    ArrayList<Floor> getAllFloors()
+    {
+        
+    }
+
 
 
     //Array list of entry points exit points and info portals basically an arraylist of all checkpoints
@@ -87,7 +92,7 @@ class ParkingLot
             y = userInput
             db.updateDatabase();
         }
-        *Provide options such as are you admin, employee or customer
+        *Provide options such as are you admin, employee or customer basically similar to the main method Anand has written in Customer.java, atleast for now
         write a switch case
         case 1 if admin
         admin.run
