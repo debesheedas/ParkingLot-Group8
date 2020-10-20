@@ -10,22 +10,23 @@ public class GUI1//testing the code
 {  //
 
 }
-//to call Login for both admin or Employee, call this class and its static method as the following statement
-//LoginGUI.run();
+//to call Login for both admin or Employee, call this class and run method as the following statements
+//LoginGUI l = new LoginGUI();
+//l.run();
 class LoginGUI extends ParkingLot implements ActionListener 
 {
     private static JFrame frame;
 	private static JPanel panel;
 	private static JLabel label;
-	private static JTextField userText;
+	private static JTextField password1;
 	private static JLabel passwordLabel;
-	private static JPasswordField passwordText;
+	private static JPasswordField password2;
 	private static JButton button;
     private static JLabel success;
     private String username;
     private String password;
 
-    public static void run()
+    public void run()
     {
         frame = new JFrame();
 		panel = new JPanel();
@@ -40,17 +41,17 @@ class LoginGUI extends ParkingLot implements ActionListener
 		label.setBounds(20, 20, 80, 25);
 		panel.add(label);
 		
-		userText = new JTextField();
-		userText.setBounds(100, 20, 165, 25);
-		panel.add(userText);
+		password1 = new JTextField();
+		password1.setBounds(100, 20, 165, 25);
+		panel.add(password1);
 		
 		passwordLabel = new JLabel("Password");
 		passwordLabel.setBounds(20, 50, 165, 25);
 		panel.add(passwordLabel);
 		
-		passwordText = new JPasswordField();
-		passwordText.setBounds(100, 50, 165, 25);
-		panel.add(passwordText);
+		password2 = new JPasswordField();
+		password2.setBounds(100, 50, 165, 25);
+		panel.add(password2);
 		
 		button = new JButton("Login");
 		button.setBounds(100, 80, 80, 25);
@@ -71,8 +72,8 @@ class LoginGUI extends ParkingLot implements ActionListener
 	public void actionPerformed(ActionEvent e) {
 
 		//System.out.println("Button clicked");
-		username = userText.getText();
-		password = new String(passwordText.getPassword());
+		username = password1.getText();
+		password = new String(password2.getPassword());
         System.out.println(username + " "+ password);
         
         
@@ -96,68 +97,81 @@ class LoginGUI extends ParkingLot implements ActionListener
 		
     }
 }
-/*boolean searchEmployeeByUsername(String username, String password)
+
+//call this class using the following statements by passing an Employee object IF AND ONLY IF Employee is logged in
+//ChangePassword c = new ChangePassword();
+//c.run(r);//where r is the Employee object
+
+class ChangePassword implements ActionListener 
 {
-    
-    for(Employee emp : employeeList)
+    private static JFrame frame;
+	private static JPanel panel;
+	private static JLabel label1;
+	private static JPasswordField password1;
+	private static JLabel label2;
+	private static JPasswordField password2;
+	private static JButton button;
+    private static JLabel success;
+
+    public void run(Employee e)
     {
-        if(username.equals(emp.getUsername()) && password.equals(emp.getPassword()))//getusername() and getpassword() to be provided in class Employee
-        {
-            return true;
+        frame = new JFrame();
+		panel = new JPanel();
+		
+		frame.setSize(360,200);
+		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);	
+		frame.add(panel);
+		frame.setTitle("Change Password");
+		panel.setLayout(null);
+		
+		label1 = new JLabel("Enter Password");
+		label1.setBounds(20, 20, 165, 25);
+		panel.add(label1);
+		
+		password1 = new JPasswordField();
+		password1.setBounds(170, 20, 165, 25);
+		panel.add(password1);
+		
+		label2 = new JLabel("Re-enter Password");
+		label2.setBounds(20, 50, 165, 25);
+		panel.add(label2);
+		
+		password2 = new JPasswordField();
+		password2.setBounds(170, 50, 165, 25);
+		panel.add(password2);
+		
+		button = new JButton("Change Password");
+		button.setBounds(100, 80, 170, 25);
+		button.addActionListener(new ChangePassword());
+		panel.add(button);
+		
+		success = new JLabel();
+		success.setBounds(20, 110, 300, 25);
+		panel.add(success);
+		//set Text if credentials are correct
+		
+        frame.setVisible(true);
+        //System.out.println();
+        //return true;
+    }
+    @Override
+	public void actionPerformed(ActionEvent e) {
+
+		//System.out.println("Button clicked");
+		String p1 = new String(password1.getPassword());
+		String p2  = new String(password2.getPassword());
+        //System.out.println(username + " "+ password);
+        
+        
+        if(p1.equals(p2))
+		{
+            success.setText("Password changed successfully!");
+            e.setPassword(p1);//method provided im Employee class
         }
-    }
-    return false;
-}*/
-
-
-//user interface
-//for info portal, entry points, exit points and manned and automated...(as well as display on each floor)
-/*
-interface LogIn
-{
-    //for both employee and admin
-}
-class GUI1{
-    
-}
-//class admin settings
-// class floor number X display
-//Electric panel automated
-
-class AdminOptions
-{
-    void run()
-    {
-
+		else
+		{
+			success.setText("Unsuccessful, please try again");
+		}	
+		
     }
 }
-class Display
-{
-    void displayPanel(int floorinfo[])
-    {
-
-    }
-}
-class ElectricPanelGUI
-{
-    //generate window
-    //On startTicket userInput()
-    {
-        //take in ticket ID via Scanner
-        //return corresponding Ticket object after searching instance variable Ticket arraylist to calling method
-    }
-
-    void checkTicket()
-    {
-        Ticket t = ;//call userInput
-
-
-    }
-    void PayTicket()
-    {
-        //call computeBill method
-        //change paid status
-    }
-
-}
-*/
