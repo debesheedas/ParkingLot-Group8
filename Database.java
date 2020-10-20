@@ -17,10 +17,16 @@ public class Database{
         System.out.println(db.count_tables());
         db.setupDatabase();
         System.out.println(db.count_tables());
-        db.addTicket(1, "12 30", "compact");
-        db.addTicket(2, "1 30", "large");
-        db.addTicket(3, "2 30", "compact");
+        db.addTicket(1, "12:30", "compact");
+        db.addTicket(2, "1:30", "large");
+        db.addTicket(3, "2:30", "compact");
+        db.getAllTickets();
         db.deleteTicket(3);
+        db.getAllTickets();
+        db.addEmployee(1, "aashrith", "qwert", 1000);
+        db.addEmployee(2, "e2", "qert", 1500);
+        db.deleteEmployee(1);
+        db.getAllEmployees();
     }
 
 
@@ -131,6 +137,72 @@ public class Database{
          ){
 
             s.executeUpdate("delete from tickets where id = "+id);
+            
+         }catch(Exception e){
+            System.out.println(e.getClass().getName() +" : "+e.getMessage());
+         }
+
+     }
+
+     public void getAllTickets(){
+
+        try(Connection c = this.connect();
+            Statement s = c.createStatement();
+         ){
+
+            ResultSet rs = s.executeQuery("select * from tickets");
+            while(rs.next()){
+                System.out.println(rs.getInt("id")+" "+rs.getString("starttime")+" "+rs.getString("slot"));
+            }
+            
+         }catch(Exception e){
+            System.out.println(e.getClass().getName() +" : "+e.getMessage());
+         }
+
+     }
+
+     public void addEmployee(int id , String name , String pswd , int due){
+
+        try(Connection c = this.connect();
+            PreparedStatement ps = c.prepareStatement("insert into employees values (?,?,?,?)");
+         ){
+
+            ps.setInt(1, id);
+            ps.setString(2, name);
+            ps.setString(3, pswd);
+            ps.setInt(4, due);
+            ps.executeUpdate();
+            
+         }catch(Exception e){
+            System.out.println(e.getClass().getName() +" : "+e.getMessage());
+         }
+
+     }
+
+     public void deleteEmployee(int id){
+
+        try(Connection c = this.connect();
+            Statement s = c.createStatement();
+         ){
+
+            s.executeUpdate("delete from employees where id = "+id);
+            
+         }catch(Exception e){
+            System.out.println(e.getClass().getName() +" : "+e.getMessage());
+         }
+
+     }
+
+     public void getAllEmployees(){
+
+        try(Connection c = this.connect();
+            Statement s = c.createStatement();
+         ){
+
+            ResultSet rs = s.executeQuery("select * from employees");
+            while(rs.next()){
+                System.out.println(rs.getInt("id")+" "+rs.getString("name")+" "+rs.getString("pswd")+" "+rs.getInt("due"));
+            }
             
          }catch(Exception e){
             System.out.println(e.getClass().getName() +" : "+e.getMessage());
