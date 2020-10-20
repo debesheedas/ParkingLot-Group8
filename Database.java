@@ -13,13 +13,14 @@ public class Database{
     public static void main(String[] args) {
 
         Database db = new Database();
+        db.deleteAllTables();
         System.out.println(db.count_tables());
-        db.createTable("floors");
-        db.createTable("employees");
-        db.createTable("spots");
+        db.setupDatabase();
         System.out.println(db.count_tables());
-        //db.deleteTable("floors");
-        //System.out.println(db.count_tables());
+        db.addTicket(1, "12 30", "compact");
+        db.addTicket(2, "1 30", "large");
+        db.addTicket(3, "2 30", "compact");
+        db.deleteTicket(3);
     }
 
 
@@ -74,6 +75,67 @@ public class Database{
         }catch(Exception e){
             System.out.println(e.getClass().getName() +" : "+e.getMessage());
         }
+     }
+
+     public void setupDatabase(){
+         try(Connection c = this.connect();
+            Statement s = c.createStatement();
+         ){
+
+            s.executeUpdate("create table if not exists employees (id int primary key not null , name text not null , pswd text not null , due int not null)");
+            s.executeUpdate("create table if not exists floors (num int primary key not null , name text not null , pswd text not null , due int not null)");
+            s.executeUpdate("create table if not exists tickets (id int primary key not null , starttime text not null , slot text not null )");
+            s.executeUpdate("create table if not exists checkpoints (id int primary key not null , name text not null , type text not null , floorno int not null)");
+            s.executeUpdate("create table if not exists spotprices (type text primary key not null , firsthour int not null , secondhour int not null , remaininghours int not null)");
+
+         }catch(Exception e){
+            System.out.println(e.getClass().getName() +" : "+e.getMessage());
+         }
+     }
+
+     public void deleteAllTables(){
+         try(Connection c = this.connect();
+            Statement s = c.createStatement();
+         ){
+            s.executeUpdate("drop table if exists 'employees' ");
+            s.executeUpdate("drop table if exists 'floors' ");
+            s.executeUpdate("drop table if exists 'tickets' ");
+            s.executeUpdate("drop table if exists 'checkpoints' ");
+            s.executeUpdate("drop table if exists 'spotprices' ");
+         }catch(Exception e){
+            System.out.println(e.getClass().getName() +" : "+e.getMessage());
+         }
+     }
+
+     public void addTicket(int id , String starttime , String slot){
+
+        try(Connection c = this.connect();
+            PreparedStatement ps = c.prepareStatement("insert into tickets values (?,?,?)");
+         ){
+
+            ps.setInt(1, id);
+            ps.setString(2, starttime);
+            ps.setString(3, slot);
+            ps.executeUpdate();
+            
+         }catch(Exception e){
+            System.out.println(e.getClass().getName() +" : "+e.getMessage());
+         }
+
+     }
+
+     public void deleteTicket(int id){
+
+        try(Connection c = this.connect();
+            Statement s = c.createStatement();
+         ){
+
+            s.executeUpdate("delete from tickets where id = "+id);
+            
+         }catch(Exception e){
+            System.out.println(e.getClass().getName() +" : "+e.getMessage());
+         }
+
      }
     
 
