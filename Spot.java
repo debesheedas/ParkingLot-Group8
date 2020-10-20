@@ -1,40 +1,31 @@
 //Jaswanth
-public enum ParkingSpotType 
+import java.util.*;
+enum ParkingSpotType 
 {
     COMPACT, LARGE, HANDICAPPED, TWOWHEELER, ELECTRIC
 }
 
-class Spot
+class Spot//write a parameterized constructor for  this to initialize the variables as follows
 {
-    int id;
+    int id; 
     String name;//generate an alphanumeric sequence such as 5C04 where 5 stands for 5th floor, C stands for compact and 04 is the id number of the spot, use L for large, H for handicapped, T for Twowheeler and E for electric
     ParkingSpotType t;
-    double[] prices;
+    //double[] prices;
     int floor;
     boolean isAvailable;
 
-    
-}
-
-class ElectricPanel
-{
-    //connect it with the UI
-    //associate it with slots that have electric panel
-    double computeBill(Time start, Time stop)
+    Spot(int id, ParkingSpotType t, int floor, boolean status)
     {
-        // by calling the difference function from Time class you will get time of electricity used in hours as a double data type
-        //compute bill using 
-        //return stop-start; 
+        //assign all values as directed
     }
 
-}
+
 
 class Floor
 {
-    int[] NumberOfSpots = new int[10];
-    ArrayList<EntryPoint> entryPoint = new ArrayList();
-    ArrayList<ExitPoint> exitPoint = new ArrayList();
-    ArrayList<InfoPortal> infoportal = new ArrayList();}
+    int[] NumberOfSpots = new int[10];//if the name of this array is arr, then arr[0]=number of total compact spots, arr[1] = number of available compact spots and so on
+    ArrayList<Spot> allSpotsOnthisFloor = new ArrayList<Spot>();
+}
 
 class Ticket{
     int ID;
@@ -48,10 +39,10 @@ class Ticket{
         //whenever a ticket is created it is added to the database in case the program is closed before the the car leaves the parking lot
 
     }
-    
+    //whenever you need the difference between two time objects t1 and t2 in hours, then just call double difference = exit.diff(entry);
     void setEntryTime()
     {
-
+        entry = new Time();
     }
     void setStopTime()
     {
@@ -68,74 +59,43 @@ class Ticket{
     //pay ticket - after payment, delete ticket from database
     
 }
-
-class EntryPoint
+class Checkpoint
 {
     int ID;
     String name;
-    int floorNumber;
+    Employee assigned;
+    int floorNumber;//here write getter and setter methods for all instance variables after declaring them protected
+}
+class EntryPoint extends Checkpoint
+{
+    void run()
+    {
+        //call userInput()
+        //then call generateticket()
+    }
     void userInput()
     {
-        //take user input using scanner for vehicle numberplate and slot type required and set the instance variables
-        //once GUI is made, this will be replaced with calling the GUImethod
+        //take user input using scanner for spot type required 
+        
     }
-    int searchForSpot(ParkingSpotType t)
+    Spot searchForSpot(ParkingSpotType t)
     {
-        //return floor (preferably closest to entry point) on which corresponding parking spot is avaiable
+        // use the method getAllFloors() to get an ArrayList of all Floors. Now use the getter methods of Floor class to otain information on which Spots on each Floor are Avaiable
+        //if the spot type is available on some floor, create a Spot object with parameterized constructor to initialize it
+        //to choose an id number for the Spot that you are creating, use the ArrayList of Spots on each Floor to find the smallest ID value which is not occupied
+        //return Spot of specified ParkingSpotType on some floor (preferably closest to entry point) on which corresponding parking spot is avaiable
     }
-    void generateTicket()
+    void generateTicket(ParkingSpotType t)
     {
-        //call user input method
-        //call search for spot method, if available
-        //take vehicle number plate 
+        Spot temp = this.searchForSpot(t);
+        if(temp!=null)//basiclaly if suitable spot is available
+        {
+            //take vehicle number plate through Scanner
         //create Ticket object and add to the list in ParkingLot class using setter method
-        //update corresponding database methods - tickets table and floors table
+        //update corresponding instance variables of ParkingLot class and all other classes- whichever has been changed
+
+        }       
     }
     
 }
-class ExitPoint
-{
-    Ticket userInput()
-    {
-        //take in ticket ID via Scanner
-        //return corresponding Ticket object after searching instance variable Ticket arraylist to calling method
-    }
 
-    void checkTicket()
-    {
-        Ticket t = ;//call userInput
-        //check if ticket is paid, if not paid, call pay ticket and change isPaid status of ticket, if paid, modify available spots - free the spot
-        //update corresponding database tables by calling the corresponding methods
-
-
-
-    }
-    void PayTicket()
-    {
-        //call computeBill method
-        //change paid status
-    }
-
-
-}
-class InfoPortal{
-    Ticket userInput()
-    {
-        //take in ticket ID via Scanner
-        //return corresponding Ticket object after searching instance variable Ticket arraylist to calling method
-    }
-
-    void checkTicket()
-    {
-        Ticket t = ;//call userInput
-        //call payTicket if ticket exists and is not paid yet
-
-
-    }
-    void PayTicket()
-    {
-        //call computeBill method
-        //change paid status
-    }
-
-}
