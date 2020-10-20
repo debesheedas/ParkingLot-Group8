@@ -106,7 +106,7 @@ class ParkingLot
     }
 
     //Array list of entry points exit points and info portals basically an arraylist of all checkpoints
-    //write getter and setter methods for each of the instance variables of this class
+    //write getter  and setter methods for each of the instance variables of this class
     
     void run()
     {
