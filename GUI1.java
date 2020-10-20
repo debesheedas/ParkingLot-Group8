@@ -7,15 +7,12 @@ import java.awt.event.ActionListener;
 import java.util.*;
 
 public class GUI1//testing the code
-{  
-    public static void main(String args[])
-    {
-        LoginGUI.run();
-        
-    }
+{  //
 
 }
-class LoginGUI implements ActionListener
+//to call Login for both admin or Employee, call this class and its static method as the following statement
+//LoginGUI.run();
+class LoginGUI extends ParkingLot implements ActionListener 
 {
     private static JFrame frame;
 	private static JPanel panel;
@@ -28,14 +25,7 @@ class LoginGUI implements ActionListener
     private String username;
     private String password;
 
-    boolean searchEmployeeDatabase(String username, String password)
-    {
-        System.out.println("Searching for employee "+username+" with password "+password);
-        //return true if employee username and password exists in database
-        return true;
-    }
-
-    public static boolean run()
+    public static void run()
     {
         frame = new JFrame();
 		panel = new JPanel();
@@ -43,7 +33,7 @@ class LoginGUI implements ActionListener
 		frame.setSize(300,200);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);	
 		frame.add(panel);
-		
+		frame.setTitle("Login");
 		panel.setLayout(null);
 		
 		label = new JLabel("User");
@@ -75,31 +65,51 @@ class LoginGUI implements ActionListener
 		
         frame.setVisible(true);
         //System.out.println();
-        return true;
+        //return true;
     }
     @Override
 	public void actionPerformed(ActionEvent e) {
 
 		//System.out.println("Button clicked");
-		String user = userText.getText();
-		String password = new String(passwordText.getPassword());
-        //System.out.println(user + " "+ password);
+		username = userText.getText();
+		password = new String(passwordText.getPassword());
+        System.out.println(username + " "+ password);
         
         
-        if(searchEmployeeDatabase(user, password))
+        if(username.equals("admin")&&password.equals("password"))
 		{
             success.setText("Login Successful!");
-			
-		}
+            //Admin a = super.getAdmin();//getter method for admin instance variable available in ParkingLot class
+            //a.setLoginStatus(true);//setter method provided in Admin class...we could consider making admin a static variable
+        }
+        else if(searchEmployeeByUsername(username, password))
+        {
+            success.setText("Login Successful!");
+            Employee emp = returnEmployeeByUsername(username, password);//method present in ParkingLot class
+            emp.setLoginStatus(true);//setter method of Employee class
+            //search for employee and set login status as true
+        }
 		else
 		{
-
 			success.setText("Login Unsuccessful, please try again");
-		}		
+		}	
 		
-	}
-
+    }
 }
+/*boolean searchEmployeeByUsername(String username, String password)
+{
+    
+    for(Employee emp : employeeList)
+    {
+        if(username.equals(emp.getUsername()) && password.equals(emp.getPassword()))//getusername() and getpassword() to be provided in class Employee
+        {
+            return true;
+        }
+    }
+    return false;
+}*/
+
+
 //user interface
 //for info portal, entry points, exit points and manned and automated...(as well as display on each floor)
 /*
