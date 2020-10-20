@@ -30,49 +30,80 @@ class ParkingLot
 {
     Database db = new Database();
     Admin admin = new Admin();//consider making this static
-    ArrayList<Employee>  employeeList = new ArrayList<Employee>();
-    ArrayList<Ticket> allTickets = new ArrayList();
-    ArrayList<Checkpoint> allCheckpoints = new ArrayList();
-    ArrayList<Floor> allFloors = new ArrayList<Floor>();
-    double priceOfElectricityPerHour;
-    double[] compactPrices = new double[3];
-    double[] largePrices = new double[3];
-    double[] handicappedPrices = new double[3];
-    double[] twowheelerPrices = new double[3];
-    double[] electricPrices = new double[3];
+    private ArrayList<Employee>  employeeList = new ArrayList<Employee>();
+    private ArrayList<Ticket> allTickets = new ArrayList();
+    private ArrayList<Checkpoint> allCheckpoints = new ArrayList();
+    private ArrayList<Floor> allFloors = new ArrayList<Floor>();
+    private double priceOfElectricityPerHour;
+    private double[] compactPrices = new double[3];
+    private double[] largePrices = new double[3];
+    private double[] handicappedPrices = new double[3];
+    private double[] twowheelerPrices = new double[3];
+    private double[] electricPrices = new double[3];
 
     //get full employee list method should return an array or arraylist of employee objects
     //search by id and return employee method get
     //add employee method - set 
     //delete employee - set
-    ArrayList<Employee> getAllEmployees()
+    public ArrayList<Employee> getAllEmployees()
     {
         return employeeList;
     }
+
+
     boolean addEmployee(Employee e)
     {
         //first check if employee with this ID already exists - method to search by id
+
         //if it already exists return false
-        //if it does not exist already, then 
-        employeeList.add(e);
+        //if it does not exist already, then
+        getAllEmployees().add(e);
         return true;
     }
     boolean searchEmployeeByID(Employee e)
     {
         int id = e.getID();
-        for loop to go through the entire array list
+        for (Employee i : employeeList )
         {
-            check if id==employeelist(i).getID();
-            return true;
+             if (id == i.getID())
+                 return true;
         }
         return false;
     }
-    ArrayList<Floor> getAllFloors()
+    boolean searchEmployeeByUsername(String username, String password)
     {
-        
+
+        for(Employee emp : employeeList)
+        {
+            if(username.equals(emp.getUsername()) && password.equals(emp.getPassword()))//getusername() and getpassword() to be provided in class Employee
+            {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    Employee returnEmployeeByUsername(String username, String password)
+    {
+
+        for(Employee emp : employeeList)
+        {
+            if(username.equals(emp.getUsername()) && password.equals(emp.getPassword()))
+            {
+                return emp;
+            }
+        }
+        return null;
+    }
+
+    public ArrayList<Floor> getAllFloors() {
+        return allFloors;
     }
 
 
+    public ArrayList<Checkpoint> getAllCheckpoints() {
+        return allCheckpoints;
+    }
 
     //Array list of entry points exit points and info portals basically an arraylist of all checkpoints
     //write getter and setter methods for each of the instance variables of this class
@@ -80,9 +111,11 @@ class ParkingLot
     void run()
     {
         
-        //just call db.setupDatabase(); 
+        //just call db.setupDatabase();
+        db.setupDatabase();
         //call db.loadDatabase();
-        
+        db.loadDatabase();
+
         //write a menu driven program, while loop to test the program
         /*
         boolean y;//take input through Scanner
