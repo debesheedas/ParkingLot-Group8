@@ -17,16 +17,17 @@ public class Database{
         System.out.println(db.count_tables());
         db.setupDatabase();
         System.out.println(db.count_tables());
-        db.addTicket(1, "12:30", "compact");
-        db.addTicket(2, "1:30", "large");
-        db.addTicket(3, "2:30", "compact");
-        db.getAllTickets();
-        db.deleteTicket(3);
-        db.getAllTickets();
-        db.addEmployee(1, "aashrith", "qwert", 1000);
-        db.addEmployee(2, "e2", "qert", 1500);
-        db.deleteEmployee(1);
-        db.getAllEmployees();
+        db.loadData();
+        // db.addTicket(1, "12:30", "compact");
+        // db.addTicket(2, "1:30", "large");
+        // db.addTicket(3, "2:30", "compact");
+        // db.getAllTickets();
+        // db.deleteTicket(3);
+        // db.getAllTickets();
+        // db.addEmployee(1, "aashrith", "qwert", 1000);
+        // db.addEmployee(2, "e2", "qert", 1500);
+        // db.deleteEmployee(1);
+        // db.getAllEmployees();
     }
 
 
@@ -192,6 +193,8 @@ public class Database{
          }
 
      }
+     //bjhbjhhjh
+     //jchhbjhbvhvd
 
      public void getAllEmployees(){
 
@@ -274,27 +277,12 @@ public class Database{
 //         //     System.out.println("Login Failed!!");
 //         //  }
 //      }
-//      private void loadData()
-//      {
-//          //read data from existing database, accordingly create all required objects
-//          try{
+     private void loadData(){
 
-//             ResultSet rs = stmt.executeQuery("SELECT * FROM FLOORS;");
-//             while(rs.next()){
-//                 int floorno = rs.getInt("floorno");
-//                 int tcs = rs.getInt("tcs");
-
-//                 System.out.println("Floor no : "+floorno);
-//                 System.out.println("Total compact spots : "+tcs);
-               
-//             }
-
-//          }catch(Exception e){
-//             System.err.println( e.getClass().getName() + ": " + e.getMessage() );
-//          }
-
+        getAllEmployees();
+        getAllTickets();
             
-//      }
+     }
 //      //individual methods to update particular tables
 
 //      public void updateAll()
