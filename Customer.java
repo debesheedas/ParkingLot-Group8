@@ -1,15 +1,14 @@
 //Anand
-import java.awt.*;
 import java.util.Scanner;
-import javax.swing.*;
 public class Customer
 {
+    Scanner sc = new Scanner(System.in);
     protected Ticket t = new Ticket();
     void run()
     {
         //menu driven what do you want to do
         //Go totest s = new test();
-        s.print();
+        //s.print();
         //1. Entry point
         //Enter entry point ID via Scanner - call generate Ticket method on corresponding entry point object by searching list of entry points by unique entry point ID
         //2. Exit point
@@ -23,10 +22,18 @@ public class Customer
         System.out.println("Press 1: Entry Point\nPress 2: Exit Point\nPress 3: Info Portal");
         int n = sc.nextInt();
         switch (n) {
-            case 1 -> generateTicket();
-            case 2 -> checkTicket();
-            case 3 -> checkTicket();
-            default -> System.out.println("Invalid Option");
+            case 1 : {
+                t.generateTicket();
+            }
+            case 2 : {
+                t.checkTicket();
+            }
+            case 3 : {
+                t.checkTicket();
+            }
+            default : {
+                System.out.println("Invalid Option");
+            }
         }
     }
 }
