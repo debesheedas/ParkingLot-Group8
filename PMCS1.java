@@ -2,6 +2,7 @@
 //Navjoth
 
 import java.util.*;
+import java.lang.*;
 
 
 public class PMCS1
@@ -9,8 +10,6 @@ public class PMCS1
     public static void main(String args[])
     {
         System.out.println("Hello");
-        test s = new test();
-        s.print();
         ParkingLot obj = new ParkingLot();
         obj.run();
         
@@ -18,14 +17,7 @@ public class PMCS1
     }
 }
 
-class Time
-{
-    Date d = new Date(System.currentTimeMillis());
-    double diff(Time entry)//this method returns the difference in time between the 2 date objects as a double data type, useful for calculating bill amounts
-    {
-        return (this.d.getTime()-entry.d.getTime())/3600000;//return the difference in time between (this.d-entry.d) ;
-    }
-}
+
 class ParkingLot
 {
     Database db = new Database();
@@ -110,6 +102,13 @@ class ParkingLot
     public double[] getCompactPrices() {
         return compactPrices;
     }
+    public void setCompactPrices(double[] p)
+    {
+        for(int i=0; i<3; i++)
+        {
+            compactPrices[i] = p[i];
+        }
+    }
 
     public double[] getLargePrices() {
         return largePrices;
@@ -127,16 +126,23 @@ class ParkingLot
         return electricPrices;
     }
 
+    void setEmployees(ArrayList<Employee> e)
+    {
+        employeeList = e;
+    }
     //Array list of entry points exit points and info portals basically an arraylist of all checkpoints
     //write getter and setter methods for each of the instance variables of this class
-    
+    void removeTicket(Ticket t)
+    {
+
+    }
     void run()
     {
         
         //just call db.setupDatabase();
-        db.setupDatabase();
+        //db.setupDatabase();
         //call db.loadDatabase();
-        db.loadDatabase();
+        db.loadDatabase(this);
 
         //write a menu driven program, while loop to test the program
         /*
