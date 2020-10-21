@@ -2,9 +2,13 @@
 //Handling information exchange between database inout output and program
 import java.lang.System;
 import java.sql.*;
+import java.util.*;
 
-// Driver path   -------- ".;JDBC_driver/sqlite-jdbc-3.7.2.jar"
-//,ACS INT,TLS INT,ALS INT,THS INT,AHS INT,TTWS INT,ATWS INT,TES INT,AES INT
+import Spot.Checkpoint;
+import Spot.Floor;
+import sun.security.krb5.internal.crypto.dk.AesSha2DkCrypto;
+
+// Driver path   -------->>   ".;JDBC/sqlite-jdbc-3.7.2.jar"
 public class Database{
     
     private String db_name = "parkinglot.db";
@@ -17,7 +21,7 @@ public class Database{
         System.out.println(db.count_tables());
         db.setupDatabase();
         System.out.println(db.count_tables());
-        db.loadData();
+        //db.loadData();
         // db.addTicket(1, "12:30", "compact");
         // db.addTicket(2, "1:30", "large");
         // db.addTicket(3, "2:30", "compact");
@@ -58,41 +62,15 @@ public class Database{
             return n;
      }
 
-     public void createTable(String table_name){
-
-        try(Connection c = this.connect();
-            Statement s = c.createStatement();    
-        ){
-            s.executeUpdate("create table if not exists "+table_name+" (id integer primary key not null)");
-        
-        }catch(Exception e){
-            System.out.println(e.getClass().getName() +" : "+e.getMessage());
-        }
-
-     }
-
-     public void deleteTable(String table_name){
-
-        try(Connection c = this.connect();
-            Statement s = c.createStatement();    
-        ){
-            s.executeUpdate("drop table if exists "+table_name);
-            //c.commit();
-
-        }catch(Exception e){
-            System.out.println(e.getClass().getName() +" : "+e.getMessage());
-        }
-     }
-
      public void setupDatabase(){
          try(Connection c = this.connect();
             Statement s = c.createStatement();
          ){
 
             s.executeUpdate("create table if not exists employees (id int primary key not null , name text not null , pswd text not null , due int not null)");
-            s.executeUpdate("create table if not exists floors (num int primary key not null , name text not null , pswd text not null , due int not null)");
+            s.executeUpdate("create table if not exists floors (num int primary key not null , tcs int not null , acs int not null , tls int not null , als int not null , ths int not null , ahs int not null , ttws int not null , atws int not null , tes int not null , aes int not null )");
             s.executeUpdate("create table if not exists tickets (id int primary key not null , starttime text not null , slot text not null )");
-            s.executeUpdate("create table if not exists checkpoints (id int primary key not null , name text not null , type text not null , floorno int not null)");
+            s.executeUpdate("create table if not exists checkpoints (id int primary key not null , name text not null , type text not null , floorno int not null , employeeAssigned int not null )");
             s.executeUpdate("create table if not exists spotprices (type text primary key not null , firsthour int not null , secondhour int not null , remaininghours int not null)");
 
          }catch(Exception e){
@@ -114,7 +92,56 @@ public class Database{
          }
      }
 
-     public void addTicket(int id , String starttime , String slot){
+
+
+
+
+     private void addEmployee(int id , String name , String pswd , int due){
+
+      try(Connection c = this.connect();
+          PreparedStatement ps = c.prepareStatement("insert into employees values (?,?,?,?)");
+       ){
+
+          ps.setInt(1, id);
+          ps.setString(2, name);
+          ps.setString(3, pswd);
+          ps.setInt(4, due);
+          ps.executeUpdate();
+          
+       }catch(Exception e){
+          System.out.println(e.getClass().getName() +" : "+e.getMessage());
+       }
+
+   }
+
+
+   private void addFloor(int num , int tcs ,int acs ,int tls ,int als ,int ths ,int ahs ,int ttws ,int atws ,int tes ,int aes ){
+
+      try(Connection c = this.connect();
+          PreparedStatement ps = c.prepareStatement("insert into floors values (?,?,?,?,?,?,?,?,?,?,?)");
+       ){
+
+          ps.setInt(1, num);
+          ps.setInt(2, tcs);
+          ps.setInt(3,acs);
+          ps.setInt(4, tls);
+          ps.setInt(5, als);
+          ps.setInt(6, ths);
+          ps.setInt(7, ahs);
+          ps.setInt(8, ttws);
+          ps.setInt(9, atws);
+          ps.setInt(10, tes);
+          ps.setInt(11, aes);
+          
+          ps.executeUpdate();
+          
+       }catch(Exception e){
+          System.out.println(e.getClass().getName() +" : "+e.getMessage());
+       }
+
+   }
+
+   private void addTicket(int id , String starttime , String slot){
 
         try(Connection c = this.connect();
             PreparedStatement ps = c.prepareStatement("insert into tickets values (?,?,?)");
@@ -129,90 +156,204 @@ public class Database{
             System.out.println(e.getClass().getName() +" : "+e.getMessage());
          }
 
-     }
+   }
 
-     public void deleteTicket(int id){
 
-        try(Connection c = this.connect();
-            Statement s = c.createStatement();
-         ){
+     
 
-            s.executeUpdate("delete from tickets where id = "+id);
-            
-         }catch(Exception e){
-            System.out.println(e.getClass().getName() +" : "+e.getMessage());
-         }
 
-     }
 
-     public void getAllTickets(){
 
-        try(Connection c = this.connect();
-            Statement s = c.createStatement();
-         ){
-
-            ResultSet rs = s.executeQuery("select * from tickets");
-            while(rs.next()){
-                System.out.println(rs.getInt("id")+" "+rs.getString("starttime")+" "+rs.getString("slot"));
-            }
-            
-         }catch(Exception e){
-            System.out.println(e.getClass().getName() +" : "+e.getMessage());
-         }
-
-     }
-
-     public void addEmployee(int id , String name , String pswd , int due){
-
-        try(Connection c = this.connect();
-            PreparedStatement ps = c.prepareStatement("insert into employees values (?,?,?,?)");
-         ){
-
-            ps.setInt(1, id);
-            ps.setString(2, name);
-            ps.setString(3, pswd);
-            ps.setInt(4, due);
-            ps.executeUpdate();
-            
-         }catch(Exception e){
-            System.out.println(e.getClass().getName() +" : "+e.getMessage());
-         }
-
-     }
-
-     public void deleteEmployee(int id){
-
-        try(Connection c = this.connect();
-            Statement s = c.createStatement();
-         ){
-
-            s.executeUpdate("delete from employees where id = "+id);
-            
-         }catch(Exception e){
-            System.out.println(e.getClass().getName() +" : "+e.getMessage());
-         }
-
-     }
-     //bjhbjhhjh
-     //jchhbjhbvhvd
-
-     public void getAllEmployees(){
-
+     private ArrayList<Employee> fillEmployees(ArrayList<Employee> employees){
+        employees.clear();
         try(Connection c = this.connect();
             Statement s = c.createStatement();
          ){
 
             ResultSet rs = s.executeQuery("select * from employees");
             while(rs.next()){
-                System.out.println(rs.getInt("id")+" "+rs.getString("name")+" "+rs.getString("pswd")+" "+rs.getInt("due"));
+               int id = rs.getInt("id");
+               String name = rs.getString("name");
+               String pswd = rs.getString("pswd");
+               int due = rs.getInt("due");
+
+               Employee e = new Employee();
+               e.setId(id);
+               e.setName(name);
+               e.setPswd(pswd);
+               e.setDue(due);
+
+               employees.add(e);
             }
+
+            return employees;
             
          }catch(Exception e){
             System.out.println(e.getClass().getName() +" : "+e.getMessage());
+            return null;
          }
+     }
+
+     private ArrayList<Floor> fillFloors(ArrayList<Floor> floors){
+      floors.clear();
+      try(Connection c = this.connect();
+          Statement s = c.createStatement();
+       ){
+
+          ResultSet rs = s.executeQuery("select * from floors");
+          while(rs.next()){
+             int num = rs.getInt("num");
+             int tcs = rs.getInt("tcs");
+             int acs = rs.getInt("acs");
+             int tls = rs.getInt("tls");
+             int als = rs.getInt("als");
+             int ths = rs.getInt("ths");
+             int ahs = rs.getInt("ahs");
+             int ttws = rs.getInt("ttws");
+             int atws = rs.getInt("atws");
+             int tes = rs.getInt("tes");
+             int aes = rs.getInt("aes");
+
+             Floor f = new Floor();
+             f.setFloornum(num);
+             f.setTCS(tcs);
+             f.setACS(acs);
+             f.setTLS(tls);
+             f.setALS(als);
+             f.setTHS(ths);
+             f.setAHS(ahs);
+             f.setTTWS(ttws);
+             f.setATWS(atws);
+             f.setTES(tes);
+             f.setAES(aes);
+
+             floors.add(f);
+          }
+
+          return floors;
+          
+       }catch(Exception e){
+          System.out.println(e.getClass().getName() +" : "+e.getMessage());
+          return null;
+       }
+   }
+
+   private ArrayList<Ticket> fillTickets(ArrayList<Ticket> tickets){
+      tickets.clear();
+      try(Connection c = this.connect();
+          Statement s = c.createStatement();
+       ){
+
+          ResultSet rs = s.executeQuery("select * from tickets");
+          while(rs.next()){
+             int id = rs.getInt("id");
+             String startTime = rs.getString("starttime");
+             String slot = rs.getString("slot");
+             
+
+             Ticket t = new Ticket();
+             t.setId(id);
+             t.setStartTime(startTime);
+             t.setSlot(slot);
+
+             tickets.add(t);
+          }
+
+          return tickets;
+          
+       }catch(Exception e){
+          System.out.println(e.getClass().getName() +" : "+e.getMessage());
+          return null;
+       }
+   }
+
+   private ArrayList<CheckPoint> fillCheckPoints(ArrayList<Checkpoint> checkPoints){
+      checkPoints.clear();
+      try(Connection c = this.connect();
+          Statement s = c.createStatement();
+       ){
+
+          ResultSet rs = s.executeQuery("select * from checkpoints");
+          while(rs.next()){
+             int id = rs.getInt("id");
+             String name = rs.getString("name");
+             String type = rs.getString("type");
+             int floorno = rs.getInt("floorno");
+             int employeeAssigned = rs.getInt("employeeAssigned");
+             
+
+             CheckPoint c = new Checkpoint();
+
+             c.setId(id);
+             c.setName(name);
+             c.setType(type);
+             c.setFloorNo(floorno);
+             c.setEmployee(employeeAssigned);
+             
+
+             checkPoints.add(c);
+          }
+
+          return checkPoints;
+          
+       }catch(Exception e){
+          System.out.println(e.getClass().getName() +" : "+e.getMessage());
+          return null;
+       }
+   }
+
+   private ArrayList<Spot> fillSpots(ArrayList<Spot> spots){
+      spots.clear();
+      try(Connection c = this.connect();
+          Statement s = c.createStatement();
+       ){
+
+          ResultSet rs = s.executeQuery("select * from spotprices");
+          while(rs.next()){
+             String type = rs.getString("type");
+             int fh = rs.getInt("firsthour");
+             int sh = rs.getInt("secondhour");
+             int rh = rs.getInt("remaininghours");
+             
+
+             Spot s = new Spot();
+
+             s.setType(type);
+             s.setFirstHour(fh);
+             s.setSecondHour(sh);
+             s.setRemainingHours(rh);
+             
+
+             spots.add(s);
+          }
+
+          return spots;
+          
+       }catch(Exception e){
+          System.out.println(e.getClass().getName() +" : "+e.getMessage());
+          return null;
+       }
+   }
+
+
+
+
+
+     public ParkingLot loadDatabase(ParkingLot pl){
+
+        pl.setEmployees(fillEmployees(new ArrayList<Employee>()));
+        pl.setFloors(fillFloors(new ArrayList<Floor>()));
+        pl.setTickets(fillTickets(new ArrayList<Ticket>()));
+        pl.setCheckPoints(fillCheckPoints(new ArrayList<CheckPoint>()));
+        pl.setSpots(fillSpots(new ArrayList<Spot>()));
+
+      return pl;
 
      }
-     //comment
+
+     public void updateDatabase(ParkingLot pl){
+
+     }
     
 
 
