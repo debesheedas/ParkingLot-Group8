@@ -4,10 +4,6 @@ import java.lang.System;
 import java.sql.*;
 import java.util.*;
 
-import Spot.Checkpoint;
-import Spot.Floor;
-import sun.security.krb5.internal.crypto.dk.AesSha2DkCrypto;
-
 // Driver path   -------->>   ".;JDBC/sqlite-jdbc-3.7.2.jar"
 public class Database{
     
