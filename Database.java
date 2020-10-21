@@ -10,7 +10,7 @@ public class Database{
     private String db_name = "parkinglot.db";
     private String url = "jdbc:sqlite:db/"+db_name; // url of the database
 
-    public static void main(String[] args) {
+    /*public static void main(String[] args) {
 
         Database db = new Database();
         db.deleteAllTables();
@@ -28,7 +28,7 @@ public class Database{
         // db.addEmployee(2, "e2", "qert", 1500);
         // db.deleteEmployee(1);
         // db.getAllEmployees();
-    }
+    }*/
 
 
     private Connection connect() {

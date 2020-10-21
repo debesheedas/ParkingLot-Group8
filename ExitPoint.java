@@ -1,6 +1,6 @@
 
 //Anand
-class ExitPoint extends CheckPoint
+class ExitPoint extends Checkpoint
 {
     Ticket t = new Ticket();
     int id;
@@ -35,8 +35,12 @@ class ExitPoint extends CheckPoint
         Ticket t = userInput();
         //check if ticket is paid, if not paid, call pay ticket and change isPaid status of ticket, if paid, modify available spots - free the spot
         //update corresponding database tables by calling the corresponding method
+        //arraylist of all floors
+        //check in your spot which belongs to your ticket, which floor it is, x , spot has an ID, and it should be there in this floor - remove it
         if(isPaid)
         {
+            //check which floor this spot is on, let if be f
+            //call f.freeSpot(spot obj)
 
         }
         else
