@@ -4,7 +4,7 @@ import java.util.Scanner;
 import javax.swing.*;
 public class Customer
 {
-    Scanner sc = new Scanner(System.in);
+    Ticket t = new Ticket();
     void run()
     {
         //menu driven what do you want to do
@@ -87,14 +87,14 @@ class Employee extends Customer{
     {
         //ask if paying by cash or card
         //update the database for the particular employee
-        obj.loadData();     //load the details of dues
+        System.out.println("Your Bill Amount is " + t.computeBill());
         System.out.println("Press 1: Cash\nPress 2: Card");
         switch (sc.nextInt()) {
             case 1 -> System.out.println("Amount successfully paid");
             case 2 -> System.out.println("Amount successfully paid");
             default -> System.out.println("Invalid Input");
         }
-        obj.updateAll();        //update the database for the particular employee
+        t.changeIsPaid(true);
     }
     private void logout() {
         setLoginStatus(false);
@@ -122,7 +122,7 @@ class Admin extends Employee {
                 case 1 -> changeSettings();
                 case 2 -> changePassword();
                 case 3 -> addRemoveEmployee();
-                case 3 -> s.Display();
+                case 4 -> s.Display();
                 case 5 -> super.logout();
                 default -> System.out.println("Invalid Option");
             }
@@ -162,17 +162,15 @@ class Admin extends Employee {
     private void addRemoveEmployee() {
         System.out.println("Press 1: Add Employee\nPress 2: Remove Employee");
         switch (sc.nextInt()) {
-            case 1 -> addEmployee();
-            case 2 -> removeEmployee();
+            case 1 -> addEmp();
+            case 2 -> removeEmp();
             default -> System.out.println("Invalid Option");
         }
     }
-    void setLoginStatus(boolean status)
-    {
-        this.loginstatus = status;
-    }
-    private void addEmployee() {
+    void setLoginStatus(boolean status) { this.loginstatus = status; }
+    private void addEmp() {
         int id;
+        Employee e;
         String name, password;
         System.out.println("Enter id of the employee");
         id = sc.nextInt();
@@ -180,20 +178,21 @@ class Admin extends Employee {
         name = sc.next();
         System.out.println("Create a password");
         password = sc.next();
-        //Instead of taking id as input, get him next available id checking the database
+        e = {id,name,password,0.00};
+        getAllEmployees().add(e);
         System.out.println("Employee added successfully");
-        obj.setupDatabase();        //Setting Employer Details
     }
-    private void removeEmployee() {
+    private void removeEmp() {
         int id;
-        obj.loadData();
         //show name corresponding to id of the employee
         System.out.println("Enter the ID of the employee to remove");
         id = sc.nextInt();
-        //remove employ with id==this.id from the database
-        if(obj.databaseExists()){
-            obj.updateAll();
-            System.out.println("Employee with Id: " + id  + " is fired");
+        for (Employee i : employeeList )
+        {
+            if (id == i.getID())
+            {
+                getAllEmployees().remove(i);
+            }
         }
     }
     void changeSettings()
