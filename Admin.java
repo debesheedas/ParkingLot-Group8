@@ -1,7 +1,11 @@
 import java.util.*;
 public class Admin extends Employee {
+    Scanner sc = new Scanner(System.in);
+    ParkingLot p = new ParkingLot();
+    private String password = "password";
     boolean loginstatus;
     private String agn;
+
     void run()
     {
         //run sign in or login method, if successful, next, run menu driven loop to choose options from
@@ -17,14 +21,30 @@ public class Admin extends Employee {
         do {
             System.out.println("Press 1: Admin options\nPress 2: Change Password\nPress 3: Add/remove Employees\nPress 4: Display Floor Plan\nPress 5: LogOut");
             switch (sc.nextInt()) {
-                case 1 -> changeSettings();
-                case 2 -> changePassword();
-                case 3 -> addRemoveEmployee();
-                case 4 -> s.Display();
-                case 5 -> super.logout();
-                default -> System.out.println("Invalid Option");
+                case 1 : {
+                    changeSettings();
+                    break;
+                }
+                case 2 : {
+                    changePassword();
+                }
+                case 3 : {
+                    addRemoveEmployee();
+                }
+                /*case 4 : {
+                    s.Display();
+                }*/
+                case 5 : {
+                    logOut();
+                }
+                default : {
+                    System.out.println("Invalid Option");
+                }
             }
         }while(loginstatus);
+    }
+    private void logOut(){
+        setLoginStatus(false);
     }
     private void changePassword() {
         System.out.println("Enter Existing Password");
@@ -60,9 +80,15 @@ public class Admin extends Employee {
     private void addRemoveEmployee() {
         System.out.println("Press 1: Add Employee\nPress 2: Remove Employee");
         switch (sc.nextInt()) {
-            case 1 -> addEmp();
-            case 2 -> removeEmp();
-            default -> System.out.println("Invalid Option");
+            case 1 : {
+                addEmp();
+            }
+            case 2 : {
+                removeEmp();
+            }
+            default : {
+                System.out.println("Invalid Option");
+            }
         }
     }
     void setLoginStatus(boolean status) { this.loginstatus = status; }
@@ -76,8 +102,8 @@ public class Admin extends Employee {
         name = sc.next();
         System.out.println("Create a password");
         password = sc.next();
-        e = {id,name,password,0.00};
-        getAllEmployees().add(e);
+        e = new Employee(id, name, password, 0);
+        p.getAllEmployees().add(e);
         System.out.println("Employee added successfully");
     }
     private void removeEmp() {
@@ -85,11 +111,11 @@ public class Admin extends Employee {
         //show name corresponding to id of the employee
         System.out.println("Enter the ID of the employee to remove");
         id = sc.nextInt();
-        for (Employee i : employeeList )
+        for (Employee i : p.getAllEmployees() )
         {
             if (id == i.getID())
             {
-                getAllEmployees().remove(i);
+                p.getAllEmployees().remove(i);
             }
         }
     }
@@ -102,11 +128,21 @@ public class Admin extends Employee {
                 "Press 3: Modify Parking Rates\n" +
                 "Press 4: Add entrance/exit panel");
         switch (sc.nextInt()) {
-            case 1 -> addFloor();
-            case 2 -> addEpanel();
-            case 3 -> modifyRate();
-            case 4 -> addPanel();
-            default -> System.out.println("Invalid Option");
+            case 1 : {
+                addFloor();
+            }
+            case 2 : {
+                addEpanel();
+            }
+            case 3 : {
+                modifyRate();
+            }
+            case 4 : {
+                addPanel();
+            }
+            default : {
+                System.out.println("Invalid Option");
+            }
         }
     }
     private void addFloor() {
