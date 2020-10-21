@@ -23,7 +23,7 @@ class Time
     Date d = new Date(System.currentTimeMillis());
     double diff(Time entry)//this method returns the difference in time between the 2 date objects as a double data type, useful for calculating bill amounts
     {
-        //return the difference in time between (this.d-entry.d) ;
+        return (this.d.getTime()-entry.d.getTime())/3600000;//return the difference in time between (this.d-entry.d) ;
     }
 }
 class ParkingLot
@@ -54,7 +54,8 @@ class ParkingLot
     boolean addEmployee(Employee e)
     {
         //first check if employee with this ID already exists - method to search by id
-
+        if (searchEmployeeByID(e))
+            return false;
         //if it already exists return false
         //if it does not exist already, then
         getAllEmployees().add(e);
@@ -102,11 +103,32 @@ class ParkingLot
 
 
     public ArrayList<Checkpoint> getAllCheckpoints() {
+
         return allCheckpoints;
     }
 
+    public double[] getCompactPrices() {
+        return compactPrices;
+    }
+
+    public double[] getLargePrices() {
+        return largePrices;
+    }
+
+    public double[] getHandicappedPrices() {
+        return handicappedPrices;
+    }
+
+    public double[] getTwowheelerPrices() {
+        return twowheelerPrices;
+    }
+
+    public double[] getElectricPrices() {
+        return electricPrices;
+    }
+
     //Array list of entry points exit points and info portals basically an arraylist of all checkpoints
-    //write getter  and setter methods for each of the instance variables of this class
+    //write getter and setter methods for each of the instance variables of this class
     
     void run()
     {
