@@ -1,14 +1,36 @@
 import java.util.*;
 
 public class Employee extends Customer{
+    ParkingLot p = new ParkingLot();
+    Scanner sc = new Scanner(System.in);
     boolean loginstatus = false;
-    private String password = "password";
     LoginGUI l = new LoginGUI();
-    ChangePassword c = new ChangePassword();
-    System s = new System();
-
+    ChangePasswordGUI c = new ChangePasswordGUI();
+    int id;
+    String name;
+    String password;
+    double dues;
     //Employee(int, String, String, double)...............................................................
-    
+    Employee(int id, String name, String password, double dues) {
+        this.id = id;
+        this.name = name;
+        this.password = password;
+        this.dues = dues;
+    }
+    public int getID() {
+        return id;
+    }
+    public String getPassword() {
+        return password;
+    }
+
+    public double getDues() {
+        return dues;
+    }
+    public String getUsername() {
+        return name;
+    }
+
     void run()
     {
         int id;
@@ -24,23 +46,44 @@ public class Employee extends Customer{
         do {
             System.out.println("Press 1: Pay dues\nPress 2: Park Vehicle\nPress 3: Display Floor Plan\nPress 4: Entry/Exit Panel\nPress 5: Info Portal\nPress 6: Change Password\nPress 7: LogOut");
             switch (sc.nextInt()) {
-                case 1 -> payAmountDue();
-                case 2 -> super.run();
-                case 3 -> s.Display();
-                case 4 -> panel();
-                case 5 -> infoPortal();
-                case 6 -> changePassword();
-                case 7 -> logout();
-                default -> System.out.println("Invalid Input");
+                case 1 : {
+                    payAmountDue();
+                }
+                case 2 : {
+                    super.run();
+                }
+                /*case 3 : {
+                    s.Display();
+                }*/
+                case 4 : {
+                    panel();
+                }
+                case 5 : {
+                    infoPortal();
+                }
+                case 6 : {
+                    changePassword();
+                }
+                case 7 : {
+                    logout();
+                }
+                default : {
+                    System.out.println("Invalid Input");
+                }
             }
         }while(loginstatus);
+    }
+
+    private void panel() {
+    }
+    private void infoPortal() {
     }
     private void changePassword()
     {
         int id, flag=0;
         System.out.println("Enter your ID");
         id = sc.nextInt();
-        for (Employee i : employeeList )
+        for (Employee i : p.getAllEmployees() )
         {
             if (id == i.getID()) {
                 c.run(i);
@@ -64,9 +107,15 @@ public class Employee extends Customer{
         System.out.println("Your Bill Amount is " + t.computeBill());
         System.out.println("Press 1: Cash\nPress 2: Card");
         switch (sc.nextInt()) {
-            case 1 -> System.out.println("Amount successfully paid");
-            case 2 -> System.out.println("Amount successfully paid");
-            default -> System.out.println("Invalid Input");
+            case 1 : {
+                System.out.println("Amount successfully paid");
+            }
+            case 2 : {
+                System.out.println("Amount successfully paid");
+            }
+            default : {
+                System.out.println("Invalid Input");
+            }
         }
         t.changeIsPaid(true);
     }
