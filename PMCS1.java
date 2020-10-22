@@ -2,7 +2,7 @@
 //Navjoth
 
 import java.util.*;
-import java.lang.*;
+//import java.lang.*;
 
 
 public class PMCS1
@@ -11,8 +11,7 @@ public class PMCS1
     {
         System.out.println("Hello");
         ParkingLot obj = new ParkingLot();
-        obj.run();
-        
+        obj.run();       
 
     }
 }

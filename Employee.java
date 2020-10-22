@@ -1,25 +1,30 @@
 import java.util.*;
 
 public class Employee extends Customer{
-    Scanner sc = new Scanner(System.in);
+    //Scanner sc = new Scanner(System.in);
 
-    ParkingLot p = new ParkingLot();
-    Checkpoint cp = new Checkpoint();
-    LoginGUI l = new LoginGUI();
-    ChangePasswordGUI c = new ChangePasswordGUI();
+    //ParkingLot p = new ParkingLot();
+    //Checkpoint cp = new Checkpoint();
+    //LoginGUI l = new LoginGUI();
+    //ChangePasswordGUI c = new ChangePasswordGUI();
 
-    boolean loginstatus = false;
+    boolean loginstatus;
     private int id;
     protected String username;
     protected String password;
     double dues;//think about how we can internally increasing
 
-    Employee(int id, String name, String password, double dues) {
+    Employee(ParkingLot pl, int id, String name, String password, double dues) 
+    {
+        super(pl);
+        super.pl=pl;
+        loginstatus=false;
         this.id = id;
         this.username = name;
         this.password = password;
         this.dues = dues;
     }
+    
     public int getID() {
         return id;
     }
@@ -41,7 +46,11 @@ public class Employee extends Customer{
     }
     public void setPassword(String psd){ this.password=psd; }
     public void setDues(double d){ this.dues = d; }
-
+    void setLoginStatus(boolean status)
+    {
+        this.loginstatus = status;
+    }
+    /*
     void run()
     {
         //menu driven, login method
@@ -130,10 +139,7 @@ public class Employee extends Customer{
         }
         if(flag==0)     System.out.println("Employee not found");
     }
-    void setLoginStatus(boolean status)
-    {
-        this.loginstatus = status;
-    }
+    
     void payAmountDue()
     {
         //ask if paying by cash or card
@@ -169,3 +175,5 @@ class Dues{
     }
     setD(){d++;}
 }*/
+
+}

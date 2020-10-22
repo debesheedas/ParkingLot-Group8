@@ -23,7 +23,7 @@ public class LoginGUI extends ParkingLot implements ActionListener
     private String username;
     private String password;
 
-    public void run()
+    public void run(ParkingLot pl)
     {
         frame = new JFrame();
 		panel = new JPanel();
@@ -76,14 +76,15 @@ public class LoginGUI extends ParkingLot implements ActionListener
         
         if(username.equals("admin")&&password.equals("password"))
 		{
-            success.setText("Login Successful!");
+			success.setText("Login Successful!");
+			pl.getAdmin().setLoginStatus(true);
             //Admin a = super.getAdmin();//getter method for admin instance variable available in ParkingLot class
             //a.setLoginStatus(true);//setter method provided in Admin class...we could consider making admin a static variable
         }
         else if(searchEmployeeByUsername(username, password))
         {
             success.setText("Login Successful!");
-            Employee emp = returnEmployeeByUsername(username, password);//method present in ParkingLot class
+            Employee emp = pl.returnEmployeeByUsername(username, password);//method present in ParkingLot class
             emp.setLoginStatus(true);//setter method of Employee class
             //search for employee and set login status as true
         }

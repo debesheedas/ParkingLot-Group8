@@ -14,6 +14,8 @@ public class Database{
 
     Database(ParkingLot pl){
       this.pl = pl;
+      db_name = "parkinglot.db";
+      url = "jdbc:sqlite:db/"+db_name;
    }
 
 
@@ -172,7 +174,7 @@ public class Database{
                       if(spot.getID() == spotID){
                          Time time = new Time();
                          time.setTime(startTime);
-                           t = new Ticket(id, spot,time , vnp);
+                           t = new Ticket(pl,id, spot,time , vnp);
                       }
                    }
                 }

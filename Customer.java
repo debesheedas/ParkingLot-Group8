@@ -2,10 +2,19 @@
 import java.util.Scanner;
 public class Customer
 {
-    Scanner sc = new Scanner(System.in);
-    EntryPoint ep = new EntryPoint();
-    ExitPoint ex = new ExitPoint();
-    InfoPortal ip = new InfoPortal();
+    protected ParkingLot pl;
+    Customer(ParkingLot pl)
+    {
+        this.pl=pl;
+    }
+
+}
+    
+    //Scanner sc = new Scanner(System.in);
+    //EntryPoint ep = new EntryPoint();
+    //ExitPoint ex = new ExitPoint();
+    //InfoPortal ip = new InfoPortal();
+    /*
     void run()
     {
         //menu driven what do you want to do
@@ -25,13 +34,13 @@ public class Customer
         int n = sc.nextInt();
         switch (n) {
             case 1 : {
-                ep.userInput();
+                //ep.userInput();
             }
             case 2 : {
-                ex.userInput();
+                //ex.userInput();
             }
             case 3 : {
-                ip.userInput();
+                //ip.userInput();
             }
             default : {
                 System.out.println("Invalid Option");
@@ -39,7 +48,7 @@ public class Customer
         }
     }
 }
-
+*/
 /*class System
 {
     FloorDisplayGUI e;

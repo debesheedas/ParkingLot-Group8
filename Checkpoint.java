@@ -1,12 +1,25 @@
 
 
 public class Checkpoint {
-    private int ID;
-    private String name;
+    protected ParkingLot pl;
+    protected int ID;
+    protected String name;
     private CheckpointType type;//getter setter methods
     //Employee assigned;
-    private int assignedEmployeeID;
-    private int floorNumber;//here write getter and setter methods for all instance variables after declaring them protected
+    protected int assignedEmployeeID;
+    protected int floorNumber;//here write getter and setter methods for all instance variables after declaring them protected
+
+    Checkpoint(ParkingLot p, int id, String nm, CheckpointType t, int floorNo)
+    {
+        pl=p;
+        ID = id;
+        name = nm;
+        type = t;
+        assignedEmployeeID=0;
+        floorNumber = floorNo;
+
+
+    }
 
     public int getID() {
         return ID;

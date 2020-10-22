@@ -3,7 +3,7 @@ import java.util.*;
 public class ParkingLot
 {
     Database db = new Database(this);
-    Admin admin = new Admin(0, "admin", "password", 0.0);//consider making this static
+    Admin admin = new Admin(this);//consider making this static
     private ArrayList<Employee>  employeeList = new ArrayList<Employee>();
     private ArrayList<Ticket> allTickets = new ArrayList<>();
     private ArrayList<Checkpoint> allCheckpoints = new ArrayList<>();
@@ -21,6 +21,20 @@ public class ParkingLot
     //delete employee - set
     //Array list of entry points exit points and info portals basically an arraylist of all checkpoints
     //write getter and setter methods for each of the instance variables of this class
+
+    Admin getAdmin()
+    {
+        return admin;
+    }
+    double getPriceOfElectricityPerHour()
+    {
+        return priceOfElectricityPerHour;
+    }
+    void setPriceOfElectricityPerHour(double p)
+    {
+        priceOfElectricityPerHour=p;
+    }
+
     public ArrayList<Employee> getAllEmployees()
     {
         return employeeList;
@@ -194,16 +208,29 @@ public class ParkingLot
 
     void run()
     {
-        
-        //just call db.setupDatabase();
-        //db.setupDatabase();
-        //call db.loadDatabase();
-        db.loadDatabase(this);
-
+        System.out.println("Enter run");
+        db.loadDatabase(this);//loading data into objects from existing database if exists, else setting up database
+        Spot s = new Spot(this, 1, ParkingSpotType.COMPACT, 1, true);
+        System.out.println(s);
         //Scanner scan = new Scanner(System.in);
         //boolean y = scan.nextBoolean();
-        db.updateDatabase(this);
-        //write a menu driven program, while loop to test the program
+        //setting up parkingLot by entering Admin Options
+        //call AdminOPtionsGUI
+        Employee e = new Employee(this, 1,"Username", "pass", 0.0);
+        employeeList.add(e);
+        System.out.println(e.toString());
+        //db.updateDatabase(this); //updates database before terminating the program
+
+        
+    }
+   
+}
+
+
+
+
+
+//write a menu driven program, while loop to test the program
         /*
         boolean y;//take input through Scanner
         while(y)
@@ -226,8 +253,3 @@ public class ParkingLot
         *
         *
         */
-    }
-    //call update all tables method from Database.java here again before terminating the program
-
-}
-

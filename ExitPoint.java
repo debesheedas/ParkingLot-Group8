@@ -3,12 +3,27 @@ import java.util.Scanner;
 //Anand
 class ExitPoint extends Checkpoint
 {
-    Scanner sc = new Scanner(System.in);
-    Ticket t = new Ticket(0,null, null);
-    ParkingLot p = new ParkingLot();
-    Floor f = new Floor(null, 0);
-    int id;
-    boolean isPaid = true;
+    //Scanner sc = new Scanner(System.in);
+    
+    //Ticket t = new Ticket(0,null, null);
+    //ParkingLot p = new ParkingLot();
+    //Floor f = new Floor(null, 0);
+    //int id;
+    //boolean isPaid = true;
+    ExitPoint(ParkingLot p, int id, String nm, int floorNo)
+    {
+        super(p, id, nm, Checkpoint.EXIT, floorNo)
+        /*super.pl=p;
+        super.ID = id;
+        super.name = nm;
+        super.type = Checkpoint.EXIT;
+        super.assignedEmployeeID=0;
+        super.floorNumber = floorNo;*/
+
+
+    }
+
+    /*
     void run()
     {
         //call userInput
@@ -62,5 +77,5 @@ class ExitPoint extends Checkpoint
         t.changeIsPaid(true);
         int f = t.s.floor;
         f.freeSpot(t.s);
-    }
+    }*/
 }
