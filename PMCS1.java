@@ -21,7 +21,7 @@ public class PMCS1
 class ParkingLot
 {
     Database db = new Database();
-    Admin admin = new Admin();//consider making this static
+    Admin admin = new Admin(0, "admin", "password", 0.0);//consider making this static
     private ArrayList<Employee>  employeeList = new ArrayList<Employee>();
     private ArrayList<Ticket> allTickets = new ArrayList<>();
     private ArrayList<Checkpoint> allCheckpoints = new ArrayList<>();
@@ -124,6 +124,7 @@ class ParkingLot
             return t.getID();
         return 0;
     }
+    
 
     public ArrayList<Checkpoint> getAllCheckpoints() {
 

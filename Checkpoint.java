@@ -1,7 +1,14 @@
+enum CheckpointType
+{
+    ENTRY, EXIT, INFO
+}
+
 public class Checkpoint {
     int ID;
     String name;
-    Employee assigned;
+    CheckpointType type;//getter setter methods
+    //Employee assigned;
+    int assignedEmployeeID;
     int floorNumber;//here write getter and setter methods for all instance variables after declaring them protected
 
     public int getID() {
@@ -12,12 +19,12 @@ public class Checkpoint {
         this.ID = ID;
     }
 
-    public Employee getAssigned() {
-        return assigned;
+    public int getAssigned() {
+        return assignedEmployeeID;
     }
 
-    public void setAssigned(Employee assigned) {
-        this.assigned = assigned;
+    public void setAssigned(int assigned) {
+        this.assignedEmployeeID = assigned;
     }
     public void setFloorNumber(int floorNumber) {
         this.floorNumber = floorNumber;

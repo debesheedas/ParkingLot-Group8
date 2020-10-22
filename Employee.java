@@ -6,14 +6,14 @@ public class Employee extends Customer{
     boolean loginstatus = false;
     LoginGUI l = new LoginGUI();
     ChangePasswordGUI c = new ChangePasswordGUI();
-    int id;
-    String name;
-    String password;
-    double dues;
+    private int id;
+    protected String username;
+    protected String password;
+    double dues;//think about how we can internally increasing
     //Employee(int, String, String, double)...............................................................
     Employee(int id, String name, String password, double dues) {
         this.id = id;
-        this.name = name;
+        this.username = name;
         this.password = password;
         this.dues = dues;
     }
@@ -101,7 +101,7 @@ public class Employee extends Customer{
         int id, flag=0;
         System.out.println("Enter your ID");
         id = sc.nextInt();
-        for (Employee i : p.getAllEmployees() )
+        for (Employee i : p.getAllEmployees() ) 
         {
             if (id == i.getID()) {
                 c.run(i);

@@ -4,10 +4,11 @@ public class Floor {
     int[] NumberOfSpots = new int[10];//if the name of this array is arr, then arr[0]=number of total compact spots, arr[1] = number of available compact spots and so on
     ArrayList<Spot> allSpotsOnthisFloor = new ArrayList<Spot>();
     int floorNo;
-    Floor(int[] NumberOfSpots , ArrayList<Spot> allSpotsOnthisFloor , int floorNo){
+    Floor(int[] NumberOfSpots,  int floorNo)
+    {
         this.NumberOfSpots = NumberOfSpots;
-        this.allSpotsOnthisFloor = allSpotsOnthisFloor;
         this.floorNo = floorNo;
+        this.allSpotsOnthisFloor = allSpotsOnthisFloor;//initialize this by creating all the spot objects of appropriate types 
     }
     public int getTotalNumberOfCompactSpots(){
         return NumberOfSpots[0];
@@ -88,6 +89,8 @@ public class Floor {
         NumberOfSpots = numberOfSpots;
     }
     public void removeSpot(Spot s){
-        allSpotsOnthisFloor.remove(s);
+        //change the isAvailable value to true
+        //also modify NumberOfSpots - From Spot object, identify which type it is...and then modify corresponding array value
+        //allSpotsOnthisFloor.remove(s);
     }
 }

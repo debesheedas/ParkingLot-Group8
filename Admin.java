@@ -2,9 +2,14 @@ import java.util.*;
 public class Admin extends Employee {
     Scanner sc = new Scanner(System.in);
     ParkingLot p = new ParkingLot();
-    private String password = "password";
+    //private String password = "password";
     boolean loginstatus;
     private String agn;
+
+    Admin(int id, String u, String p, double due)
+    {
+        super(id, u, p, due);
+    }
 
     void run()
     {
