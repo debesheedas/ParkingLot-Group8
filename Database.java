@@ -11,6 +11,11 @@ public class Database{
     
     private String db_name = "parkinglot.db";
     private String url = "jdbc:sqlite:db/"+db_name; // url of the database
+    private ParkingLot pl;
+
+    Database(ParkingLot pl){
+      this.pl = pl;
+   }
 
 
     private Connection connect() {
@@ -45,11 +50,11 @@ public class Database{
             Statement s = c.createStatement();
          ){
 
-            s.executeUpdate("create table if not exists employees (id int primary key not null , name text not null , pswd text not null , due int not null)");
-            s.executeUpdate("create table if not exists floors (num int primary key not null , tcs int not null , acs int not null , tls int not null , als int not null , ths int not null , ahs int not null , ttws int not null , atws int not null , tes int not null , aes int not null )");
-            s.executeUpdate("create table if not exists tickets (id int primary key not null , starttime text not null , slot text not null )");
-            s.executeUpdate("create table if not exists checkpoints (id int primary key not null , name text not null , type text not null , floorno int not null , employeeAssigned int not null )");
-            s.executeUpdate("create table if not exists spotprices (type text primary key not null , firsthour int not null , secondhour int not null , remaininghours int not null)");
+            s.executeUpdate("create table if not exists employees (id int primary key not null , name text not null , pswd text not null , due real not null)");
+            s.executeUpdate("create table if not exists floors (floorNo int primary key not null , tcs int not null , acs int not null , tls int not null , als int not null , ths int not null , ahs int not null , ttws int not null , atws int not null , tes int not null , aes int not null )");
+            s.executeUpdate("create table if not exists tickets (id int primary key not null , startTime text not null , spotID int not null , floorNo int not null , vnp text not null )");
+            s.executeUpdate("create table if not exists checkpoints (id int primary key not null , name text not null , type text not null , floorno int not null , assignedEmployeeID int not null )");
+            s.executeUpdate("create table if not exists spotprices (type text primary key not null , firsthour real not null , secondhour real not null , remaininghours real not null)");
 
          }catch(Exception e){
             System.out.println(e.getClass().getName() +" : "+e.getMessage());
@@ -86,14 +91,9 @@ public class Database{
                int id = rs.getInt("id");
                String name = rs.getString("name");
                String pswd = rs.getString("pswd");
-               int due = rs.getInt("due");
+               double due = rs.getDouble("due");
 
-               Employee e = new Employee();
-               e.setID(id);
-               e.setUsername(name);
-               e.setPassword(pswd);
-               e.setDue(due);
-
+               Employee e = new Employee(id,name,pswd,due);
                employees.add(e);
             }
 
@@ -113,7 +113,7 @@ public class Database{
 
           ResultSet rs = s.executeQuery("select * from floors");
           while(rs.next()){
-             int num = rs.getInt("num");
+             int num = rs.getInt("floorNo");
              int tcs = rs.getInt("tcs");
              int acs = rs.getInt("acs");
              int tls = rs.getInt("tls");
@@ -125,18 +125,18 @@ public class Database{
              int tes = rs.getInt("tes");
              int aes = rs.getInt("aes");
 
-             Floor f = new Floor();
-             f.setFloorNo(num);
-             f.setTotalNumberOfCompactSpots(tcs);
-             f.setNumberOfAvailableCompactSpots(acs);
-             f.setTotalNumberOfLargeSpots(tls);
-             f.setNumberOfAvailableLargeSpots(als);
-             f.setTotalNumberOfHandicappedSpots(ths);
-             f.setNumberOfAvailableHandicappedSpots(ahs);
-             f.setTotalNumberOfTwowheelerSpots(ttws);
-             f.setNumberOfAvailableTwowheelerSpots(atws);
-             f.setTotalNumberOfElectricalSpots(tes);
-             f.setNumberOfAvailableElectricalSpots(aes);
+             Floor f = new Floor(new int[]{tcs , acs ,tls , als , ths , ahs , ttws , atws , tes , aes } , num);
+            //  f.setFloorNo(num);
+            //  f.setTotalNumberOfCompactSpots(tcs);
+            //  f.setNumberOfAvailableCompactSpots(acs);
+            //  f.setTotalNumberOfLargeSpots(tls);
+            //  f.setNumberOfAvailableLargeSpots(als);
+            //  f.setTotalNumberOfHandicappedSpots(ths);
+            //  f.setNumberOfAvailableHandicappedSpots(ahs);
+            //  f.setTotalNumberOfTwowheelerSpots(ttws);
+            //  f.setNumberOfAvailableTwowheelerSpots(atws);
+            //  f.setTotalNumberOfElectricalSpots(tes);
+            //  f.setNumberOfAvailableElectricalSpots(aes);
 
              floors.add(f);
           }
@@ -155,20 +155,32 @@ public class Database{
           Statement s = c.createStatement();
        ){
 
-          ResultSet rs = s.executeQuery("select * from tickets");
-          while(rs.next()){
+         ResultSet rs = s.executeQuery("select * from tickets");
+         while(rs.next()){
              int id = rs.getInt("id");
-             String startTime = rs.getString("starttime");
-             String slot = rs.getString("slot");
+             String startTime = rs.getString("startTime");
+             int spotID = rs.getInt("spotID");
+             int floorNo = rs.getInt("floorNo");
+             String vnp = rs.getString("vnp");
+
+             Ticket t ;
+
+             ArrayList<Floor> floors = pl.getAllFloors();
+             for(Floor floor : floors){
+                if(floor.getFloorNo() == floorNo){
+                   ArrayList<Spot> spots = floor.getAllSpotsOnthisFloor();
+                   for(Spot spot : spots){
+                      if(spot.getID() == spotID){
+                         Time time = new Time();
+                         time.setTime(startTime);
+                           t = new Ticket(id, spot,time , vnp);
+                      }
+                   }
+                }
+             }
              
-
-             Ticket t = new Ticket();
-             t.s(id);
-             t.setEntryTime(startTime);
-             t.setSlot(slot);
-
              tickets.add(t);
-          }
+         }
 
           return tickets;
           
@@ -182,7 +194,7 @@ public class Database{
       checkPoints.clear();
       try(Connection c = this.connect();
           Statement s = c.createStatement();
-       ){
+      ){
 
           ResultSet rs = s.executeQuery("select * from checkpoints");
           while(rs.next()){
@@ -190,40 +202,50 @@ public class Database{
              String name = rs.getString("name");
              String type = rs.getString("type");
              int floorno = rs.getInt("floorno");
-             int employeeAssigned = rs.getInt("employeeAssigned");
+             int assignedEmployeeID = rs.getInt("assignedEmployeeID");
 
-             switch (type) {
+            switch (type) {
                case "ENTRY":
                    EntryPoint ep = new EntryPoint();
                    ep.setID(id);
+                   ep.setName(name);
                    ep.setFloorNumber(floorno);
-                   ep.setAssigned(employeeAssigned);
+                   ep.setAssigned(assignedEmployeeID);
+                   ep.setCheckpointType(ENTRY);
                    checkPoints.add(ep);
                    break;
                
                case "EXIT":
                   EntryPoint exp = new EntryPoint();
                   exp.setID(id);
+                  exp.setName(name);
                   exp.setFloorNumber(floorno);
-                  exp.setAssigned(employeeAssigned);
+                  exp.setAssigned(assignedEmployeeID);
+                  exp.setCheckpointType(EXIT)
                   checkPoints.add(exp);
                   break;
                case "INFO":
-
+                  InfoPortal ip = new InfoPortal();
+                  ip.setID(id);
+                  ip.setName(name);
+                  ip.setFloorNumber(floorno);
+                  ip.setAssigned(assignedEmployeeID);
+                  ip.setCheckpointType(INFO)
+                  checkPoints.add(ip);
                   break;
              
                 default:
                    break;
-             }
+            }
 
-          }
+         }
 
-          return checkPoints;
+         return checkPoints;
           
-       }catch(Exception e){
+      }catch(Exception e){
           System.out.println(e.getClass().getName() +" : "+e.getMessage());
           return null;
-       }
+      }
    }
 
    private double[] getSpotPrices(String type){
@@ -232,21 +254,21 @@ public class Database{
    
       try(Connection c = this.connect();
           PreparedStatement ps = c.prepareStatement("select * from spotprices where type like ?");
-       ){
+      ){
 
-            ps.setString(1, type);
+         ps.setString(1, type);
 
-          ResultSet rs = ps.executeQuery();
-          spotPrices[0] = rs.getInt("firsthour");
-          spotPrices[1] = rs.getInt("secondhour");
-          spotPrices[2] = rs.getInt("remaininghours");
+         ResultSet rs = ps.executeQuery();
+         spotPrices[0] = rs.getDouble("firsthour");
+         spotPrices[1] = rs.getDouble("secondhour");
+         spotPrices[2] = rs.getDouble("remaininghours");
 
-          return spotPrices;
+         return spotPrices;
           
-       }catch(Exception e){
+      }catch(Exception e){
           System.out.println(e.getClass().getName() +" : "+e.getMessage());
           return null;
-       }
+      }
    }
 
 
@@ -261,13 +283,13 @@ public class Database{
          pl.setEmployees(fillEmployees(new ArrayList<Employee>()));
          pl.setFloors(fillFloors(new ArrayList<Floor>()));
          pl.setTickets(fillTickets(new ArrayList<Ticket>()));
-         pl.setCheckPoints(fillCheckPoints(new ArrayList<CheckPoint>()));
+         pl.setCheckpoints(fillCheckPoints(new ArrayList<Checkpoint>()));
          
          pl.setCompactPrices(getSpotPrices("COMPACT"));
          pl.setLargePrices(getSpotPrices("LARGE"));
          pl.setHandicappedPrices(getSpotPrices("HANDICAPPED"));
-         pl.setTwoWheelerPrices(getSpotPrices("TWOWHEELER"));
-         pl.setElectircPrices(getSpotPrices("ELECTRIC"));
+         pl.setTwowheelerPrices(getSpotPrices("TWOWHEELER"));
+         pl.setElectricPrices(getSpotPrices("ELECTRIC"));
 
 
    }
@@ -294,13 +316,13 @@ public class Database{
    }
 
 
-   private void addFloor(int num , int tcs ,int acs ,int tls ,int als ,int ths ,int ahs ,int ttws ,int atws ,int tes ,int aes ){
+   private void addFloor(int floorNo , int tcs ,int acs ,int tls ,int als ,int ths ,int ahs ,int ttws ,int atws ,int tes ,int aes ){
 
       try(Connection c = this.connect();
           PreparedStatement ps = c.prepareStatement("insert into floors values (?,?,?,?,?,?,?,?,?,?,?)");
        ){
 
-          ps.setInt(1, num);
+          ps.setInt(1, floorNo);
           ps.setInt(2, tcs);
           ps.setInt(3,acs);
           ps.setInt(4, tls);
@@ -320,15 +342,18 @@ public class Database{
 
    }
 
-   private void addTicket(int id , String starttime , String slot){
+   private void 
+   addTicket(int id ,String startTime, int spotID,int floorNo,String vnp){
 
         try(Connection c = this.connect();
-            PreparedStatement ps = c.prepareStatement("insert into tickets values (?,?,?)");
+            PreparedStatement ps = c.prepareStatement("insert into tickets values (?,?,?,?,?)");
          ){
 
             ps.setInt(1, id);
-            ps.setString(2, starttime);
-            ps.setString(3, slot);
+            ps.setString(2, startTime);
+            ps.setInt(3, spotID);
+            ps.setInt(4, floorNo);
+            ps.setString(5, vnp);
             ps.executeUpdate();
             
          }catch(Exception e){
@@ -337,7 +362,7 @@ public class Database{
 
    }
 
-   private void addCheckPoint(int id,String name,String type,int floorNo,int employeeId){
+   private void addCheckPoint(int id,String name,String type,int floorNo,int assignedEmployeeID){
 
       try(Connection c = this.connect();
             PreparedStatement ps = c.prepareStatement("insert into checkpoints values (?,?,?,?,?)");
@@ -347,7 +372,7 @@ public class Database{
             ps.setString(2, name);
             ps.setString(3, type);
             ps.setInt(4, floorNo);
-            ps.setInt(5, employeeId);
+            ps.setInt(5, assignedEmployeeID);
 
             ps.executeUpdate();
             
@@ -400,10 +425,10 @@ public class Database{
          addFloor(f.getFloorNo(), f.getTotalNumberOfCompactSpots(), f.getNumberOfAvailableCompactSpots(), f.getTotalNumberOfLargeSpots() , f.getNumberOfAvailableLargeSpots() , f.getTotalNumberOfHandicappedSpots() , f.getNumberOfAvailableHandicappedSpots() , f.getTotalNumberOfTwowheelerSpots() , f.getNumberOfAvailableTwowheelerSpots() , f.getTotalNumberOfElectricalSpots() , f.getNumberOfAvailableElectricalSpots());
       }
       for(Ticket t:tickets){
-         addTicket(t.getID(), t.getStartTime(), t.getTypeOfSlot());
+         addTicket(t.getID(), t.getStartTime(), t.s.getID() , t.s.getFloorNo() , t.getVNP());
       }
       for(Checkpoint c:checkPoints){
-         addCheckPoint(c.getID(), c.getName(), c.getType(), c.getFloorNumber() , c.getAssigned());
+         addCheckPoint(c.getID(), c.getName(), c.getCheckPointType(), c.getFloorNumber() , c.getAssigned());
       }
 
       addSpotPrice("COMPACT", compactPrices[0], compactPrices[1], compactPrices[2]);
