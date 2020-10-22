@@ -2,7 +2,7 @@ import java.util.*;
 public class InfoPortal extends Checkpoint
 {
     ParkingLot p = new ParkingLot();
-    Ticket tk = new Ticket();
+    Ticket tk = new Ticket(0,null,null);
     double t;
     Scanner sc = new Scanner(System.in);
     boolean isPaid = true;
@@ -23,7 +23,7 @@ public class InfoPortal extends Checkpoint
     }
     void checkTicket(int id)
     {
-        for(Ticket tk : p.allTickets)
+        for(Ticket tk : p.getAllTickets())
         {
             if(id == tk.ID)
             {
@@ -52,13 +52,7 @@ public class InfoPortal extends Checkpoint
     }
     double computeBill(double hours)
     {
-        double billAmount;
-        if (hours <= 1)
-            billAmount = hours * p.spotPrice[0];
-        else if (hours > 1 && hours <= 2)
-            billAmount = hours * p.spotPrice[1];
-        else
-            billAmount = hours * p.spotPrice[2];
-        return billAmount;
+        //Copy-paste from computeBill in Ticket class;
+        return 0.0;
     }
 }

@@ -2,6 +2,7 @@ import java.util.*;
 public class Admin extends Employee {
     Scanner sc = new Scanner(System.in);
     ParkingLot p = new ParkingLot();
+    FloorDisplayGUI e = new FloorDisplayGUI(null);
     //private String password = "password";
     boolean loginstatus;
     private String agn;
@@ -10,6 +11,7 @@ public class Admin extends Employee {
     {
         super(id, u, p, due);
     }
+
 
     void run()
     {
@@ -32,15 +34,28 @@ public class Admin extends Employee {
                 }
                 case 2 : {
                     changePassword();
+                    break;
                 }
                 case 3 : {
                     addRemoveEmployee();
+                    break;
                 }
-                /*case 4 : {
-                    s.Display();
-                }*/
+                case 4 : {
+                    System.out.println("Floor No.: ");
+                    int n = sc.nextInt();
+                    Floor f = null;
+                    for (Floor i : p.getAllFloors() )
+                    {
+                        if ( n == i.floorNo) {
+                            f = i;
+                        }
+                    }
+                    new FloorDisplayGUI(f);
+                    break;
+                }
                 case 5 : {
                     logOut();
+                    break;
                 }
                 default : {
                     System.out.println("Invalid Option");
@@ -87,9 +102,11 @@ public class Admin extends Employee {
         switch (sc.nextInt()) {
             case 1 : {
                 addEmp();
+                break;
             }
             case 2 : {
                 removeEmp();
+                break;
             }
             default : {
                 System.out.println("Invalid Option");
@@ -135,15 +152,19 @@ public class Admin extends Employee {
         switch (sc.nextInt()) {
             case 1 : {
                 addFloor();
+                break;
             }
             case 2 : {
                 addEpanel();
+                break;
             }
             case 3 : {
                 modifyRate();
+                break;
             }
             case 4 : {
                 addPanel();
+                break;
             }
             default : {
                 System.out.println("Invalid Option");
