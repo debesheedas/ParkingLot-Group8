@@ -1,4 +1,3 @@
-
 //Aashrith
 //Handling information exchange between database inout output and program
 import java.io.File;
@@ -211,7 +210,7 @@ public class Database{
                    ep.setName(name);
                    ep.setFloorNumber(floorno);
                    ep.setAssigned(assignedEmployeeID);
-                   ep.setCheckpointType(ENTRY);
+                   ep.setCheckpointType(CheckpointType.ENTRY);
                    checkPoints.add(ep);
                    break;
                
@@ -221,7 +220,7 @@ public class Database{
                   exp.setName(name);
                   exp.setFloorNumber(floorno);
                   exp.setAssigned(assignedEmployeeID);
-                  exp.setCheckpointType(EXIT)
+                  exp.setCheckpointType(CheckpointType.EXIT);
                   checkPoints.add(exp);
                   break;
                case "INFO":
@@ -230,7 +229,7 @@ public class Database{
                   ip.setName(name);
                   ip.setFloorNumber(floorno);
                   ip.setAssigned(assignedEmployeeID);
-                  ip.setCheckpointType(INFO)
+                  ip.setCheckpointType(CheckpointType.INFO);
                   checkPoints.add(ip);
                   break;
              
