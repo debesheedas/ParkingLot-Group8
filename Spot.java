@@ -133,6 +133,9 @@ class Floor {
     public void setNumberOfSpots(int[] numberOfSpots) {
         NumberOfSpots = numberOfSpots;
     }
+    public boolean removeSpot(Spot s){
+        allSpotsOnthisFloor.remove(s);
+    }
 }
 class Ticket {
     int ID;
@@ -262,8 +265,10 @@ class EntryPoint extends Checkpoint {
                 //update corresponding instance variables of ParkingLot class and all other classes- whichever has been changed
             System.out.println("Enter the number of vehicleNumberPlate : ");
             T.VehicleNumberPlate = Ep.next();
-            ArrayList<Ticket> setAllTickets(T);
+            setAllTickets(T);
         }
+        else
+            System.out.println("Spot is not Available");
     }
 
 }
