@@ -1,5 +1,9 @@
 //Jaswanth
-import java.util.*;git
+import java.util.*;
+
+import javax.lang.model.util.ElementScanner14;
+
+import jdk.javadoc.internal.doclets.formats.html.SourceToHTMLConverter;git
 enum ParkingSpotType 
 {
     COMPACT, LARGE, HANDICAPPED, TWOWHEELER, ELECTRIC
@@ -53,6 +57,11 @@ class Floor {
     int[] NumberOfSpots = new int[10];//if the name of this array is arr, then arr[0]=number of total compact spots, arr[1] = number of available compact spots and so on
     ArrayList<Spot> allSpotsOnthisFloor = new ArrayList<Spot>();
     int floorNo;
+    Floor(int[] NumberOfSpots , ArrayList<Spot> allSpotsOnthisFloor , int floorNo){
+        this.NumberOfSpots = NumberOfSpots;
+        this.allSpotsOnthisFloor = allSpotsOnthisFloor;
+        this.floorNo = floorNo;
+    }
     public int getTotalNumberOfCompactSpots(){
         return NumberOfSpots[0];
     }
@@ -132,6 +141,9 @@ class Floor {
     }
     public void setNumberOfSpots(int[] numberOfSpots) {
         NumberOfSpots = numberOfSpots;
+    }
+    public boolean removeSpot(Spot s){
+        allSpotsOnthisFloor.remove(s);
     }
 }
 class Ticket {
@@ -238,6 +250,7 @@ class EntryPoint extends Checkpoint {
         ParkingLot P = new ParkingLot();
         ArrayList<Floor> floors = P.getAllFloors();
         for (Floor floor : floors){
+            floor.getAllSpotsOnthisFloor();
             if (t == ParkingSpotType.COMPACT)
                 floor.getNumberOfAvailableCompactSpots();
             else if (t == ParkingSpotType.LARGE)
@@ -248,6 +261,8 @@ class EntryPoint extends Checkpoint {
                 floor.getNumberOfAvailableTwowheelerSpots();
             else if (t == ParkingSpotType.HANDICAPPED)
                 floor.getNumberOfAvailableHandicappedSpots();
+            else
+                System.out.println("Invalid Spot type");
         }
         getFloorNumber();
     }
@@ -262,7 +277,7 @@ class EntryPoint extends Checkpoint {
                 //update corresponding instance variables of ParkingLot class and all other classes- whichever has been changed
             System.out.println("Enter the number of vehicleNumberPlate : ");
             T.VehicleNumberPlate = Ep.next();
-            ArrayList<Ticket> setAllTickets(T);
+            setAllTickets(T);
         }
     }
 
