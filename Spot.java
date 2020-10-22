@@ -46,6 +46,9 @@ public class Spot//write a parameterized constructor for  this to initialize the
         name = (this.floor+""+c+""+String.valueOf(this.id/10)+String.valueOf(this.id%10));
         System.out.println("Spot Name : "+name);
     }
+    ParkingSpotType getSpotType(){
+        return t;
+    }
 }
 
    
