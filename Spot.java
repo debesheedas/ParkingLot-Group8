@@ -24,15 +24,27 @@ class Spot//write a parameterized constructor for  this to initialize the variab
         this.floor = floor;
         isAvailable = status;
         switch (this.t) {
-            case COMPACT -> c = 'C';
-            case LARGE -> c = 'L';
-            case ELECTRIC -> c = 'E';
-            case TWOWHEELER -> c = 'T';
-            case HANDICAPPED -> c = 'H';
-            default -> System.out.println("Invalid ParkingSpot Type");
+            case COMPACT:
+                c = 'C';
+                break;
+            case LARGE:
+                c = 'L';
+                break;
+            case ELECTRIC:
+                c = 'E';
+                break;
+            case TWOWHEELER:
+                c = 'T';
+                break;
+            case HANDICAPPED:
+                c = 'H';
+                break;
+            default:
+                System.out.println("Invalid ParkingSpot Type");
+                break;
         }
         name = (this.floor+""+c+""+String.valueOf(this.id/10)+String.valueOf(this.id%10));
-        System.out.println(name);
+        System.out.println("Spot Name : "+name);
     }
 }
 
@@ -79,35 +91,47 @@ class Floor {
     public void setFloorNo(int floorNo) {
         this.floorNo = floorNo;
     }
-    public void setTotalNumberOfCompactSpots(int[] NumberOfSpots ){
-         this.NumberOfSpots[0] = NumberOfSpots[0];
+    public void setTotalNumberOfCompactSpots(int NumberOfSpots ){
+         this.NumberOfSpots[0] = NumberOfSpots;
     }
-    public void setNumberOfAvailableCompactSpots(int[] NumberOfSpots){
-         this.NumberOfSpots[1] = NumberOfSpots[1];
+    public void setNumberOfAvailableCompactSpots(int NumberOfSpots){
+         this.NumberOfSpots[1] = NumberOfSpots;
     }
-    public void setTotalNumberOfLargeSpots(int[] NumberOfSpots){
-         this.NumberOfSpots[2] = NumberOfSpots[2];
+    public void setTotalNumberOfLargeSpots(int NumberOfSpots){
+         this.NumberOfSpots[2] = NumberOfSpots;
     }
-    public void setNumberOfAvailableLargeSpots(int[] NumberOfSpots){
-         this.NumberOfSpots[3] = NumberOfSpots[3] ;
+    public void setNumberOfAvailableLargeSpots(int NumberOfSpots){
+         this.NumberOfSpots[3] = NumberOfSpots ;
     }
-    public void setTotalNumberOfElectricalSpots(int[] NumberOfSpots){
-         this.NumberOfSpots[4] = NumberOfSpots[4];
+    public void setTotalNumberOfElectricalSpots(int NumberOfSpots){
+         this.NumberOfSpots[4] = NumberOfSpots;
     }
-    public void setNumberOfAvailableElectricalSpots(int[] NumberOfSpots){
-         this.NumberOfSpots[5] = NumberOfSpots[5];
+    public void setNumberOfAvailableElectricalSpots(int NumberOfSpots){
+         this.NumberOfSpots[5] = NumberOfSpots;
     }
-    public void setTotalNumberOfTwowheelerSpots(int[] NumberOfSpots){
-         this.NumberOfSpots[6] = NumberOfSpots[6];
+    public void setTotalNumberOfTwowheelerSpots(int NumberOfSpots){
+         this.NumberOfSpots[6] = NumberOfSpots;
     }
-    public void setNumberOfAvailableTwowheelerSpots(int[] NumberOfSpots){
-         this.NumberOfSpots[7] = NumberOfSpots[7];
+    public void setNumberOfAvailableTwowheelerSpots(int NumberOfSpots){
+         this.NumberOfSpots[7] = NumberOfSpots;
     }
-    public void setTotalNumberOfHandicappedSpots(int[] NumberOfSpots){
-         this.NumberOfSpots[8] = NumberOfSpots[8];
+    public void setTotalNumberOfHandicappedSpots(int NumberOfSpots){
+         this.NumberOfSpots[8] = NumberOfSpots;
     }
-    public void setNumberOfAvailableHandicappedSpots(int[] NumberOfSpots){
-         this.NumberOfSpots[9] = NumberOfSpots[9];
+    public void setNumberOfAvailableHandicappedSpots(int NumberOfSpots){
+         this.NumberOfSpots[9] = NumberOfSpots;
+    }
+    public ArrayList<Spot> getAllSpotsOnthisFloor() {
+        return allSpotsOnthisFloor;
+    }
+    public int[] getNumberOfSpots() {
+        return NumberOfSpots;
+    }
+    public void setAllSpotsOnthisFloor(ArrayList<Spot> allSpotsOnthisFloor) {
+        this.allSpotsOnthisFloor = allSpotsOnthisFloor;
+    }
+    public void setNumberOfSpots(int[] numberOfSpots) {
+        NumberOfSpots = numberOfSpots;
     }
 }
 class Ticket {
@@ -149,7 +173,6 @@ class Ticket {
 
 }
 class Checkpoint {
-    Ticket T = new Ticket();
     int ID;
     String name;
     Employee assigned;
@@ -230,6 +253,7 @@ class EntryPoint extends Checkpoint {
     }
     void generateTicket(ParkingSpotType t)
     {
+        Ticket T = new Ticket();
         Spot temp = this.searchForSpot(t);
         if(temp!=null){//basically if suitable spot is available
 
@@ -238,6 +262,7 @@ class EntryPoint extends Checkpoint {
                 //update corresponding instance variables of ParkingLot class and all other classes- whichever has been changed
             System.out.println("Enter the number of vehicleNumberPlate : ");
             T.VehicleNumberPlate = Ep.next();
+            ArrayList<Ticket> setAllTickets(T);
         }
     }
 
