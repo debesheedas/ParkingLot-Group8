@@ -44,7 +44,7 @@ public class Employee extends Customer{
         //check for password of corresponding ID
         l.run();
         do {
-            System.out.println("Press 1: Pay dues\nPress 2: Park Vehicle\nPress 3: Display Floor Plan\nPress 4: Entry/Exit Panel\nPress 5: Info Portal\nPress 6: Change Password\nPress 7: LogOut");
+            System.out.println("Press 1: Pay dues\nPress 2: Park Vehicle\nPress 3: Display Floor Plan\nPress 4: Check/Exit Point\nPress 5: Info Portal\nPress 6: Change Password\nPress 7: LogOut");
             switch (sc.nextInt()) {
                 case 1 : {
                     payAmountDue();
@@ -75,8 +75,26 @@ public class Employee extends Customer{
     }
 
     private void panel() {
+        int n;
+        System.out.println("Press 1: Check Point\nPress 2: Exit Point");
+        switch(sc.nextInt()){
+            case 1: {
+                System.out.println("Select a Check Point");
+                n=sc.nextInt();
+                System.out.println("You are assigned to Check Point no.: "+n);
+            }
+            case 2: {
+                System.out.println("Select a Exit Point");
+                n=sc.nextInt();
+                System.out.println("You are assigned to Exit Point no.: "+n);
+            }
+            default: {
+                System.out.println("Invalid Option");
+            }
+        }
     }
     private void infoPortal() {
+        System.out.println("Your Due is: " + getDues());
     }
     private void changePassword()
     {
