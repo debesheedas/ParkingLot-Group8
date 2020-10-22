@@ -7,7 +7,7 @@ import java.lang.*;
 
 public class PMCS1
 {
-    public static void main(String args[])
+    public static void main(String[] args)
     {
         System.out.println("Hello");
         ParkingLot obj = new ParkingLot();
@@ -23,9 +23,9 @@ class ParkingLot
     Database db = new Database();
     Admin admin = new Admin();//consider making this static
     private ArrayList<Employee>  employeeList = new ArrayList<Employee>();
-    private ArrayList<Ticket> allTickets = new ArrayList();
-    private ArrayList<Checkpoint> allCheckpoints = new ArrayList();
-    private ArrayList<Floor> allFloors = new ArrayList<Floor>();
+    private ArrayList<Ticket> allTickets = new ArrayList<>();
+    private ArrayList<Checkpoint> allCheckpoints = new ArrayList<>();
+    private ArrayList<Floor> allFloors = new ArrayList<>();
     private double priceOfElectricityPerHour;
     private double[] compactPrices = new double[3];
     private double[] largePrices = new double[3];
@@ -35,13 +35,19 @@ class ParkingLot
 
     //get full employee list method should return an array or arraylist of employee objects
     //search by id and return employee method get
-    //add employee method - set 
+    //add employee method - set
     //delete employee - set
+    //Array list of entry points exit points and info portals basically an arraylist of all checkpoints
+    //write getter and setter methods for each of the instance variables of this class
     public ArrayList<Employee> getAllEmployees()
     {
         return employeeList;
     }
 
+    void setEmployees(ArrayList<Employee> e)
+    {
+        employeeList = e;
+    }
 
     boolean addEmployee(Employee e)
     {
@@ -89,15 +95,65 @@ class ParkingLot
         return null;
     }
 
-    public ArrayList<Floor> getAllFloors() {
-        return allFloors;
+    public ArrayList<Ticket> getAllTickets() {
+        return allTickets;
     }
 
+    public void setTickets(ArrayList<Ticket> t) {
+        allTickets = t;
+    }
+
+    public void removeTicket(Ticket t){
+        getAllTickets().remove(t);
+    }
+    public void addTicket(Ticket t){
+        getAllTickets().add(t);
+    }
+
+    public boolean searchTicket(Ticket t){
+        int id = t.getID();
+        for(Ticket i: allTickets ){
+            if(id == i.getID())
+                return true;
+        }
+        return false;
+    }
+
+    public int returnTicketByID (Ticket t){
+        if (searchTicket(t))
+            return t.getID();
+        return 0;
+    }
 
     public ArrayList<Checkpoint> getAllCheckpoints() {
 
         return allCheckpoints;
     }
+    public void setCheckpoints(ArrayList<Checkpoint> c){
+        allCheckpoints = c;
+    }
+    public void removeChekpoint(Checkpoint c){
+        getAllCheckpoints().remove(c);
+    }
+    public void addCheckpoint(Checkpoint c){
+        getAllCheckpoints().add(c);
+    }
+
+    public ArrayList<Floor> getAllFloors() {
+
+        return allFloors;
+    }
+    public void setFloors(ArrayList<Floor> f){
+
+        allFloors = f;
+    }
+    public void removeFloor(Floor f){
+        getAllFloors().remove(f);
+    }
+    public void addFloor(Floor f){
+        getAllFloors().add(f);
+    }
+
 
     public double[] getCompactPrices() {
         return compactPrices;
@@ -113,29 +169,46 @@ class ParkingLot
     public double[] getLargePrices() {
         return largePrices;
     }
+    public void setLargePrices(double[] p)
+    {
+        for(int i=0; i<3; i++)
+        {
+            largePrices[i] = p[i];
+        }
+    }
 
     public double[] getHandicappedPrices() {
         return handicappedPrices;
+    }
+    public void setHandicappedPrices(double[] p)
+    {
+        for(int i=0; i<3; i++)
+        {
+            handicappedPrices[i] = p[i];
+        }
     }
 
     public double[] getTwowheelerPrices() {
         return twowheelerPrices;
     }
-
+    public void setTwowheelerPrices(double[] p)
+    {
+        for(int i=0; i<3; i++)
+        {
+            twowheelerPrices[i] = p[i];
+        }
+    }
     public double[] getElectricPrices() {
         return electricPrices;
     }
-
-    void setEmployees(ArrayList<Employee> e)
+    public void setElectricPrices(double[] p)
     {
-        employeeList = e;
+        for(int i=0; i<3; i++)
+        {
+            electricPrices[i] = p[i];
+        }
     }
-    //Array list of entry points exit points and info portals basically an arraylist of all checkpoints
-    //write getter and setter methods for each of the instance variables of this class
-    void removeTicket(Ticket t)
-    {
 
-    }
     void run()
     {
         
@@ -144,6 +217,8 @@ class ParkingLot
         //call db.loadDatabase();
         db.loadDatabase(this);
 
+        Scanner scan = new Scanner(System.in);
+        boolean y = scan.nextBoolean();
         //write a menu driven program, while loop to test the program
         /*
         boolean y;//take input through Scanner
