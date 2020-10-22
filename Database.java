@@ -1,38 +1,16 @@
+
 //Aashrith
 //Handling information exchange between database inout output and program
+import java.io.File;
 import java.lang.System;
 import java.sql.*;
 import java.util.*;
 
-//import Spot.Checkpoint;
-//import Spot.Floor;
-//import sun.security.krb5.internal.crypto.dk.AesSha2DkCrypto;
-
-// Driver path   -------->>   ".;JDBC/sqlite-jdbc-3.7.2.jar"
+// Driver path   -------->   ".;JDBC/sqlite-jdbc-3.7.2.jar"
 public class Database{
     
     private String db_name = "parkinglot.db";
     private String url = "jdbc:sqlite:db/"+db_name; // url of the database
-
-    /*public static void main(String[] args) {
-
-        Database db = new Database();
-        db.deleteAllTables();
-        System.out.println(db.count_tables());
-        db.setupDatabase();
-        System.out.println(db.count_tables());
-        //db.loadData();
-        // db.addTicket(1, "12:30", "compact");
-        // db.addTicket(2, "1:30", "large");
-        // db.addTicket(3, "2:30", "compact");
-        // db.getAllTickets();
-        // db.deleteTicket(3);
-        // db.getAllTickets();
-        // db.addEmployee(1, "aashrith", "qwert", 1000);
-        // db.addEmployee(2, "e2", "qert", 1500);
-        // db.deleteEmployee(1);
-        // db.getAllEmployees();
-    }*/
 
 
     private Connection connect() {
@@ -93,74 +71,7 @@ public class Database{
      }
 
 
-
-
-
-     private void addEmployee(int id , String name , String pswd , int due){
-
-      try(Connection c = this.connect();
-          PreparedStatement ps = c.prepareStatement("insert into employees values (?,?,?,?)");
-       ){
-
-          ps.setInt(1, id);
-          ps.setString(2, name);
-          ps.setString(3, pswd);
-          ps.setInt(4, due);
-          ps.executeUpdate();
-          
-       }catch(Exception e){
-          System.out.println(e.getClass().getName() +" : "+e.getMessage());
-       }
-
-   }
-
-
-   private void addFloor(int num , int tcs ,int acs ,int tls ,int als ,int ths ,int ahs ,int ttws ,int atws ,int tes ,int aes ){
-
-      try(Connection c = this.connect();
-          PreparedStatement ps = c.prepareStatement("insert into floors values (?,?,?,?,?,?,?,?,?,?,?)");
-       ){
-
-          ps.setInt(1, num);
-          ps.setInt(2, tcs);
-          ps.setInt(3,acs);
-          ps.setInt(4, tls);
-          ps.setInt(5, als);
-          ps.setInt(6, ths);
-          ps.setInt(7, ahs);
-          ps.setInt(8, ttws);
-          ps.setInt(9, atws);
-          ps.setInt(10, tes);
-          ps.setInt(11, aes);
-          
-          ps.executeUpdate();
-          
-       }catch(Exception e){
-          System.out.println(e.getClass().getName() +" : "+e.getMessage());
-       }
-
-   }
-
-   private void addTicket(int id , String starttime , String slot){
-
-        try(Connection c = this.connect();
-            PreparedStatement ps = c.prepareStatement("insert into tickets values (?,?,?)");
-         ){
-
-            ps.setInt(1, id);
-            ps.setString(2, starttime);
-            ps.setString(3, slot);
-            ps.executeUpdate();
-            
-         }catch(Exception e){
-            System.out.println(e.getClass().getName() +" : "+e.getMessage());
-         }
-
-   }
-
-
-     
-
+   //=======================================================================================================================
 
 
 
@@ -180,7 +91,7 @@ public class Database{
                Employee e = new Employee();
                e.setId(id);
                e.setName(name);
-               e.setPswd(pswd);
+               e.setPassword(pswd);
                e.setDue(due);
 
                employees.add(e);
@@ -215,17 +126,17 @@ public class Database{
              int aes = rs.getInt("aes");
 
              Floor f = new Floor();
-             f.setFloornum(num);
-             f.setTCS(tcs);
-             f.setACS(acs);
-             f.setTLS(tls);
-             f.setALS(als);
-             f.setTHS(ths);
-             f.setAHS(ahs);
-             f.setTTWS(ttws);
-             f.setATWS(atws);
-             f.setTES(tes);
-             f.setAES(aes);
+             f.setFloorNo(num);
+             f.setTotalNumberOfCompactSpots(tcs);
+             f.setNumberOfAvailableCompactSpots(acs);
+             f.setTotalNumberOfLargeSpots(tls);
+             f.setNumberOfAvailableLargeSpots(als);
+             f.setTotalNumberOfHandicappedSpots(ths);
+             f.setNumberOfAvailableHandicappedSpots(ahs);
+             f.setTotalNumberOfTwowheelerSpots(ttws);
+             f.setNumberOfAvailableTwowheelerSpots(atws);
+             f.setTotalNumberOfElectricalSpots(tes);
+             f.setNumberOfAvailableElectricalSpots(aes);
 
              floors.add(f);
           }
@@ -302,32 +213,22 @@ public class Database{
        }
    }
 
-   private ArrayList<Spot> fillSpots(ArrayList<Spot> spots){
-      spots.clear();
+   private double[] getSpotPrices(String type){
+
+      double[] spotPrices = new double[3];
+   
       try(Connection c = this.connect();
-          Statement s = c.createStatement();
+          PreparedStatement ps = c.prepareStatement("select * from spotprices where type like ?");
        ){
 
-          ResultSet rs = s.executeQuery("select * from spotprices");
-          while(rs.next()){
-             String type = rs.getString("type");
-             int fh = rs.getInt("firsthour");
-             int sh = rs.getInt("secondhour");
-             int rh = rs.getInt("remaininghours");
-             
+            ps.setString(1, type);
 
-             Spot s = new Spot();
+          ResultSet rs = ps.executeQuery();
+          spotPrices[0] = rs.getInt("firsthour");
+          spotPrices[1] = rs.getInt("secondhour");
+          spotPrices[2] = rs.getInt("remaininghours");
 
-             s.setType(type);
-             s.setFirstHour(fh);
-             s.setSecondHour(sh);
-             s.setRemainingHours(rh);
-             
-
-             spots.add(s);
-          }
-
-          return spots;
+          return spotPrices;
           
        }catch(Exception e){
           System.out.println(e.getClass().getName() +" : "+e.getMessage());
@@ -336,178 +237,169 @@ public class Database{
    }
 
 
+   public void loadDatabase(ParkingLot pl){
 
+         File f = new File("db/parkinglot.db");  
 
+         if(!(f.isFile() && this.count_tables() == 5)){  // checking if db file exists and has 5 tables in it 
+            this.setupDatabase();                        // if not create db and tables in it
+         }
 
-     public ParkingLot loadDatabase(ParkingLot pl){
-
-        pl.setEmployees(fillEmployees(new ArrayList<Employee>()));
-        pl.setFloors(fillFloors(new ArrayList<Floor>()));
-        pl.setTickets(fillTickets(new ArrayList<Ticket>()));
-        pl.setCheckPoints(fillCheckPoints(new ArrayList<CheckPoint>()));
-        pl.setSpots(fillSpots(new ArrayList<Spot>()));
-
-      return pl;
-
-     }
-
-     public void updateDatabase(ParkingLot pl){
-
-     }
-    
-
-
-    //every time admin options are changed, reset the whole database
-    //  public boolean databaseExists()
-    //  {
-    //      //return true if the database with same name as ParkingLotDatabase, basically check if database exists
-    //      try{
-    //         int no_tables = 0;
-    //         DatabaseMetaData metaData = conn.getMetaData();
-    //         String[] types = {"TABLE"};
-    //         ResultSet tables = metaData.getTables(null, null, "FLOORS", null);
-    //         while (tables.next()) {
-    //             System.out.println(tables.getString("TABLE_NAME"));
-    //             no_tables++;
-    //         }
-    //         System.out.println("No of tables : "+no_tables);
-    //         tables.close();
-    //         if(no_tables==0)
-    //             return false;
-    //         else    
-    //             return true;
-    //      }catch(Exception e){
-    //         System.err.println( e.getClass().getName() + ": " + e.getMessage() );
-    //         return false;
-    //      }
+         pl.setEmployees(fillEmployees(new ArrayList<Employee>()));
+         pl.setFloors(fillFloors(new ArrayList<Floor>()));
+         pl.setTickets(fillTickets(new ArrayList<Ticket>()));
+         pl.setCheckPoints(fillCheckPoints(new ArrayList<CheckPoint>()));
          
-    //  }
+         pl.setCompactPrices(getSpotPrices("COMPACT"));
+         pl.setLargePrices(getSpotPrices("LARGE"));
+         pl.setHandicappedPrices(getSpotPrices("HANDICAPPED"));
+         pl.setTwoWheelerPrices(getSpotPrices("TWOWHEELER"));
+         pl.setElectircPrices(getSpotPrices("ELECTRIC"));
 
 
-//      private void setupDatabase()//if database does not exist already
-//      {
-//          System.out.println("setup method.");
+   }
 
-//          try{
-//             String sql = "CREATE TABLE FLOORS (FLOORNO INT,TCS INT);";
-//             stmt.executeUpdate(sql);
-//             sql = "INSERT INTO FLOORS (FLOORNO,TCS) VALUES (1,2);";
-//             stmt.executeUpdate(sql);
-//             sql = "INSERT INTO FLOORS (FLOORNO,TCS) VALUES (2,10);";
-//             stmt.executeUpdate(sql);
-//             sql = "INSERT INTO FLOORS (FLOORNO,TCS) VALUES (3,7);";
-//             stmt.executeUpdate(sql);
-            
-//          }catch(Exception e){
-//             System.err.println( e.getClass().getName() + ": " + e.getMessage() );
-//          }
+   //=========================================================================================================================================================
 
+
+   private void addEmployee(int id , String name , String pswd , int due){
+
+      try(Connection c = this.connect();
+          PreparedStatement ps = c.prepareStatement("insert into employees values (?,?,?,?)");
+       ){
+
+          ps.setInt(1, id);
+          ps.setString(2, name);
+          ps.setString(3, pswd);
+          ps.setInt(4, due);
+          ps.executeUpdate();
           
-         
-//          //if no then continue in this method
-//          //create a default admin object and then call methods on it - with hardcoded standard password
-//          //call admin methods - Customer.java - such as sign in, followed by changeSettings method(only if admin login is successful)
-//          //create Database named ParkingLotDatabase
-//          //create the tables, initalise the slots with their unique ids and types
+       }catch(Exception e){
+          System.out.println(e.getClass().getName() +" : "+e.getMessage());
+       }
 
-//         //  Admin admin = new Admin();
-//         //  boolean successful = admin.signIn();
-//         //  if(successful){
-//         //      admin.changeSettings();
-//         //      connect();
-//         //  }else{
-//         //     System.out.println("Login Failed!!");
-//         //  }
-//      }
-     private void loadData(){
+   }
 
-        getAllEmployees();
-        getAllTickets();
+
+   private void addFloor(int num , int tcs ,int acs ,int tls ,int als ,int ths ,int ahs ,int ttws ,int atws ,int tes ,int aes ){
+
+      try(Connection c = this.connect();
+          PreparedStatement ps = c.prepareStatement("insert into floors values (?,?,?,?,?,?,?,?,?,?,?)");
+       ){
+
+          ps.setInt(1, num);
+          ps.setInt(2, tcs);
+          ps.setInt(3,acs);
+          ps.setInt(4, tls);
+          ps.setInt(5, als);
+          ps.setInt(6, ths);
+          ps.setInt(7, ahs);
+          ps.setInt(8, ttws);
+          ps.setInt(9, atws);
+          ps.setInt(10, tes);
+          ps.setInt(11, aes);
+          
+          ps.executeUpdate();
+          
+       }catch(Exception e){
+          System.out.println(e.getClass().getName() +" : "+e.getMessage());
+       }
+
+   }
+
+   private void addTicket(int id , String starttime , String slot){
+
+        try(Connection c = this.connect();
+            PreparedStatement ps = c.prepareStatement("insert into tickets values (?,?,?)");
+         ){
+
+            ps.setInt(1, id);
+            ps.setString(2, starttime);
+            ps.setString(3, slot);
+            ps.executeUpdate();
             
-     }
-//      //individual methods to update particular tables
+         }catch(Exception e){
+            System.out.println(e.getClass().getName() +" : "+e.getMessage());
+         }
 
-//      public void updateAll()
-//      {
-//         //call all the individual update methods to update all the tables
-//      }
+   }
 
-//      private void insertEmloyee(int id,String name,String pswd,int due){
-//          String sql = "INSERT INTO Employees (id,name,pswd,due) VALUES (?,?,?,?)";
-//          try{
-//              PreparedStatement pstmt = conn.prepareStatement(sql);
-//              pstmt.setInt(1, id);
-//              pstmt.setString(2, name);
-//              pstmt.setString(3, pswd);
-//              pstmt.setInt(4, due);
-//              pstmt.executeUpdate();
-//          }catch(Exception e){
-//             System.err.println( e.getClass().getName() + ": " + e.getMessage() );
-//          }
-//      }
+   private void addCheckPoint(int id,String name,String type,int floorNo,int employeeId){
 
-//      private void insertFloor(int floorno,int cs,int ls,int hs,int tws,int es){
-//          String sql = "INSERT INTO Employees (floorno,cs,acs,ls,als,hs,ahs,tws,atws,es,aes) VALUES (?,?,?,?,?,?,?,?,?,?,?)";
-//          try{
-//              PreparedStatement pstmt = conn.prepareStatement(sql);
-//              pstmt.setInt(1, floorno);
-//              pstmt.setInt(2, cs);
-//              pstmt.setInt(3, cs);
-//              pstmt.setInt(4, ls);
-//              pstmt.setInt(5, ls);
-//              pstmt.setInt(6, hs);
-//              pstmt.setInt(7, hs);
-//              pstmt.setInt(8, tws);
-//              pstmt.setInt(9, tws);
-//              pstmt.setInt(10, es);
-//              pstmt.setInt(11, es);
-//              pstmt.executeUpdate();
-//          }catch(Exception e){
-//             System.err.println( e.getClass().getName() + ": " + e.getMessage() );
-//          }
-//      }
-//      private void insertTicket(int startTime , String spot){
-//          String sql = "INSERT INTO Tickets (startTime,spot) VALUES (?,?)";
-//          try{
-//              PreparedStatement pstmt = conn.prepareStatement(sql);
-//              pstmt.setInt(1, startTime);
-//              pstmt.setString(2, spot);
-//              pstmt.executeUpdate();
-//          }catch(Exception e){
-//             System.err.println( e.getClass().getName() + ": " + e.getMessage() );
-//          }
-//      }
-//      private void insertCheckpoint(String name,String type,int floorno){
-//          String sql = "INSERT INTO Employees (name,type,floorno) VALUES (?,?,?)";
-//          try{
-//              PreparedStatement pstmt = conn.prepareStatement(sql);
-//              pstmt.setString(1, name);
-//              pstmt.setString(2, type);
-//              pstmt.setInt(3, floorno);
-//              pstmt.executeUpdate();
-//          }catch(Exception e){
-//             System.err.println( e.getClass().getName() + ": " + e.getMessage() );
-//          }
-//      }
-//      private void insertSpot(int firstHour,int nextTwoHours , int remainingHours){
-//          String sql = "INSERT INTO spots(firstHour,nextTwoHours,remainingHours) VALUES (?,?,?)";
-//          try{
-//              PreparedStatement pstmt = conn.prepareStatement(sql);
-//              pstmt.setInt(1, firstHour);
-//              pstmt.setInt(2, nextTwoHours);
-//              pstmt.setInt(3, remainingHours);
-//              pstmt.executeUpdate();
-//          }catch(Exception e){
-//             System.err.println( e.getClass().getName() + ": " + e.getMessage() );
-//          }
-//      }
-     
-    
-    
+      try(Connection c = this.connect();
+            PreparedStatement ps = c.prepareStatement("insert into checkpoints values (?,?,?,?,?)");
+         ){
+
+            ps.setInt(1, id);
+            ps.setString(2, name);
+            ps.setString(3, type);
+            ps.setInt(4, floorNo);
+            ps.setInt(5, employeeId);
+
+            ps.executeUpdate();
+            
+         }catch(Exception e){
+            System.out.println(e.getClass().getName() +" : "+e.getMessage());
+         }
+
+   }
+
+   private void addSpotPrice(String type,int fh,int sh,int rh){
+
+      try(Connection c = this.connect();
+            PreparedStatement ps = c.prepareStatement("insert into checkpoints values (?,?,?,?)");
+         ){
+
+            ps.setString(1, type);
+            ps.setInt(2, fh);
+            ps.setInt(3, sh);
+            ps.setInt(4, rh);
+
+            ps.executeUpdate();
+            
+         }catch(Exception e){
+            System.out.println(e.getClass().getName() +" : "+e.getMessage());
+         }
+
+   }
+
+   public void updateDatabase(ParkingLot pl){
+
+      deleteAllTables(); // deleting all existing tables 
+      setupDatabase();  // again creating all empty tables
+
+      ArrayList<Employee> employees = pl.getAllEmployees();
+      ArrayList<Floor> floors = pl.getAllFloors();
+      ArrayList<Ticket> tickets = pl.getAllTickets();
+      ArrayList<Checkpoint> checkPoints = pl.getAllCheckpoints();
+
+      double[] compactPrices = pl.getCompactPrices();
+      double[] largePrices = pl.getLargePrices();
+      double[] handiCappedPrices = pl.getHandiCappedPrices();
+      double[] twoWheelerPrices = pl.getTwoWheelerPrices();
+      double[] electricPrices = pl.getElectricPrices();
+      
+
+      for(Employee e:employees){
+         addEmployee(e.getId(), e.getName(), e.getPassword(), e.getDue());
+      }
+      for(Floor f:floors){
+         addFloor(f.getFloorNo(), f.getTotalNumberOfCompactSpots(), f.getNumberOfAvailableCompactSpots(), f.getTotalNumberOfLargeSpots() , f.getNumberOfAvailableLargeSpots() , f.getTotalNumberOfHandicappedSpots() , f.getNumberOfAvailableHandicappedSpots() , f.getTotalNumberOfTwowheelerSpots() , f.getNumberOfAvailableTwowheelerSpots() , f.getTotalNumberOfElectricalSpots() , f.getNumberOfAvailableElectricalSpots());
+      }
+      for(Ticket t:tickets){
+         addTicket(t.getId(), t.getStartTime(), t.getTypeOfSlot());
+      }
+      for(Checkpoint c:checkPoints){
+         addCheckPoint(c.getId(), c.getName(), c.getType(), c.getFloorNumber() , c.getEmployeeId());
+      }
+
+      addSpotPrice("COMPACT", compactPrices[0], compactPrices[1], compactPrices[2]);
+      addSpotPrice("LARGE", largePrices[0], largePrices[1], largePrices[2]);
+      addSpotPrice("HANDICAPPED", handiCappedPrices[0], handiCappedPrices[1], handiCappedPrices[2]);
+      addSpotPrice("TWOWHEELER", twoWheelerPrices[0], twoWheelerPrices[1], twoWheelerPrices[2]);
+      addSpotPrice("ELECTRIC", electricPrices[0], electricPrices[1], electricPrices[2]);
+      
+
+   }
+        
 }
-//one database for the entire program - check if database of given name already exist, otherwise run the setup database module
-//one database for the entire parking lot.
-//one table for employees
-//one table for slots
-//whenever program is launched, read data from existing databases and create all the objects java and assign all the values
-//use these created objects throughout the program and update the database at regular intervals - code to update database should be in this file
