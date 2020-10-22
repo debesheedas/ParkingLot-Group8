@@ -3,7 +3,9 @@ import java.util.Scanner;
 public class Customer
 {
     Scanner sc = new Scanner(System.in);
-    protected Ticket t = new Ticket();
+    EntryPoint ep = new EntryPoint();
+    ExitPoint ex = new ExitPoint();
+    InfoPortal ip = new InfoPortal();
     void run()
     {
         //menu driven what do you want to do
@@ -23,13 +25,13 @@ public class Customer
         int n = sc.nextInt();
         switch (n) {
             case 1 : {
-                t.generateTicket();
+                ep.userInput();
             }
             case 2 : {
-                t.checkTicket();
+                ex.userInput();
             }
             case 3 : {
-                t.checkTicket();
+                ep.userInput();
             }
             default : {
                 System.out.println("Invalid Option");

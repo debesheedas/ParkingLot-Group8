@@ -6,14 +6,14 @@ public class Employee extends Customer{
     boolean loginstatus = false;
     LoginGUI l = new LoginGUI();
     ChangePasswordGUI c = new ChangePasswordGUI();
-    int id;
-    String name;
-    String password;
-    double dues;
+    private int id;
+    protected String username;
+    protected String password;
+    double dues;//think about how we can internally increasing
     //Employee(int, String, String, double)...............................................................
     Employee(int id, String name, String password, double dues) {
         this.id = id;
-        this.name = name;
+        this.username = name;
         this.password = password;
         this.dues = dues;
     }
@@ -44,7 +44,7 @@ public class Employee extends Customer{
         //check for password of corresponding ID
         l.run();
         do {
-            System.out.println("Press 1: Pay dues\nPress 2: Park Vehicle\nPress 3: Display Floor Plan\nPress 4: Entry/Exit Panel\nPress 5: Info Portal\nPress 6: Change Password\nPress 7: LogOut");
+            System.out.println("Press 1: Pay dues\nPress 2: Park Vehicle\nPress 3: Display Floor Plan\nPress 4: Check/Exit Point\nPress 5: Info Portal\nPress 6: Change Password\nPress 7: LogOut");
             switch (sc.nextInt()) {
                 case 1 : {
                     payAmountDue();
@@ -75,15 +75,33 @@ public class Employee extends Customer{
     }
 
     private void panel() {
+        int n;
+        System.out.println("Press 1: Check Point\nPress 2: Exit Point");
+        switch(sc.nextInt()){
+            case 1: {
+                System.out.println("Select a Check Point");
+                n=sc.nextInt();
+                System.out.println("You are assigned to Check Point no.: "+n);
+            }
+            case 2: {
+                System.out.println("Select a Exit Point");
+                n=sc.nextInt();
+                System.out.println("You are assigned to Exit Point no.: "+n);
+            }
+            default: {
+                System.out.println("Invalid Option");
+            }
+        }
     }
     private void infoPortal() {
+        System.out.println("Your Due is: " + getDues());
     }
     private void changePassword()
     {
         int id, flag=0;
         System.out.println("Enter your ID");
         id = sc.nextInt();
-        for (Employee i : p.getAllEmployees() )
+        for (Employee i : p.getAllEmployees() ) 
         {
             if (id == i.getID()) {
                 c.run(i);
