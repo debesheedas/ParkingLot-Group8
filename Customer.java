@@ -31,7 +31,7 @@ public class Customer
                 ex.userInput();
             }
             case 3 : {
-                ep.userInput();
+                ip.userInput();
             }
             default : {
                 System.out.println("Invalid Option");

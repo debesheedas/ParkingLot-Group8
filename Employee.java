@@ -1,16 +1,19 @@
 import java.util.*;
 
 public class Employee extends Customer{
-    ParkingLot p = new ParkingLot();
     Scanner sc = new Scanner(System.in);
-    boolean loginstatus = false;
+
+    ParkingLot p = new ParkingLot();
+    Checkpoint cp = new Checkpoint();
     LoginGUI l = new LoginGUI();
     ChangePasswordGUI c = new ChangePasswordGUI();
+
+    boolean loginstatus = false;
     private int id;
     protected String username;
     protected String password;
     double dues;//think about how we can internally increasing
-    //Employee(int, String, String, double)...............................................................
+
     Employee(int id, String name, String password, double dues) {
         this.id = id;
         this.username = name;
@@ -23,18 +26,24 @@ public class Employee extends Customer{
     public String getPassword() {
         return password;
     }
-
     public double getDues() {
         return dues;
     }
     public String getUsername() {
-        return name;
+        return username;
     }
+
+    public void setID(int id) {
+        this.id = id;
+    }
+    public void setUsername(String username){
+        this.username = username;
+    }
+    public void setPassword(String psd){ this.password=psd; }
+    public void setDues(double d){ this.dues = d; }
 
     void run()
     {
-        int id;
-        String pass;
         //menu driven, login method
         //if successful, ask if they want to park or pay
         //if they want to pay, call amount due
@@ -44,28 +53,31 @@ public class Employee extends Customer{
         //check for password of corresponding ID
         l.run();
         do {
-            System.out.println("Press 1: Pay dues\nPress 2: Park Vehicle\nPress 3: Display Floor Plan\nPress 4: Check/Exit Point\nPress 5: Info Portal\nPress 6: Change Password\nPress 7: LogOut");
+            System.out.println("Press 1: Pay dues\nPress 2: Park Vehicle\nPress 3: Check/Exit Point\nPress 4: Info Portal\nPress 5: Change Password\nPress 6: LogOut");
             switch (sc.nextInt()) {
                 case 1 : {
                     payAmountDue();
+                    break;
                 }
                 case 2 : {
                     super.run();
+                    break;
                 }
-                /*case 3 : {
-                    s.Display();
-                }*/
-                case 4 : {
+                case 3 : {
                     panel();
+                    break;
+                }
+                case 4 : {
+                    infoPortal();
+                    break;
                 }
                 case 5 : {
-                    infoPortal();
+                    changePassword();
+                    break;
                 }
                 case 6 : {
-                    changePassword();
-                }
-                case 7 : {
                     logout();
+                    break;
                 }
                 default : {
                     System.out.println("Invalid Input");
@@ -76,17 +88,25 @@ public class Employee extends Customer{
 
     private void panel() {
         int n;
-        System.out.println("Press 1: Check Point\nPress 2: Exit Point");
+        System.out.println("Press 1: Entry Point\nPress 2: Exit Point");
         switch(sc.nextInt()){
             case 1: {
-                System.out.println("Select a Check Point");
+                System.out.println("Select a Entry Point");
                 n=sc.nextInt();
-                System.out.println("You are assigned to Check Point no.: "+n);
+                cp.setID(id);
+                cp.setName(username);
+                cp.setAssigned(n);
+                //dues() dummy method
+                break;
             }
             case 2: {
                 System.out.println("Select a Exit Point");
                 n=sc.nextInt();
-                System.out.println("You are assigned to Exit Point no.: "+n);
+                cp.setID(id);
+                cp.setName(username);
+                cp.setAssigned(n);
+                //dues() dummy method
+                break;
             }
             default: {
                 System.out.println("Invalid Option");
@@ -110,10 +130,6 @@ public class Employee extends Customer{
         }
         if(flag==0)     System.out.println("Employee not found");
     }
-    void setPassword(String pass)
-    {
-        this.password = pass;
-    }
     void setLoginStatus(boolean status)
     {
         this.loginstatus = status;
@@ -122,23 +138,34 @@ public class Employee extends Customer{
     {
         //ask if paying by cash or card
         //update the database for the particular employee
-        System.out.println("Your Bill Amount is " + t.computeBill());
+        System.out.println("Your Bill Amount is " + getDues());
         System.out.println("Press 1: Cash\nPress 2: Card");
         switch (sc.nextInt()) {
             case 1 : {
                 System.out.println("Amount successfully paid");
+                break;
             }
             case 2 : {
                 System.out.println("Amount successfully paid");
+                break;
             }
             default : {
                 System.out.println("Invalid Input");
             }
         }
-        t.changeIsPaid(true);
+        setDues(0.0);
     }
     private void logout() {
         setLoginStatus(false);
         System.out.println("LogOut Successful");
     }
 }
+/*
+class Dues{
+    int d=0;        //Should be made array and initialise in PMCS1 where every index should be for every employee
+    public int dues(){      //Whenever it called d should be increased by one
+        setD();
+        return d*50;
+    }
+    setD(){d++;}
+}*/
