@@ -1,3 +1,6 @@
+import java.util.ArrayList;
+import java.util.Scanner;
+
 class EntryPoint extends Checkpoint {
     Scanner Ep = new Scanner(System.in);
     ParkingSpotType t;
@@ -27,21 +30,14 @@ class EntryPoint extends Checkpoint {
         ParkingLot P = new ParkingLot();
         ArrayList<Floor> floors = P.getAllFloors();
         for (Floor floor : floors){
-            floor.getAllSpotsOnthisFloor();
-            if (t == ParkingSpotType.COMPACT)
-                floor.getNumberOfAvailableCompactSpots();
-            else if (t == ParkingSpotType.LARGE)
-                floor.getNumberOfAvailableLargeSpots();
-            else if (t == ParkingSpotType.ELECTRIC)
-                floor.getNumberOfAvailableElectricalSpots();
-            else if (t == ParkingSpotType.TWOWHEELER)
-                floor.getNumberOfAvailableTwowheelerSpots();
-            else if (t == ParkingSpotType.HANDICAPPED)
-                floor.getNumberOfAvailableHandicappedSpots();
-            else
-                System.out.println("Invalid Spot type");
+            ArrayList<Spot> spots = floor.getAllSpotsOnthisFloor();
+            for(Spot s:spots){
+                if(s.getSpotType() == t){
+                    return s;
+                }
+            }
         }
-        getFloorNumber();
+        System.out.println("Spot not found");
     }
     void generateTicket(ParkingSpotType t)
     {

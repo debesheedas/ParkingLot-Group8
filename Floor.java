@@ -1,3 +1,5 @@
+import java.util.ArrayList;
+
 public class Floor {
     int[] NumberOfSpots = new int[10];//if the name of this array is arr, then arr[0]=number of total compact spots, arr[1] = number of available compact spots and so on
     ArrayList<Spot> allSpotsOnthisFloor = new ArrayList<Spot>();
@@ -37,11 +39,9 @@ public class Floor {
     public int getNumberOfAvailableHandicappedSpots(){
         return NumberOfSpots[9];
     }
-=======
->>>>>>> upstream/main
-
-
-<<<<<<< HEAD
+    public int getFloorNo(){
+        return floorNo;
+    }
     public void setFloorNo(int floorNo) {
         this.floorNo = floorNo;
     }
@@ -87,7 +87,7 @@ public class Floor {
     public void setNumberOfSpots(int[] numberOfSpots) {
         NumberOfSpots = numberOfSpots;
     }
-    public boolean removeSpot(Spot s){
+    public void removeSpot(Spot s){
         allSpotsOnthisFloor.remove(s);
     }
 }
