@@ -89,8 +89,8 @@ public class Database{
                int due = rs.getInt("due");
 
                Employee e = new Employee();
-               e.setId(id);
-               e.setName(name);
+               e.setID(id);
+               e.setUsername(name);
                e.setPassword(pswd);
                e.setDue(due);
 
@@ -163,8 +163,8 @@ public class Database{
              
 
              Ticket t = new Ticket();
-             t.setId(id);
-             t.setStartTime(startTime);
+             t.s(id);
+             t.setEntryTime(startTime);
              t.setSlot(slot);
 
              tickets.add(t);
@@ -178,7 +178,7 @@ public class Database{
        }
    }
 
-   private ArrayList<CheckPoint> fillCheckPoints(ArrayList<Checkpoint> checkPoints){
+   private ArrayList<Checkpoint> fillCheckPoints(ArrayList<Checkpoint> checkPoints){
       checkPoints.clear();
       try(Connection c = this.connect();
           Statement s = c.createStatement();
@@ -191,18 +191,31 @@ public class Database{
              String type = rs.getString("type");
              int floorno = rs.getInt("floorno");
              int employeeAssigned = rs.getInt("employeeAssigned");
+
+             switch (type) {
+               case "ENTRY":
+                   EntryPoint ep = new EntryPoint();
+                   ep.setID(id);
+                   ep.setFloorNumber(floorno);
+                   ep.setAssigned(employeeAssigned);
+                   checkPoints.add(ep);
+                   break;
+               
+               case "EXIT":
+                  EntryPoint exp = new EntryPoint();
+                  exp.setID(id);
+                  exp.setFloorNumber(floorno);
+                  exp.setAssigned(employeeAssigned);
+                  checkPoints.add(exp);
+                  break;
+               case "INFO":
+
+                  break;
              
+                default:
+                   break;
+             }
 
-             CheckPoint c = new Checkpoint();
-
-             c.setId(id);
-             c.setName(name);
-             c.setType(type);
-             c.setFloorNo(floorno);
-             c.setEmployee(employeeAssigned);
-             
-
-             checkPoints.add(c);
           }
 
           return checkPoints;
@@ -262,7 +275,7 @@ public class Database{
    //=========================================================================================================================================================
 
 
-   private void addEmployee(int id , String name , String pswd , int due){
+   private void addEmployee(int id , String name , String pswd , double due){
 
       try(Connection c = this.connect();
           PreparedStatement ps = c.prepareStatement("insert into employees values (?,?,?,?)");
@@ -271,7 +284,7 @@ public class Database{
           ps.setInt(1, id);
           ps.setString(2, name);
           ps.setString(3, pswd);
-          ps.setInt(4, due);
+          ps.setDouble(4, due);
           ps.executeUpdate();
           
        }catch(Exception e){
@@ -344,16 +357,16 @@ public class Database{
 
    }
 
-   private void addSpotPrice(String type,int fh,int sh,int rh){
+   private void addSpotPrice(String type,double fh,double sh,double rh){
 
       try(Connection c = this.connect();
             PreparedStatement ps = c.prepareStatement("insert into checkpoints values (?,?,?,?)");
          ){
 
             ps.setString(1, type);
-            ps.setInt(2, fh);
-            ps.setInt(3, sh);
-            ps.setInt(4, rh);
+            ps.setDouble(2, fh);
+            ps.setDouble(3, sh);
+            ps.setDouble(4, rh);
 
             ps.executeUpdate();
             
@@ -375,22 +388,22 @@ public class Database{
 
       double[] compactPrices = pl.getCompactPrices();
       double[] largePrices = pl.getLargePrices();
-      double[] handiCappedPrices = pl.getHandiCappedPrices();
-      double[] twoWheelerPrices = pl.getTwoWheelerPrices();
+      double[] handiCappedPrices = pl.getHandicappedPrices();
+      double[] twoWheelerPrices = pl.getTwowheelerPrices();
       double[] electricPrices = pl.getElectricPrices();
       
 
       for(Employee e:employees){
-         addEmployee(e.getId(), e.getName(), e.getPassword(), e.getDue());
+         addEmployee(e.getID(), e.getUsername(), e.getPassword(), e.getDues());
       }
       for(Floor f:floors){
          addFloor(f.getFloorNo(), f.getTotalNumberOfCompactSpots(), f.getNumberOfAvailableCompactSpots(), f.getTotalNumberOfLargeSpots() , f.getNumberOfAvailableLargeSpots() , f.getTotalNumberOfHandicappedSpots() , f.getNumberOfAvailableHandicappedSpots() , f.getTotalNumberOfTwowheelerSpots() , f.getNumberOfAvailableTwowheelerSpots() , f.getTotalNumberOfElectricalSpots() , f.getNumberOfAvailableElectricalSpots());
       }
       for(Ticket t:tickets){
-         addTicket(t.getId(), t.getStartTime(), t.getTypeOfSlot());
+         addTicket(t.getID(), t.getStartTime(), t.getTypeOfSlot());
       }
       for(Checkpoint c:checkPoints){
-         addCheckPoint(c.getId(), c.getName(), c.getType(), c.getFloorNumber() , c.getEmployeeId());
+         addCheckPoint(c.getID(), c.getName(), c.getType(), c.getFloorNumber() , c.getAssigned());
       }
 
       addSpotPrice("COMPACT", compactPrices[0], compactPrices[1], compactPrices[2]);
