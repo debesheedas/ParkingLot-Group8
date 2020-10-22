@@ -1,0 +1,4 @@
+public enum ParkingSpotType 
+{
+    COMPACT, LARGE, HANDICAPPED, TWOWHEELER, ELECTRIC
+}

@@ -1,9 +1,5 @@
 //Jaswanth
 import java.util.*;
-enum ParkingSpotType 
-{
-    COMPACT, LARGE, HANDICAPPED, TWOWHEELER, ELECTRIC
-}
 
 public class Spot//write a parameterized constructor for  this to initialize the variables as follows
 {

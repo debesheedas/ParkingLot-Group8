@@ -1,7 +1,4 @@
-enum CheckpointType
-{
-    ENTRY, EXIT, INFO
-}
+
 
 public class Checkpoint {
     int ID;
