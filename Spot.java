@@ -1,5 +1,4 @@
-//Jaswanth
-import java.util.*;
+
 enum ParkingSpotType 
 {
     COMPACT, LARGE, HANDICAPPED, TWOWHEELER, ELECTRIC
@@ -7,17 +6,16 @@ enum ParkingSpotType
 
 public class Spot//write a parameterized constructor for  this to initialize the variables as follows
 {
-    int id; 
-    String name;//generate an alphanumeric sequence such as 5C04 where 5 stands for 5th floor, C stands for compact and 04 is the id number of the spot, use L for large, H for handicapped, T for Twowheeler and E for electric
-    ParkingSpotType t;
+    private int id; 
+    private String name;//generate an alphanumeric sequence such as 5C04 where 5 stands for 5th floor, C stands for compact and 04 is the id number of the spot, use L for large, H for handicapped, T for Twowheeler and E for electric
+    private ParkingSpotType t;
     //double[] prices;
-    int floor;
-    boolean isAvailable;
+    private int floor;
+    private boolean isAvailable;
 
     Spot(int id, ParkingSpotType t, int floor, boolean status)
     {
         //assign all values as directed
-        int n;
         char c ='\0';
         this.id = id;
         this.t = t;
@@ -44,10 +42,36 @@ public class Spot//write a parameterized constructor for  this to initialize the
                 break;
         }
         name = (this.floor+""+c+""+String.valueOf(this.id/10)+String.valueOf(this.id%10));
-        System.out.println("Spot Name : "+name);
     }
     ParkingSpotType getSpotType(){
         return t;
+    }
+    void setSpotType(ParkingSpotType t){
+        this.t = t;
+    }
+    String getName(){
+        return name;
+    }
+    void setName(String n){
+        name = n;
+    }
+    int getID(){
+        return id;
+    }
+    public void setID(int id){
+        this.id = id;
+    }
+    public int getFloorNo(){
+        return floor;
+    }
+    public void setFloorNo(int f){
+        floor = f;
+    }
+    boolean isAvailable(){
+        return isAvailable;
+    }
+    void isAvailable(boolean iA){
+        isAvailable = iA;
     }
 }
 

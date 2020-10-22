@@ -8,7 +8,20 @@ public class Floor {
     {
         this.NumberOfSpots = NumberOfSpots;
         this.floorNo = floorNo;
-        this.allSpotsOnthisFloor = allSpotsOnthisFloor;//initialize this by creating all the spot objects of appropriate types 
+        //initialize this by creating all the spot objects of appropriate types
+        for(int i=1;i<=5;i++){
+            if(i==1)
+                allSpotsOnthisFloor.add(new Spot(i,ParkingSpotType.COMPACT , this.floorNo, true));
+            else if(i==2)
+                allSpotsOnthisFloor.add(new Spot(i,ParkingSpotType.LARGE , this.floorNo, true));
+            else if(i==3)
+                allSpotsOnthisFloor.add(new Spot(i,ParkingSpotType.ELECTRIC , this.floorNo, true));   
+            else if(i==4)
+                allSpotsOnthisFloor.add(new Spot(i,ParkingSpotType.TWOWHEELER , this.floorNo, true));
+            else if(i==5)
+                allSpotsOnthisFloor.add(new Spot(i,ParkingSpotType.HANDICAPPED , this.floorNo, true));        
+        }
+
     }
     public int getTotalNumberOfCompactSpots(){
         return NumberOfSpots[0];
@@ -88,9 +101,27 @@ public class Floor {
     public void setNumberOfSpots(int[] numberOfSpots) {
         NumberOfSpots = numberOfSpots;
     }
-    public void removeSpot(Spot s){
+
+
+    public void freeSpot(Spot s){
         //change the isAvailable value to true
         //also modify NumberOfSpots - From Spot object, identify which type it is...and then modify corresponding array value
-        //allSpotsOnthisFloor.remove(s);
+        s.isAvailable(true);
+        ParkingSpotType t = s.getSpotType(); // CHECK IF THIS ASSIGNMENT IS CORRECT
+        switch(t){
+            case COMPACT:NumberOfSpots[1] += 1;
+                break;
+            case LARGE:NumberOfSpots[3] += 1;
+                break;
+            case ELECTRIC:NumberOfSpots[5] += 1;
+                break;
+            case TWOWHEELER:NumberOfSpots[7] += 1;
+                break;
+            case HANDICAPPED:NumberOfSpots[9] += 1;
+                break;
+            default: System.out.println("Invalid Spot Type");
+                break;
+            
+        }
     }
 }

@@ -1,11 +1,13 @@
+import java.util.*;
+
 public class Ticket
 {
-    int ID;
-    Spot s; //Spot allotted
-    Time entry;
-    Time exit;
-    boolean isPaid;
-    String VehicleNumberPlate;
+    private int ID;
+    private Spot s; //Spot allotted
+    private Time entry;
+    private Time exit;
+    private boolean isPaid;
+    private String VehicleNumberPlate;
     Ticket(int id, Spot spot, String vnp)
     {
         ID=id;
@@ -56,11 +58,22 @@ public class Ticket
         double[] arr = new double[3];
         switch(t)
         {
-            case COMPACT:arr=super.getCompactPrices();
+            case COMPACT: arr = super.getCompactPrices();
+                break;
+            case LARGE: arr = super.getLargePrices();
+                break;
+            case ELECTRIC: arr = super.getElectricPrices();
+                break;
+            case TWOWHEELER: arr = super.getTwowheelerPrices();
+                break;
+            case HANDICAPPED: arr = super.getHandicappedPrices();
+                break;
+            default: System.out.println("Invalid Spot Type");
+                break;
         }
         if (difference <= 1)
             billAmount = difference * arr[0];
-        else if (difference > 1 && difference <= 2)
+        else if (difference > 1 && difference <= 3)
             billAmount = difference * arr[1];
         else
             billAmount = difference * arr[2];
@@ -73,6 +86,15 @@ public class Ticket
     int getID()
     {
         return ID;
+    }
+    void setID(int id){
+        ID = id;
+    }
+    String getVehicleNumberPlate(){
+        return VehicleNumberPlate;
+    }
+    void setVehicleNumberPlate(String vnp){
+        VehicleNumberPlate = vnp;
     }
         //pay ticket - after payment, delete ticket from database
 
