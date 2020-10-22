@@ -1,12 +1,12 @@
 
 
 public class Checkpoint {
-    int ID;
-    String name;
-    CheckpointType type;//getter setter methods
+    private int ID;
+    private String name;
+    private CheckpointType type;//getter setter methods
     //Employee assigned;
-    int assignedEmployeeID;
-    int floorNumber;//here write getter and setter methods for all instance variables after declaring them protected
+    private int assignedEmployeeID;
+    private int floorNumber;//here write getter and setter methods for all instance variables after declaring them protected
 
     public int getID() {
         return ID;
@@ -29,13 +29,17 @@ public class Checkpoint {
     public int getFloorNumber() {
         return floorNumber;
     }
-
-
     public String getName() {
         return name;
     }
 
     public void setName(String name) {
         this.name = name;
+    }
+    public CheckpointType getCheckpointType(){
+        return type;
+    }
+    void setCheckpointType(CheckpointType c){
+        type = c;
     }
 }
