@@ -35,7 +35,15 @@ public class Ticket
     }*/
 
         //whenever you need the difference between two time objects t1 and t2 in hours, then just call double difference = exit.diff(entry);
-    void setEntryTime() {
+    public Spot getSpot()
+    {
+        return s;
+    }
+    void setSpot(Spot s)
+    {
+        this.s = s;
+    }
+        void setEntryTime() {
         entry = new Time();
     }
     void setStopTime(Time t)

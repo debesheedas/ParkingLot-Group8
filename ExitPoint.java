@@ -30,7 +30,7 @@ class ExitPoint extends Checkpoint
     {
         for(Ticket ts : p.getAllTickets())
         {
-            if(id == ts.ID)
+            if(id == ts.getID())
             {
                 isPaid = false;
                 t.changeIsPaid(false);
@@ -44,8 +44,8 @@ class ExitPoint extends Checkpoint
         {
             //check which floor this spot is on, let it be f
             //call f.freeSpot(spot obj)
-            int f = t.s.floor;
-            f.freeSpot(t.s);
+            //int f = t.getSpot().getFloorNo();
+            //f.freeSpot(t.getSpot());
         }
         else
         {

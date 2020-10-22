@@ -2,7 +2,7 @@ import java.util.*;
 public class Admin extends Employee {
     Scanner sc = new Scanner(System.in);
     ParkingLot p = new ParkingLot();
-    FloorDisplayGUI e = new FloorDisplayGUI(null);
+    //FloorDisplayGUI e = new FloorDisplayGUI(null);
     //private String password = "password";
     boolean loginstatus;
     private String agn;
