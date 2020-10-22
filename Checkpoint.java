@@ -1,7 +1,4 @@
-import java.util.*;
-
 public class Checkpoint {
-    Ticket T = new Ticket();
     int ID;
     String name;
     Employee assigned;

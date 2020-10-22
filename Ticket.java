@@ -1,4 +1,3 @@
-import java.util.*;
 public class Ticket {
     int ID;
     Spot s; //Spot allotted

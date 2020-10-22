@@ -1,10 +1,12 @@
-import java.util.*;
 public class Floor {
-
-    //need to make a parameterized constructor....
     int[] NumberOfSpots = new int[10];//if the name of this array is arr, then arr[0]=number of total compact spots, arr[1] = number of available compact spots and so on
     ArrayList<Spot> allSpotsOnthisFloor = new ArrayList<Spot>();
     int floorNo;
+    Floor(int[] NumberOfSpots , ArrayList<Spot> allSpotsOnthisFloor , int floorNo){
+        this.NumberOfSpots = NumberOfSpots;
+        this.allSpotsOnthisFloor = allSpotsOnthisFloor;
+        this.floorNo = floorNo;
+    }
     public int getTotalNumberOfCompactSpots(){
         return NumberOfSpots[0];
     }
@@ -35,47 +37,57 @@ public class Floor {
     public int getNumberOfAvailableHandicappedSpots(){
         return NumberOfSpots[9];
     }
+=======
+>>>>>>> upstream/main
 
-    public int getFloorNo() {
-        return floorNo;
-    }
 
+<<<<<<< HEAD
     public void setFloorNo(int floorNo) {
         this.floorNo = floorNo;
     }
-    public void setTotalNumberOfCompactSpots(int[] NumberOfSpots ){
-         this.NumberOfSpots[0] = NumberOfSpots[0];
+    public void setTotalNumberOfCompactSpots(int NumberOfSpots ){
+         this.NumberOfSpots[0] = NumberOfSpots;
     }
-    public void setNumberOfAvailableCompactSpots(int[] NumberOfSpots){
-         this.NumberOfSpots[1] = NumberOfSpots[1];
+    public void setNumberOfAvailableCompactSpots(int NumberOfSpots){
+         this.NumberOfSpots[1] = NumberOfSpots;
     }
-    public void setTotalNumberOfLargeSpots(int[] NumberOfSpots){
-         this.NumberOfSpots[2] = NumberOfSpots[2];
+    public void setTotalNumberOfLargeSpots(int NumberOfSpots){
+         this.NumberOfSpots[2] = NumberOfSpots;
     }
-    public void setNumberOfAvailableLargeSpots(int[] NumberOfSpots){
-         this.NumberOfSpots[3] = NumberOfSpots[3] ;
+    public void setNumberOfAvailableLargeSpots(int NumberOfSpots){
+         this.NumberOfSpots[3] = NumberOfSpots ;
     }
-    public void setTotalNumberOfElectricalSpots(int[] NumberOfSpots){
-         this.NumberOfSpots[4] = NumberOfSpots[4];
+    public void setTotalNumberOfElectricalSpots(int NumberOfSpots){
+         this.NumberOfSpots[4] = NumberOfSpots;
     }
-    public void setNumberOfAvailableElectricalSpots(int[] NumberOfSpots){
-         this.NumberOfSpots[5] = NumberOfSpots[5];
+    public void setNumberOfAvailableElectricalSpots(int NumberOfSpots){
+         this.NumberOfSpots[5] = NumberOfSpots;
     }
-    public void setTotalNumberOfTwowheelerSpots(int[] NumberOfSpots){
-         this.NumberOfSpots[6] = NumberOfSpots[6];
+    public void setTotalNumberOfTwowheelerSpots(int NumberOfSpots){
+         this.NumberOfSpots[6] = NumberOfSpots;
     }
-    public void setNumberOfAvailableTwowheelerSpots(int[] NumberOfSpots){
-         this.NumberOfSpots[7] = NumberOfSpots[7];
+    public void setNumberOfAvailableTwowheelerSpots(int NumberOfSpots){
+         this.NumberOfSpots[7] = NumberOfSpots;
     }
-    public void setTotalNumberOfHandicappedSpots(int[] NumberOfSpots){
-         this.NumberOfSpots[8] = NumberOfSpots[8];
+    public void setTotalNumberOfHandicappedSpots(int NumberOfSpots){
+         this.NumberOfSpots[8] = NumberOfSpots;
     }
-    public void setNumberOfAvailableHandicappedSpots(int[] NumberOfSpots){
-         this.NumberOfSpots[9] = NumberOfSpots[9];
+    public void setNumberOfAvailableHandicappedSpots(int NumberOfSpots){
+         this.NumberOfSpots[9] = NumberOfSpots;
     }
-
-    //void/boolean freeSpot(Spot s)
-    {
-
+    public ArrayList<Spot> getAllSpotsOnthisFloor() {
+        return allSpotsOnthisFloor;
+    }
+    public int[] getNumberOfSpots() {
+        return NumberOfSpots;
+    }
+    public void setAllSpotsOnthisFloor(ArrayList<Spot> allSpotsOnthisFloor) {
+        this.allSpotsOnthisFloor = allSpotsOnthisFloor;
+    }
+    public void setNumberOfSpots(int[] numberOfSpots) {
+        NumberOfSpots = numberOfSpots;
+    }
+    public boolean removeSpot(Spot s){
+        allSpotsOnthisFloor.remove(s);
     }
 }
