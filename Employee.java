@@ -17,7 +17,7 @@ public class Employee extends Customer{
     Employee(ParkingLot pl, int id, String name, String password, double dues) 
     {
         super(pl);
-        super.pl=pl;
+        //super.pl=pl;
         loginstatus=false;
         this.id = id;
         this.username = name;
@@ -25,23 +25,23 @@ public class Employee extends Customer{
         this.dues = dues;
     }
     
-    public int getID() {
+    int getID() {
         return id;
     }
-    public String getPassword() {
+    String getPassword() {
         return password;
     }
-    public double getDues() {
+    double getDues() {
         return dues;
     }
-    public String getUsername() {
+    String getUsername() {
         return username;
     }
 
-    public void setID(int id) {
+    void setID(int id) {
         this.id = id;
     }
-    public void setUsername(String username){
+    void setUsername(String username){
         this.username = username;
     }
     public void setPassword(String psd){ this.password=psd; }

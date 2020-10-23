@@ -6,13 +6,14 @@ class ExitPoint extends Checkpoint
     //Scanner sc = new Scanner(System.in);
     
     //Ticket t = new Ticket(0,null, null);
-    //ParkingLot p = new ParkingLot();
+    ParkingLot pl;
     //Floor f = new Floor(null, 0);
     //int id;
     //boolean isPaid = true;
     ExitPoint(ParkingLot p, int id, String nm, int floorNo)
     {
-        super(p, id, nm, CheckpointType.EXIT, floorNo)
+        super(p, id, nm, CheckpointType.EXIT, floorNo);
+        pl=p;
         /*super.pl=p;
         super.ID = id;
         super.name = nm;

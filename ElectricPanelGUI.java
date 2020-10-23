@@ -11,6 +11,7 @@ import java.util.*;
 //e.run(p);
 class ElectricPanelGUI implements ActionListener
 {
+    ParkingLot p;
     private static JFrame frame;
 	private static JPanel panel;
 	private static JLabel amount_due;
@@ -23,8 +24,12 @@ class ElectricPanelGUI implements ActionListener
     private Time start;
     private static boolean flag;
     private static double price;
-	
-    void run(ParkingLot p)
+    
+    ElectricPanelGUI(ParkingLot pl)
+    {
+        p=pl;
+    }
+    void run()
     {//Pass ParkingLot object p - void run(ParkingLot p)
 		
 		frame = new JFrame();
@@ -38,13 +43,13 @@ class ElectricPanelGUI implements ActionListener
 		start_button = new JButton("START CHARGING");
         start_button.setBounds(100, 80, 160, 25);
         start_button.setBackground(Color.GREEN);
-		start_button.addActionListener(new ElectricPanelGUI());
+		start_button.addActionListener(new ElectricPanelGUI(p));
         panel.add(start_button);
         
         stop_button = new JButton("STOP CHARGING");
         stop_button.setBounds(340, 80, 160, 25);
         stop_button.setBackground(Color.RED);
-		stop_button.addActionListener(new ElectricPanelGUI());
+		stop_button.addActionListener(new ElectricPanelGUI(p));
         panel.add(stop_button);
 
         amount_due = new JLabel();
@@ -53,13 +58,13 @@ class ElectricPanelGUI implements ActionListener
 
         cash_button = new JButton("Pay with Cash");
 		cash_button.setBounds(100, 200, 160, 25);
-		cash_button.addActionListener(new ElectricPanelGUI());
+		cash_button.addActionListener(new ElectricPanelGUI(p));
         panel.add(cash_button);
         cash_button.setVisible(false);
         
         card_button = new JButton("Pay with Card");
 		card_button.setBounds(340, 200, 160, 25);
-		card_button.addActionListener(new ElectricPanelGUI());
+		card_button.addActionListener(new ElectricPanelGUI(p));
         panel.add(card_button);
         card_button.setVisible(false);
 		

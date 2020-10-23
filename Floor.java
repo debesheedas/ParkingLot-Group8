@@ -8,10 +8,33 @@ public class Floor
     int floorNo;
     Floor(ParkingLot pl, int[] NumberOfSpots,  int floorNo)
     {
+        //every Spot on a floor has a unique ID
+        int id=1;
         this.pl=pl;
         this.NumberOfSpots = NumberOfSpots;
         this.floorNo = floorNo;
         //initialize this by creating all the spot objects of appropriate types
+        for(int i=0; i<NumberOfSpots[0]; i++, id++)
+        {
+            allSpotsOnthisFloor.add(new Spot(pl, id,ParkingSpotType.COMPACT , this.floorNo, true));
+        }
+        for(int i=0; i<NumberOfSpots[2]; i++, id++)
+        {
+            allSpotsOnthisFloor.add(new Spot(pl, id,ParkingSpotType.LARGE , this.floorNo, true));
+        }
+        for(int i=0; i<NumberOfSpots[4]; i++, id++)
+        {
+            allSpotsOnthisFloor.add(new Spot(pl, id,ParkingSpotType.HANDICAPPED , this.floorNo, true));
+        }
+        for(int i=0; i<NumberOfSpots[6]; i++, id++)
+        {
+            allSpotsOnthisFloor.add(new Spot(pl, id,ParkingSpotType.TWOWHEELER , this.floorNo, true));
+        }
+        for(int i=0; i<NumberOfSpots[8]; i++, id++)
+        {
+            allSpotsOnthisFloor.add(new Spot(pl, id,ParkingSpotType.ELECTRIC , this.floorNo, true));
+        }
+        /*
         for(int i=1;i<=5;i++){
             if(i==1)
                 allSpotsOnthisFloor.add(new Spot(pl, i,ParkingSpotType.COMPACT , this.floorNo, true));
@@ -23,7 +46,7 @@ public class Floor
                 allSpotsOnthisFloor.add(new Spot(pl, i,ParkingSpotType.TWOWHEELER , this.floorNo, true));
             else if(i==5)
                 allSpotsOnthisFloor.add(new Spot(pl, i,ParkingSpotType.HANDICAPPED , this.floorNo, true));        
-        }
+        }*/
 
     }
     public int getTotalNumberOfCompactSpots(){

@@ -17,8 +17,6 @@ public class Checkpoint {
         type = t;
         assignedEmployeeID=0;
         floorNumber = floorNo;
-
-
     }
 
     public int getID() {

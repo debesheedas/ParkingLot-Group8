@@ -10,8 +10,13 @@ import java.util.*;
 //to call Login for both admin or Employee, call this class and run method as the following statements
 //LoginGUI l = new LoginGUI();
 //l.run();
-public class LoginGUI extends ParkingLot implements ActionListener 
+public class LoginGUI implements ActionListener 
 {
+	ParkingLot pl;
+	LoginGUI(ParkingLot p)
+	{
+		pl=p;
+	}
     private static JFrame frame;
 	private static JPanel panel;
 	private static JLabel label;
@@ -52,7 +57,7 @@ public class LoginGUI extends ParkingLot implements ActionListener
 		
 		button = new JButton("Login");
 		button.setBounds(100, 80, 80, 25);
-		button.addActionListener(new LoginGUI());
+		button.addActionListener(new LoginGUI(pl));
 		panel.add(button);
 		
 		success = new JLabel();
@@ -81,7 +86,7 @@ public class LoginGUI extends ParkingLot implements ActionListener
             //Admin a = super.getAdmin();//getter method for admin instance variable available in ParkingLot class
             //a.setLoginStatus(true);//setter method provided in Admin class...we could consider making admin a static variable
         }
-        else if(searchEmployeeByUsername(username, password))
+        else if(pl.searchEmployeeByUsername(username, password))
         {
             success.setText("Login Successful!");
             Employee emp = pl.returnEmployeeByUsername(username, password);//method present in ParkingLot class

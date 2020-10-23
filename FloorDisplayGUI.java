@@ -17,7 +17,7 @@ public class FloorDisplayGUI
     FloorDisplayGUI(Floor floor)
     {  
         //int X = 3;
-        int X = floor.getFloorNumber();//getter method from class Floor
+        int X = floor.getFloorNo();//getter method from class Floor
         //int arr[] = {40, 25, 30, 25, 10, 8, 40, 25, 15, 10};
         int arr[] = floor.getNumberOfSpots();//getter method from class Floor
         String[] a = new String[10];

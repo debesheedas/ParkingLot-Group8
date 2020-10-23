@@ -4,10 +4,12 @@ public class InfoPortal extends Checkpoint
     //double t;
     //Scanner sc = new Scanner(System.in);
     //boolean isPaid = true;
-    int id;
+    //int id;
+    ParkingLot pl;
     InfoPortal(ParkingLot p, int id, String nm, int floorNo)
     {
-        super(p, id, nm, CheckpointType.INFO, floorNo)
+        super(p, id, nm, CheckpointType.INFO, floorNo);
+        pl=p;
         /*super.pl=p;
         super.ID = id;
         super.name = nm;

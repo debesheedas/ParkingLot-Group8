@@ -8,7 +8,8 @@ class EntryPoint extends Checkpoint {
     private ParkingLot pl;
     EntryPoint(ParkingLot p, int id, String nm, int floorNo)
     {
-        super(p, id, nm, CheckpointType.ENTRY, floorNo)
+        super(p, id, nm, CheckpointType.ENTRY, floorNo);
+        pl=p;
         /*super.pl=p;
         super.ID = id;
         super.name = nm;

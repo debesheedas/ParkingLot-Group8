@@ -21,6 +21,7 @@ public class ParkingLot
     //delete employee - set
     //Array list of entry points exit points and info portals basically an arraylist of all checkpoints
     //write getter and setter methods for each of the instance variables of this class
+    
 
     Admin getAdmin()
     {
@@ -52,8 +53,19 @@ public class ParkingLot
             return false;
         //if it already exists return false
         //if it does not exist already, then
-        getAllEmployees().add(e);
+        employeeList.add(e);
         return true;
+    }
+    boolean removeEmployee(Employee e)
+    {
+        //first check if employee with this ID already exists - method to search by id
+        if (searchEmployeeByID(e))
+        {
+            employeeList.remove(e); 
+            return true;  
+        }
+            return false;
+        
     }
     boolean searchEmployeeByID(Employee e)
     {
@@ -91,64 +103,132 @@ public class ParkingLot
         return null;
     }
 
-    public ArrayList<Ticket> getAllTickets() {
+    ArrayList<Ticket> getAllTickets() {
         return allTickets;
     }
 
-    public void setTickets(ArrayList<Ticket> t) {
+    void setTickets(ArrayList<Ticket> t) {
         allTickets = t;
     }
 
-    public void removeTicket(Ticket t){
-        getAllTickets().remove(t);
+    boolean removeTicket(Ticket t){
+        for(Ticket i: allTickets){
+            if(t.getID() == i.getID())
+            {
+                allTickets.remove(t);
+                return true;
+            }       
+        }
+        return true;
+        
     }
-    public void addTicket(Ticket t){
-        getAllTickets().add(t);
+    boolean addTicket(Ticket t){
+        for(Ticket i: allTickets){
+            if(t.getID() == i.getID())
+                return false;
+        }
+        allTickets.add(t);
+        return true;
     }
 
-    public boolean searchTicket(Ticket t){
-        int id = t.getID();
-        for(Ticket i: allTickets ){
+    boolean searchTicketbyID(int id){
+        for(Ticket i: allTickets){
             if(id == i.getID())
                 return true;
         }
         return false;
     }
-
-    public int returnTicketByID (Ticket t){
-        if (searchTicket(t))
+    //probably wont need this, not tested yet
+    int returnTicketByID (Ticket t){
+        if (searchTicketbyID(t.getID()))
             return t.getID();
         return 0;
     }
 
 
-    public ArrayList<Checkpoint> getAllCheckpoints() {
+    ArrayList<Checkpoint> getAllCheckpoints() {
 
         return allCheckpoints;
     }
-    public void setCheckpoints(ArrayList<Checkpoint> c){
+    void setCheckpoints(ArrayList<Checkpoint> c){
         allCheckpoints = c;
     }
-    public void removeChekpoint(Checkpoint c){
-        getAllCheckpoints().remove(c);
+    boolean removeChekpoint(Checkpoint c){
+        for(Checkpoint i: allCheckpoints)
+        {
+            if(c.getID()==i.getID())
+            {
+                allCheckpoints.remove(c);
+            return true;
+            } 
+        }
+        return false;
+        
     }
-    public void addCheckpoint(Checkpoint c){
-        getAllCheckpoints().add(c);
+    boolean addCheckpoint(Checkpoint c){
+        for(Checkpoint i: allCheckpoints)
+        {
+            if(c.getID()==i.getID())
+            {
+                return false;
+            }
+        }
+        allCheckpoints.add(c);
+        return true;
+    }
+    Checkpoint searchCheckpointByID(int id)
+    {
+        for(Checkpoint i: allCheckpoints)
+        {
+            if(id==i.getID())
+            {
+                return i;
+            }
+        }
+        return null;
     }
 
-    public ArrayList<Floor> getAllFloors() {
+
+    ArrayList<Floor> getAllFloors() {
 
         return allFloors;
     }
-    public void setFloors(ArrayList<Floor> f){
+    void setFloors(ArrayList<Floor> f){
 
         allFloors = f;
     }
-    public void removeFloor(Floor f){
-        getAllFloors().remove(f);
+    boolean removeFloor(Floor f){
+        for(Floor i:allFloors)
+        {
+            if(f.getFloorNo()==i.getFloorNo())
+            {
+                allFloors.remove(f);
+                return true;
+            }
+        }
+        return false;        
     }
-    public void addFloor(Floor f){
-        getAllFloors().add(f);
+    boolean addFloor(Floor f){
+        for(Floor i:allFloors)
+        {
+            if(f.getFloorNo()==i.getFloorNo())
+            {
+                return false;
+            }
+        }
+        allFloors.add(f);
+        return true;  
+    }
+    Floor searchFloorByFloorNo(int no)
+    {
+        for(Floor i:allFloors)
+        {
+            if(no==i.getFloorNo())
+            {
+                return i;
+            }
+        }
+        return null; 
     }
 
 
@@ -209,8 +289,8 @@ public class ParkingLot
     void run()
     {
         System.out.println("Enter run");
-        db.loadDatabase(this);//loading data into objects from existing database if exists, else setting up database
-        Spot s = new Spot(this, 1, ParkingSpotType.COMPACT, 1, true);
+        //db.loadDatabase(this);//loading data into objects from existing database if exists, else setting up database
+        /*Spot s = new Spot(this, 1, ParkingSpotType.COMPACT, 1, true);
         System.out.println(s);
         //Scanner scan = new Scanner(System.in);
         //boolean y = scan.nextBoolean();
@@ -219,9 +299,11 @@ public class ParkingLot
         Employee e = new Employee(this, 1,"Username", "pass", 0.0);
         employeeList.add(e);
         System.out.println(e.toString());
+        */
         //db.updateDatabase(this); //updates database before terminating the program
 
         
+    
     }
    
 }

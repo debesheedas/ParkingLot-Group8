@@ -2,8 +2,8 @@
 //Navjoth
 
 import java.util.*;
-//import java.lang.*;
-
+import java.lang.*;
+/*
 
 public class PMCS1
 {
@@ -16,4 +16,5 @@ public class PMCS1
     }
 }
 
+*/
 

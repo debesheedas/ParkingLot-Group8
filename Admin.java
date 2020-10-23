@@ -1,7 +1,7 @@
 import java.util.*;
 public class Admin extends Employee {
-    Scanner sc = new Scanner(System.in);
-    ParkingLot pl = new ParkingLot();
+    //Scanner sc = new Scanner(System.in);
+    ParkingLot pl;
     private String username = "admin";
     //FloorDisplayGUI e = new FloorDisplayGUI(null);
     private String password = "password";
@@ -10,6 +10,7 @@ public class Admin extends Employee {
 
     Admin(ParkingLot p)
     {
+        super(p, 0, "admin", "password", 0.0);
         pl = p;
         username = "admin";
         password = "password";
