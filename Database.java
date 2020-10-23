@@ -94,7 +94,7 @@ public class Database{
                String pswd = rs.getString("pswd");
                double due = rs.getDouble("due");
 
-               Employee e = new Employee(id,name,pswd,due);
+               Employee e = new Employee(this.pl ,id,name,pswd,due);
                employees.add(e);
             }
 
@@ -110,11 +110,11 @@ public class Database{
       floors.clear();
       try(Connection c = this.connect();
           Statement s = c.createStatement();
-       ){
+      ){
 
-          ResultSet rs = s.executeQuery("select * from floors");
-          while(rs.next()){
-             int num = rs.getInt("floorNo");
+         ResultSet rs = s.executeQuery("select * from floors");
+         while(rs.next()){
+             int floorNo = rs.getInt("floorNo");
              int tcs = rs.getInt("tcs");
              int acs = rs.getInt("acs");
              int tls = rs.getInt("tls");
@@ -126,7 +126,7 @@ public class Database{
              int tes = rs.getInt("tes");
              int aes = rs.getInt("aes");
 
-             Floor f = new Floor(new int[]{tcs , acs ,tls , als , ths , ahs , ttws , atws , tes , aes } , num);
+            Floor f = new Floor(this.pl , new int[]{tcs , acs ,tls , als , ths , ahs , ttws , atws , tes , aes } , floorNo);
             //  f.setFloorNo(num);
             //  f.setTotalNumberOfCompactSpots(tcs);
             //  f.setNumberOfAvailableCompactSpots(acs);
@@ -140,14 +140,14 @@ public class Database{
             //  f.setNumberOfAvailableElectricalSpots(aes);
 
              floors.add(f);
-          }
+         }
 
-          return floors;
+         return floors;
           
-       }catch(Exception e){
+      }catch(Exception e){
           System.out.println(e.getClass().getName() +" : "+e.getMessage());
           return null;
-       }
+      }
    }
 
    private ArrayList<Ticket> fillTickets(ArrayList<Ticket> tickets){
@@ -207,29 +207,20 @@ public class Database{
 
             switch (type) {
                case "ENTRY":
-                   EntryPoint ep = new EntryPoint();
-                   ep.setID(id);
-                   ep.setName(name);
-                   ep.setFloorNumber(floorno);
+                   EntryPoint ep = new EntryPoint(this.pl , id , name , floorno);
                    ep.setAssigned(assignedEmployeeID);
                    ep.setCheckpointType(CheckpointType.ENTRY);
                    checkPoints.add(ep);
                    break;
                
                case "EXIT":
-                  EntryPoint exp = new EntryPoint();
-                  exp.setID(id);
-                  exp.setName(name);
-                  exp.setFloorNumber(floorno);
+                  ExitPoint exp = new ExitPoint(this.pl , id , name , floorno);
                   exp.setAssigned(assignedEmployeeID);
                   exp.setCheckpointType(CheckpointType.EXIT);
                   checkPoints.add(exp);
                   break;
                case "INFO":
-                  InfoPortal ip = new InfoPortal();
-                  ip.setID(id);
-                  ip.setName(name);
-                  ip.setFloorNumber(floorno);
+                  InfoPortal ip = new InfoPortal(this.pl , id , name , floorno);
                   ip.setAssigned(assignedEmployeeID);
                   ip.setCheckpointType(CheckpointType.INFO);
                   checkPoints.add(ip);

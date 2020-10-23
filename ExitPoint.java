@@ -12,7 +12,7 @@ class ExitPoint extends Checkpoint
     //boolean isPaid = true;
     ExitPoint(ParkingLot p, int id, String nm, int floorNo)
     {
-        super(p, id, nm, Checkpoint.EXIT, floorNo)
+        super(p, id, nm, CheckpointType.EXIT, floorNo)
         /*super.pl=p;
         super.ID = id;
         super.name = nm;

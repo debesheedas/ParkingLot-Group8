@@ -7,7 +7,7 @@ public class InfoPortal extends Checkpoint
     int id;
     InfoPortal(ParkingLot p, int id, String nm, int floorNo)
     {
-        super(p, id, nm, Checkpoint.INFO, floorNo)
+        super(p, id, nm, CheckpointType.INFO, floorNo)
         /*super.pl=p;
         super.ID = id;
         super.name = nm;
