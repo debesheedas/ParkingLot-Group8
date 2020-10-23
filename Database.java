@@ -162,7 +162,7 @@ public class Database{
              int floorNo = rs.getInt("floorNo");
              String vnp = rs.getString("vnp");
 
-             Ticket t ;
+             Ticket t = null ;
 
              ArrayList<Floor> floors = pl.getAllFloors();
              for(Floor floor : floors){
@@ -424,10 +424,10 @@ public class Database{
          addFloor(f.getFloorNo(), f.getTotalNumberOfCompactSpots(), f.getNumberOfAvailableCompactSpots(), f.getTotalNumberOfLargeSpots() , f.getNumberOfAvailableLargeSpots() , f.getTotalNumberOfHandicappedSpots() , f.getNumberOfAvailableHandicappedSpots() , f.getTotalNumberOfTwowheelerSpots() , f.getNumberOfAvailableTwowheelerSpots() , f.getTotalNumberOfElectricalSpots() , f.getNumberOfAvailableElectricalSpots());
       }
       for(Ticket t:tickets){
-         addTicket(t.getID(), t.getStartTime(), t.s.getID() , t.s.getFloorNo() , t.getVNP());
+         addTicket(t.getID(), t.getStartTime(), t.getSpot().getID() , t.getSpot().getFloorNo() , t.getVehicleNumberPlate());
       }
       for(Checkpoint c:checkPoints){
-         addCheckPoint(c.getID(), c.getName(), c.getCheckPointType(), c.getFloorNumber() , c.getAssigned());
+         addCheckPoint(c.getID(), c.getName(), c.getCheckpointType().toString(), c.getFloorNumber() , c.getAssigned());
       }
 
       addSpotPrice("COMPACT", compactPrices[0], compactPrices[1], compactPrices[2]);
