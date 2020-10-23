@@ -3,9 +3,22 @@ import java.util.Scanner;
 
 class EntryPoint extends Checkpoint {
     Scanner Ep = new Scanner(System.in);
-    private ParkingSpotType t;
-    private Spot s;
-    private ParkingLot pl = new ParkingLot();
+    //private ParkingSpotType t;
+    //private Spot s;
+    private ParkingLot pl;
+    EntryPoint(ParkingLot p, int id, String nm, int floorNo)
+    {
+        super(p, id, nm, CheckpointType.ENTRY, floorNo)
+        /*super.pl=p;
+        super.ID = id;
+        super.name = nm;
+        super.type = Checkpoint.ENTRY;
+        super.assignedEmployeeID=0;
+        super.floorNumber = floorNo;*/
+
+
+    }
+    /*
     void run()
     {
         //call userInput()
@@ -68,10 +81,10 @@ class EntryPoint extends Checkpoint {
             System.out.println("Enter the number of vehicleNumberPlate : ");
             String vehicleNumberPlate = Ep.nextLine();
             int id = pl.returnTicketByID(tc);
-            T = new Ticket(id+1, temp, vehicleNumberPlate);
+            T = new Ticket(super.pl, id+1, temp, vehicleNumberPlate);
             pl.addTicket(T);
             tc = T;
         }
     }
-
+    */
 }

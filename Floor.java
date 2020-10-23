@@ -1,25 +1,28 @@
 import java.util.ArrayList;
 
-public class Floor {
+public class Floor 
+{
+    ParkingLot pl;
     int[] NumberOfSpots = new int[10];//if the name of this array is arr, then arr[0]=number of total compact spots, arr[1] = number of available compact spots and so on
     ArrayList<Spot> allSpotsOnthisFloor = new ArrayList<Spot>();
     int floorNo;
-    Floor(int[] NumberOfSpots,  int floorNo)
+    Floor(ParkingLot pl, int[] NumberOfSpots,  int floorNo)
     {
+        this.pl=pl;
         this.NumberOfSpots = NumberOfSpots;
         this.floorNo = floorNo;
         //initialize this by creating all the spot objects of appropriate types
         for(int i=1;i<=5;i++){
             if(i==1)
-                allSpotsOnthisFloor.add(new Spot(i,ParkingSpotType.COMPACT , this.floorNo, true));
+                allSpotsOnthisFloor.add(new Spot(pl, i,ParkingSpotType.COMPACT , this.floorNo, true));
             else if(i==2)
-                allSpotsOnthisFloor.add(new Spot(i,ParkingSpotType.LARGE , this.floorNo, true));
+                allSpotsOnthisFloor.add(new Spot(pl, i,ParkingSpotType.LARGE , this.floorNo, true));
             else if(i==3)
-                allSpotsOnthisFloor.add(new Spot(i,ParkingSpotType.ELECTRIC , this.floorNo, true));   
+                allSpotsOnthisFloor.add(new Spot(pl, i,ParkingSpotType.ELECTRIC , this.floorNo, true));   
             else if(i==4)
-                allSpotsOnthisFloor.add(new Spot(i,ParkingSpotType.TWOWHEELER , this.floorNo, true));
+                allSpotsOnthisFloor.add(new Spot(pl, i,ParkingSpotType.TWOWHEELER , this.floorNo, true));
             else if(i==5)
-                allSpotsOnthisFloor.add(new Spot(i,ParkingSpotType.HANDICAPPED , this.floorNo, true));        
+                allSpotsOnthisFloor.add(new Spot(pl, i,ParkingSpotType.HANDICAPPED , this.floorNo, true));        
         }
 
     }
@@ -102,7 +105,7 @@ public class Floor {
         NumberOfSpots = numberOfSpots;
     }
 
-
+    /*
     public void freeSpot(Spot s){
         //change the isAvailable value to true
         //also modify NumberOfSpots - From Spot object, identify which type it is...and then modify corresponding array value
@@ -123,5 +126,5 @@ public class Floor {
                 break;
             
         }
-    }
+    }*/
 }

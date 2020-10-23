@@ -71,7 +71,7 @@ class ChangePasswordGUI implements ActionListener
         if(p1.equals(p2))
 		{
             success.setText("Password changed successfully!");
-            e.setPassword(p1);//method provided im Employee class
+            //e.setPassword(p1);//method provided im Employee class
         }
 		else
 		{

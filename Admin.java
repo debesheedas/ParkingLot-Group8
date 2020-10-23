@@ -1,18 +1,30 @@
 import java.util.*;
 public class Admin extends Employee {
     Scanner sc = new Scanner(System.in);
-    ParkingLot p = new ParkingLot();
-    FloorDisplayGUI e = new FloorDisplayGUI(null);
-    //private String password = "password";
+    ParkingLot pl = new ParkingLot();
+    private String username = "admin";
+    //FloorDisplayGUI e = new FloorDisplayGUI(null);
+    private String password = "password";
     boolean loginstatus;
-    private String agn;
+    //private String agn;
 
-    Admin(int id, String u, String p, double due)
+    Admin(ParkingLot p)
     {
-        super(id, u, p, due);
+        pl = p;
+        username = "admin";
+        password = "password";
+        loginstatus = false;
+    }
+    void setLoginStatus(boolean status)
+    { 
+        this.loginstatus = status; 
+    }
+    boolean getLoginStatus()
+    {
+        return loginstatus;
     }
 
-
+    /*
     void run()
     {
         //run sign in or login method, if successful, next, run menu driven loop to choose options from
@@ -113,7 +125,7 @@ public class Admin extends Employee {
             }
         }
     }
-    void setLoginStatus(boolean status) { this.loginstatus = status; }
+    
     private void addEmp() {
         int id;
         Employee e;
@@ -206,5 +218,5 @@ public class Admin extends Employee {
         exp += sc.nextInt();
         System.out.println("Updated number of entrance panel: " + enp);
         System.out.println("Updated number of exit panel: " + exp);
-    }
+    }*/
 }

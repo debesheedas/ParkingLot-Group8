@@ -1,12 +1,23 @@
 import java.util.*;
 public class InfoPortal extends Checkpoint
 {
-    ParkingLot p = new ParkingLot();
-    Ticket tk = new Ticket(0,null,null);
-    double t;
-    Scanner sc = new Scanner(System.in);
-    boolean isPaid = true;
+    //double t;
+    //Scanner sc = new Scanner(System.in);
+    //boolean isPaid = true;
     int id;
+    InfoPortal(ParkingLot p, int id, String nm, int floorNo)
+    {
+        super(p, id, nm, CheckpointType.INFO, floorNo)
+        /*super.pl=p;
+        super.ID = id;
+        super.name = nm;
+        super.type = Checkpoint.INFO;
+        super.assignedEmployeeID=0;
+        super.floorNumber = floorNo;*/
+
+
+    }
+/*
     void run()
     {
         //call userInput()
@@ -25,7 +36,7 @@ public class InfoPortal extends Checkpoint
     {
         for(Ticket tk : p.getAllTickets())
         {
-            if(id == tk.ID)
+            if(id == tk.getID())
             {
                 isPaid = false;
                 tk.changeIsPaid(false);
@@ -55,4 +66,5 @@ public class InfoPortal extends Checkpoint
         //Copy-paste from computeBill in Ticket class;
         return 0.0;
     }
+    */
 }

@@ -3,12 +3,27 @@ import java.util.Scanner;
 //Anand
 class ExitPoint extends Checkpoint
 {
-    Scanner sc = new Scanner(System.in);
-    Ticket t = new Ticket(0,null, null);
-    ParkingLot p = new ParkingLot();
-    Floor f = new Floor(null, 0);
-    int id;
-    boolean isPaid = true;
+    //Scanner sc = new Scanner(System.in);
+    
+    //Ticket t = new Ticket(0,null, null);
+    //ParkingLot p = new ParkingLot();
+    //Floor f = new Floor(null, 0);
+    //int id;
+    //boolean isPaid = true;
+    ExitPoint(ParkingLot p, int id, String nm, int floorNo)
+    {
+        super(p, id, nm, CheckpointType.EXIT, floorNo)
+        /*super.pl=p;
+        super.ID = id;
+        super.name = nm;
+        super.type = Checkpoint.EXIT;
+        super.assignedEmployeeID=0;
+        super.floorNumber = floorNo;*/
+
+
+    }
+
+    /*
     void run()
     {
         //call userInput
@@ -30,7 +45,7 @@ class ExitPoint extends Checkpoint
     {
         for(Ticket ts : p.getAllTickets())
         {
-            if(id == ts.ID)
+            if(id == ts.getID())
             {
                 isPaid = false;
                 t.changeIsPaid(false);
@@ -44,8 +59,8 @@ class ExitPoint extends Checkpoint
         {
             //check which floor this spot is on, let it be f
             //call f.freeSpot(spot obj)
-            int f = t.s.floor;
-            f.freeSpot(t.s);
+            //int f = t.getSpot().getFloorNo();
+            //f.freeSpot(t.getSpot());
         }
         else
         {
@@ -62,5 +77,5 @@ class ExitPoint extends Checkpoint
         t.changeIsPaid(true);
         int f = t.s.floor;
         f.freeSpot(t.s);
-    }
+    }*/
 }

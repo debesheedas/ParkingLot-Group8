@@ -1,16 +1,9 @@
-<<<<<<< HEAD
-
-enum ParkingSpotType 
-{
-    COMPACT, LARGE, HANDICAPPED, TWOWHEELER, ELECTRIC
-}
-=======
 //Jaswanth
 import java.util.*;
->>>>>>> upstream/main
 
 public class Spot//write a parameterized constructor for  this to initialize the variables as follows
 {
+    ParkingLot pl;
     private int id; 
     private String name;//generate an alphanumeric sequence such as 5C04 where 5 stands for 5th floor, C stands for compact and 04 is the id number of the spot, use L for large, H for handicapped, T for Twowheeler and E for electric
     private ParkingSpotType t;
@@ -18,8 +11,9 @@ public class Spot//write a parameterized constructor for  this to initialize the
     private int floor;
     private boolean isAvailable;
 
-    Spot(int id, ParkingSpotType t, int floor, boolean status)
+    Spot(ParkingLot p, int id, ParkingSpotType t, int floor, boolean status)
     {
+        pl=p;
         //assign all values as directed
         char c ='\0';
         this.id = id;

@@ -2,24 +2,25 @@ import java.util.*;
 
 public class Ticket
 {
+    private ParkingLot pl;
     private int ID;
     private Spot s; //Spot allotted
     private Time entry;
     private Time exit;
     private boolean isPaid;
     private String VehicleNumberPlate;
-    Ticket(int id, Spot spot, String vnp)
+    Ticket(ParkingLot p, int id, Spot spot, String vnp)
     {
+        pl=p;
         ID=id;
         s=spot;
         entry= new Time();
         exit=new Time();//dummy value
         isPaid=false;
-
-
     }
-    Ticket(int id, Spot spot, Time e, String vnp)
-    {   
+    Ticket(ParkingLot p, int id, Spot spot, Time e, String vnp)
+    {  
+        pl=p;  
         ID=id;
         s=spot;
         entry=e;
@@ -35,7 +36,15 @@ public class Ticket
     }*/
 
         //whenever you need the difference between two time objects t1 and t2 in hours, then just call double difference = exit.diff(entry);
-    void setEntryTime() {
+    public Spot getSpot()
+    {
+        return s;
+    }
+    void setSpot(Spot s)
+    {
+        this.s = s;
+    }
+        void setEntryTime() {
         entry = new Time();
     }
     void setStopTime(Time t)
@@ -58,15 +67,15 @@ public class Ticket
         double[] arr = new double[3];
         switch(t)
         {
-            case COMPACT: arr = super.getCompactPrices();
+            case COMPACT: arr = pl.getCompactPrices();
                 break;
-            case LARGE: arr = super.getLargePrices();
+            case LARGE: arr = pl.getLargePrices();
                 break;
-            case ELECTRIC: arr = super.getElectricPrices();
+            case ELECTRIC: arr = pl.getElectricPrices();
                 break;
-            case TWOWHEELER: arr = super.getTwowheelerPrices();
+            case TWOWHEELER: arr = pl.getTwowheelerPrices();
                 break;
-            case HANDICAPPED: arr = super.getHandicappedPrices();
+            case HANDICAPPED: arr = pl.getHandicappedPrices();
                 break;
             default: System.out.println("Invalid Spot Type");
                 break;
