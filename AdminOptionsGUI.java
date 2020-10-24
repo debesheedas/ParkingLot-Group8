@@ -209,19 +209,19 @@ public class AdminOptionsGUI implements ActionListener
         }  */        
         
         add_floor_button = new JButton("ADD FLOOR");
-        add_floor_button.setBounds(100, 760, 160, 25);
+        add_floor_button.setBounds(100, 560, 160, 25);
         add_floor_button.setBackground(Color.GREEN);
 		add_floor_button.addActionListener(new AdminOptionsGUI(p));
         panel.add(add_floor_button);
 
         remove_floor_button = new JButton("REMOVE FLOOR");
-        remove_floor_button.setBounds(400, 760, 160, 25);
+        remove_floor_button.setBounds(400, 560, 160, 25);
         remove_floor_button.setBackground(Color.RED);
 		remove_floor_button.addActionListener(new AdminOptionsGUI(p));
         panel.add(remove_floor_button);
         
         save_button = new JButton("SAVE CHANGES");
-        save_button.setBounds(500, 800, 160, 25);
+        save_button.setBounds(500, 600, 160, 25);
         save_button.setBackground(Color.GREEN);
 		save_button.addActionListener(new AdminOptionsGUI(p));
         panel.add(save_button);

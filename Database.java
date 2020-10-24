@@ -54,7 +54,7 @@ public class Database{
             s.executeUpdate("create table if not exists employees (id int primary key not null , name text not null , pswd text not null , due real not null)");
             s.executeUpdate("create table if not exists floors (floorNo int primary key not null , tcs int not null , acs int not null , tls int not null , als int not null , ths int not null , ahs int not null , ttws int not null , atws int not null , tes int not null , aes int not null )");
             s.executeUpdate("create table if not exists tickets (id int primary key not null , startTime text not null , spotID int not null , floorNo int not null , vnp text not null )");
-            s.executeUpdate("create table if not exists checkpoints (id int primary key not null , name text not null , type text not null , floorno int not null , assignedEmployeeID int not null )");
+            s.executeUpdate("create table if not exists checkpoints (id int primary key  not null, name text not null, type text not null, floorNo int not null, assignedEmployeeID int not null)");
             s.executeUpdate("create table if not exists spotprices (type text primary key not null , firsthour real not null , secondhour real not null , remaininghours real not null)");
 
          }catch(Exception e){
@@ -202,25 +202,25 @@ public class Database{
              int id = rs.getInt("id");
              String name = rs.getString("name");
              String type = rs.getString("type");
-             int floorno = rs.getInt("floorno");
+             int floorNo = rs.getInt("floorNo");
              int assignedEmployeeID = rs.getInt("assignedEmployeeID");
 
             switch (type) {
                case "ENTRY":
-                   EntryPoint ep = new EntryPoint(this.pl , id , name , floorno);
+                   EntryPoint ep = new EntryPoint(this.pl , id , name , floorNo);
                    ep.setAssigned(assignedEmployeeID);
                    ep.setCheckpointType(CheckpointType.ENTRY);
                    checkPoints.add(ep);
                    break;
                
                case "EXIT":
-                  ExitPoint exp = new ExitPoint(this.pl , id , name , floorno);
+                  ExitPoint exp = new ExitPoint(this.pl , id , name , floorNo);
                   exp.setAssigned(assignedEmployeeID);
                   exp.setCheckpointType(CheckpointType.EXIT);
                   checkPoints.add(exp);
                   break;
                case "INFO":
-                  InfoPortal ip = new InfoPortal(this.pl , id , name , floorno);
+                  InfoPortal ip = new InfoPortal(this.pl , id , name , floorNo);
                   ip.setAssigned(assignedEmployeeID);
                   ip.setCheckpointType(CheckpointType.INFO);
                   checkPoints.add(ip);
@@ -264,7 +264,7 @@ public class Database{
    }
 
 
-   public void loadDatabase(ParkingLot pl){
+   public void loadDatabase(){
 
          File f = new File("db/parkinglot.db");  
 
@@ -334,8 +334,8 @@ public class Database{
 
    }
 
-   private void 
-   addTicket(int id ,String startTime, int spotID,int floorNo,String vnp){
+    
+   private void addTicket(int id ,String startTime, int spotID,int floorNo,String vnp){
 
         try(Connection c = this.connect();
             PreparedStatement ps = c.prepareStatement("insert into tickets values (?,?,?,?,?)");
@@ -363,8 +363,8 @@ public class Database{
             ps.setInt(1, id);
             ps.setString(2, name);
             ps.setString(3, type);
-            ps.setInt(4, floorNo);
-            ps.setInt(5, assignedEmployeeID);
+            ps.setInt(4,floorNo);
+            ps.setInt(5 , assignedEmployeeID);
 
             ps.executeUpdate();
             
@@ -377,7 +377,7 @@ public class Database{
    private void addSpotPrice(String type,double fh,double sh,double rh){
 
       try(Connection c = this.connect();
-            PreparedStatement ps = c.prepareStatement("insert into checkpoints values (?,?,?,?)");
+            PreparedStatement ps = c.prepareStatement("insert into spotprices values (?,?,?,?)");
          ){
 
             ps.setString(1, type);
@@ -393,7 +393,7 @@ public class Database{
 
    }
 
-   public void updateDatabase(ParkingLot pl){
+   public void updateDatabase(){
 
       deleteAllTables(); // deleting all existing tables 
       setupDatabase();  // again creating all empty tables
