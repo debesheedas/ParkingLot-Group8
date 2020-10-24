@@ -9,13 +9,13 @@ public class Admin extends Employee {
     Scanner sc = new Scanner(System.in);
     //private String agn;
 
-    Admin(ParkingLot p)
+    Admin(ParkingLot p, boolean status)
     {
-        super(p, 0, "admin", "password", 0.0);
+        super(p, 0, "admin", "password", 0.0, status);
         pl = p;
         username = "admin";
         password = "password";
-        loginstatus = false;
+        loginstatus = status;
     }
     void setLoginStatus(boolean status)
     { 
@@ -38,7 +38,7 @@ public class Admin extends Employee {
             name = sc.nextLine();
             System.out.println("Create a password");
             password = sc.nextLine();
-            e = new Employee(pl , id, name, password, 0);
+            e = new Employee(pl , id, name, password, 0, false);
             if(pl.addEmployee(e))
                 System.out.println("Employee added successfully");
         }
