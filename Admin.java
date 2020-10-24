@@ -6,6 +6,7 @@ public class Admin extends Employee {
     //FloorDisplayGUI e = new FloorDisplayGUI(null);
     private String password = "password";
     boolean loginstatus;
+    Scanner sc = new Scanner(System.in);
     //private String agn;
 
     Admin(ParkingLot p)
@@ -25,7 +26,7 @@ public class Admin extends Employee {
         return loginstatus;
     }
 
-    /*
+    
     void run()
     {
         //run sign in or login method, if successful, next, run menu driven loop to choose options from
@@ -34,7 +35,7 @@ public class Admin extends Employee {
         // 3. Add or remove employees
         // 4.
         //make methods for each of the above options
-        l.run();
+        //l.run();
         menu();
     }
     private void menu(){
@@ -57,7 +58,7 @@ public class Admin extends Employee {
                     System.out.println("Floor No.: ");
                     int n = sc.nextInt();
                     Floor f = null;
-                    for (Floor i : p.getAllFloors() )
+                    for (Floor i : pl.getAllFloors() )
                     {
                         if ( n == i.floorNo) {
                             f = i;
@@ -137,8 +138,8 @@ public class Admin extends Employee {
         name = sc.next();
         System.out.println("Create a password");
         password = sc.next();
-        e = new Employee(id, name, password, 0);
-        p.getAllEmployees().add(e);
+        e = new Employee(pl , id, name, password, 0);
+        pl.getAllEmployees().add(e);
         System.out.println("Employee added successfully");
     }
     private void removeEmp() {
@@ -146,7 +147,7 @@ public class Admin extends Employee {
         //show name corresponding to id of the employee
         System.out.println("Enter the ID of the employee to remove");
         id = sc.nextInt();
-        for (Employee i : p.getAllEmployees() )
+        for (Employee i : pl.getAllEmployees() )
         {
             if (id == i.getID())
             {
@@ -219,5 +220,5 @@ public class Admin extends Employee {
         exp += sc.nextInt();
         System.out.println("Updated number of entrance panel: " + enp);
         System.out.println("Updated number of exit panel: " + exp);
-    }*/
+    }
 }

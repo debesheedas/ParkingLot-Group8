@@ -17,6 +17,7 @@ public class Ticket
         entry= new Time();
         exit=new Time();//dummy value
         isPaid=false;
+        VehicleNumberPlate = vnp;
     }
     Ticket(ParkingLot p, int id, Spot spot, Time e, String vnp)
     {  
@@ -26,6 +27,7 @@ public class Ticket
         entry=e;
         exit = new Time();//dummy value
         isPaid=false;
+        VehicleNumberPlate = vnp;
 
 
 
