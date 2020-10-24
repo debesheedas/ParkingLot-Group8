@@ -102,6 +102,17 @@ public class ParkingLot
         }
         return null;
     }
+    Employee returnEmployeeByID(int id)
+    {
+        for(Employee emp : employeeList)
+        {
+            if(emp.getID()==id)
+            {
+                return emp;
+            }
+        }
+        return null;
+    }
 
     ArrayList<Ticket> getAllTickets() {
         return allTickets;

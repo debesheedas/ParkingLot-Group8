@@ -1,0 +1,8 @@
+{
+    "java.project.referencedLibraries": {
+        "include": [
+            ".;JDBC/sqlite-jdbc-3.7.2.jar",
+            "/home/das/Desktop/Coding/Projects/PM Case Study1/git_repo/ParkingLot-Group8/**/*.jar"
+        ]
+    }
+}

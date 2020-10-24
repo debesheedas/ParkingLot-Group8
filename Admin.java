@@ -26,28 +26,62 @@ public class Admin extends Employee {
         return loginstatus;
     }
 
-    
-    void run()
-    {
-        //run sign in or login method, if successful, next, run menu driven loop to choose options from
-        // 1. Admin options - changing parking lot settings
-        // 2. Change password
-        // 3. Add or remove employees
-        // 4.
-        //make methods for each of the above options
-        //l.run();
-        menu();
+    private void addEmp() {
+        int id;
+        Employee e;
+        String name, password;
+        try
+        {
+            System.out.println("Enter id of the employee");
+            id = Integer.parseInt(sc.nextLine());
+            System.out.println("Enter name of the employee");
+            name = sc.nextLine();
+            System.out.println("Create a password");
+            password = sc.nextLine();
+            e = new Employee(pl , id, name, password, 0);
+            if(pl.addEmployee(e))
+                System.out.println("Employee added successfully");
+        }
+        catch(Exception ex)
+        {
+            System.out.println("Please enter Valid input and try again");
+        }
+        
     }
-    private void menu(){
+    private void removeEmp() {
+        int id;
+        //show name corresponding to id of the employee
+        System.out.println("Enter the ID of the employee to remove");
+        try
+        {
+            id = Integer.parseInt(sc.nextLine());
+            if(pl.returnEmployeeByID(id)!=null)
+            {
+                pl.removeEmployee(pl.returnEmployeeByID(id));
+                System.out.println("Employee added successfully");
+            }
+        }
+        catch(Exception e)
+        {
+            System.out.println("Please enter Valid input and try again");
+        }
+        
+    }
+    void menu(){
         do {
-            System.out.println("Press 1: Admin options\nPress 2: Change Password\nPress 3: Add/remove Employees\nPress 4: Display Floor Plan\nPress 5: LogOut");
+            System.out.println("Welcome Admin");
+            System.out.println("Press 1: To Login\nPress 2: To Change Admin Options of Parking Lot\nPress 3: To Add/Remove Employees\nPress 4: To View Floor Display\nPress 5: To LogOut");
             switch (sc.nextInt()) {
                 case 1 : {
-                    changeSettings();
+                    LoginGUI l = new LoginGUI(pl);
+                    l.run(pl);//both not required, check later
+                    //changeSettings();
                     break;
                 }
                 case 2 : {
-                    changePassword();
+                    AdminOptionsGUI ao = new AdminOptionsGUI(pl);
+                    ao.run();
+                    //changePassword();
                     break;
                 }
                 case 3 : {
@@ -77,6 +111,21 @@ public class Admin extends Employee {
             }
         }while(loginstatus);
     }
+
+    /*
+    
+    void run()
+    {
+        //run sign in or login method, if successful, next, run menu driven loop to choose options from
+        // 1. Admin options - changing parking lot settings
+        // 2. Change password
+        // 3. Add or remove employees
+        // 4.
+        //make methods for each of the above options
+        //l.run();
+        menu();
+    }
+    
     private void logOut(){
         setLoginStatus(false);
     }
@@ -128,33 +177,7 @@ public class Admin extends Employee {
         }
     }
     
-    private void addEmp() {
-        int id;
-        Employee e;
-        String name, password;
-        System.out.println("Enter id of the employee");
-        id = sc.nextInt();
-        System.out.println("Enter name of the employee");
-        name = sc.next();
-        System.out.println("Create a password");
-        password = sc.next();
-        e = new Employee(pl , id, name, password, 0);
-        pl.getAllEmployees().add(e);
-        System.out.println("Employee added successfully");
-    }
-    private void removeEmp() {
-        int id;
-        //show name corresponding to id of the employee
-        System.out.println("Enter the ID of the employee to remove");
-        id = sc.nextInt();
-        for (Employee i : pl.getAllEmployees() )
-        {
-            if (id == i.getID())
-            {
-                p.getAllEmployees().remove(i);
-            }
-        }
-    }
+    
     void changeSettings()
     {
         //as of now, write scanner methods to take input and set the instance variables of ParkingLot
@@ -221,4 +244,5 @@ public class Admin extends Employee {
         System.out.println("Updated number of entrance panel: " + enp);
         System.out.println("Updated number of exit panel: " + exp);
     }
+    */
 }
