@@ -76,7 +76,7 @@ public class LoginGUI implements ActionListener
 		//System.out.println("Button clicked");
 		username = password1.getText();
 		password = new String(password2.getPassword());
-        System.out.println(username + " "+ password);
+        //System.out.println(username + " "+ password);
         
         
         if(username.equals("admin")&&password.equals("password"))

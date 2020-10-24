@@ -14,11 +14,11 @@ public class Employee extends Customer{
     protected String password;
     double dues;//think about how we can internally increasing
 
-    Employee(ParkingLot pl, int id, String name, String password, double dues) 
+    Employee(ParkingLot pl, int id, String name, String password, double dues, boolean status) 
     {
         super(pl);
         //super.pl=pl;
-        loginstatus=false;
+        loginstatus=status;
         this.id = id;
         this.username = name;
         this.password = password;

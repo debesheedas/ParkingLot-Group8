@@ -9,13 +9,13 @@ public class Admin extends Employee {
     Scanner sc = new Scanner(System.in);
     //private String agn;
 
-    Admin(ParkingLot p)
+    Admin(ParkingLot p, boolean status)
     {
-        super(p, 0, "admin", "password", 0.0);
+        super(p, 0, "admin", "password", 0.0, status);
         pl = p;
         username = "admin";
         password = "password";
-        loginstatus = false;
+        loginstatus = status;
     }
     void setLoginStatus(boolean status)
     { 
@@ -25,7 +25,7 @@ public class Admin extends Employee {
     {
         return loginstatus;
     }
-
+    
     private void addEmp() {
         int id;
         Employee e;
@@ -38,7 +38,7 @@ public class Admin extends Employee {
             name = sc.nextLine();
             System.out.println("Create a password");
             password = sc.nextLine();
-            e = new Employee(pl , id, name, password, 0);
+            e = new Employee(pl , id, name, password, 0, false);
             if(pl.addEmployee(e))
                 System.out.println("Employee added successfully");
         }
@@ -67,51 +67,80 @@ public class Admin extends Employee {
         }
         
     }
+    private void addOrRemoveEmployee()
+    {
+        try{
+            System.out.println("Press 1: To add Employee\n Press 2: To remove Employee");
+            int i = Integer.parseInt(sc.nextLine());
+            switch(i)
+            {
+                case 1: addEmp();
+                    break;
+                case 2: removeEmp();
+                    break;
+                default:
+                    System.out.println("Please Enter Valid option");
+            }
+        }
+        catch(Exception e)
+        {
+            System.out.println("Please enter Valid input and try again");
+        }
+    }
     void menu(){
         do {
-            System.out.println("Welcome Admin");
+            System.out.println("Welcome Admin. Note: Please select Logout to exit the loop.");
             System.out.println("Press 1: To Login\nPress 2: To Change Admin Options of Parking Lot\nPress 3: To Add/Remove Employees\nPress 4: To View Floor Display\nPress 5: To LogOut");
             switch (sc.nextInt()) {
-                case 1 : {
+                case 1 : 
                     LoginGUI l = new LoginGUI(pl);
                     l.run(pl);//both not required, check later
                     //changeSettings();
+                    System.out.println(loginstatus);
                     break;
-                }
-                case 2 : {
+                
+                case 2 : 
                     AdminOptionsGUI ao = new AdminOptionsGUI(pl);
                     ao.run();
                     //changePassword();
                     break;
-                }
-                case 3 : {
-                    //addRemoveEmployee();
+                
+                case 3 : 
+                    addOrRemoveEmployee();
                     break;
-                }
-                case 4 : {
-                    System.out.println("Floor No.: ");
-                    int n = sc.nextInt();
-                    Floor f = null;
-                    for (Floor i : pl.getAllFloors() )
+                
+                case 4 : 
+                    System.out.println("Total Number of Floors ="+pl.getAllFloors().size());
+                    System.out.println("Please enter the Floor Number of the display you want to see");
+                    try
                     {
-                        if ( n == i.floorNo) {
-                            f = i;
+                        int i = Integer.parseInt(sc.nextLine());
+                        if(i>0 && i<=pl.getAllFloors().size())
+                        {
+                            FloorDisplayGUI fd = new FloorDisplayGUI(pl.getAllFloors().get(i-1));
+                        }
+                        else
+                        {
+                            System.out.println("Please enter Valid input and try again");
                         }
                     }
-                    new FloorDisplayGUI(f);
+                    catch(Exception e)
+                    {
+                        System.out.println("Please enter Valid input and try again");
+                    }
                     break;
-                }
-                case 5 : {
-                    //logOut();
+                    
+                case 5 : 
+                    this.setLoginStatus(false);
                     break;
-                }
+                
                 default : {
                     System.out.println("Invalid Option");
                 }
             }
         }while(loginstatus);
     }
-
+    
     /*
     
     void run()
