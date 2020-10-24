@@ -79,6 +79,33 @@ public class Database{
 
    //=======================================================================================================================
 
+   private Admin getAdmin(){
+   
+      try(Connection c = this.connect();
+          Statement s = c.createStatement();
+       ){
+
+          ResultSet rs = s.executeQuery("select * from employees");
+          while(rs.next()){
+            
+            int id = rs.getInt("id");
+            if(id == 0){
+
+               String loginstatus = rs.getString("loginStatus");
+
+               Admin admin = new Admin(pl , loginstatus.equals("yes"));
+
+               return admin;
+            }
+             
+          }
+
+          return null;
+       }catch(Exception e){
+          System.out.println(e.getClass().getName() +" : "+e.getMessage());
+          return null;
+       }
+   }
 
 
      private ArrayList<Employee> fillEmployees(ArrayList<Employee> employees){
@@ -273,6 +300,7 @@ public class Database{
             this.setupDatabase();                        // if not create db and tables in it
          }
 
+         pl.admin = getAdmin();
          pl.setEmployees(fillEmployees(new ArrayList<Employee>()));
          pl.setFloors(fillFloors(new ArrayList<Floor>()));
          pl.setTickets(fillTickets(new ArrayList<Ticket>()));
@@ -405,6 +433,7 @@ public class Database{
       ArrayList<Floor> floors = pl.getAllFloors();
       ArrayList<Ticket> tickets = pl.getAllTickets();
       ArrayList<Checkpoint> checkPoints = pl.getAllCheckpoints();
+      Admin admin = pl.getAdmin();
 
       double[] compactPrices = pl.getCompactPrices();
       double[] largePrices = pl.getLargePrices();
@@ -412,10 +441,13 @@ public class Database{
       double[] twoWheelerPrices = pl.getTwowheelerPrices();
       double[] electricPrices = pl.getElectricPrices();
       
+      addEmployee(admin.getID(), admin.getUsername(), admin.getPassword(), admin.getDues(), (String)((admin.getLoginStatus()) ? "yes" : "no" ) );
 
       for(Employee e:employees){
          addEmployee(e.getID(), e.getUsername(), e.getPassword(), e.getDues() ,(String)((e.loginstatus) ? "yes" : "no" ));
       }
+
+
       for(Floor f:floors){
          addFloor(f.getFloorNo(), f.getTotalNumberOfCompactSpots(), f.getNumberOfAvailableCompactSpots(), f.getTotalNumberOfLargeSpots() , f.getNumberOfAvailableLargeSpots() , f.getTotalNumberOfHandicappedSpots() , f.getNumberOfAvailableHandicappedSpots() , f.getTotalNumberOfTwowheelerSpots() , f.getNumberOfAvailableTwowheelerSpots() , f.getTotalNumberOfElectricalSpots() , f.getNumberOfAvailableElectricalSpots());
       }
@@ -431,6 +463,8 @@ public class Database{
       addSpotPrice("HANDICAPPED", handiCappedPrices[0], handiCappedPrices[1], handiCappedPrices[2]);
       addSpotPrice("TWOWHEELER", twoWheelerPrices[0], twoWheelerPrices[1], twoWheelerPrices[2]);
       addSpotPrice("ELECTRIC", electricPrices[0], electricPrices[1], electricPrices[2]);
+
+
       
 
    }
