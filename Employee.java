@@ -50,6 +50,10 @@ public class Employee extends Customer{
     {
         this.loginstatus = status;
     }
+    boolean getLoginStatus()
+    {
+        return loginstatus;
+    }
     
     void run()
     {
@@ -78,7 +82,7 @@ public class Employee extends Customer{
                     case 2 : 
                         System.out.println("Please enter the ID of the Checkpoint you would like to go to");
                         int id = Integer.parseInt(sc.nextLine());
-                        Checkpoint c = pl.searchCheckpointByID(id);
+                        Checkpoint c = pl.returnCheckpointByID(id);
                         if(c!=null)
                         {
                             c.setAssigned(id);
@@ -95,8 +99,8 @@ public class Employee extends Customer{
                         dues=0;
                         System.out.println("Dues paid");
                     case 4 : 
-                        ChangePasswordGUI cp = new ChangePasswordGUI();
-                        cp.run(this);
+                        ChangePasswordGUI cp = new ChangePasswordGUI(pl, this);
+                        cp.run();
                     break;
                 
                     case 5 : 

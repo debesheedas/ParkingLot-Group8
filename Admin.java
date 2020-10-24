@@ -58,7 +58,7 @@ public class Admin extends Employee {
             if(pl.returnEmployeeByID(id)!=null)
             {
                 pl.removeEmployee(pl.returnEmployeeByID(id));
-                System.out.println("Employee added successfully");
+                System.out.println("Employee removed successfully");
             }
         }
         catch(Exception e)
@@ -88,10 +88,91 @@ public class Admin extends Employee {
             System.out.println("Please enter Valid input and try again");
         }
     }
+    private void addCheck() {
+        int id, floorNo;
+        Checkpoint e;
+        String name;
+        CheckpointType t;
+        try
+        {
+            System.out.println("Enter id of the Checkpoint");
+            id = Integer.parseInt(sc.nextLine());
+            System.out.println("Enter name of the Checkpoint");
+            name = sc.nextLine();
+            System.out.println("Enter floor number");
+            floorNo = Integer.parseInt(sc.nextLine());
+            System.out.println("Press 1: for EntryPoint\nPress 2: for ExitPoint\nPress 3: for InforPortal");
+            int input = Integer.parseInt(sc.nextLine());
+            switch(input)
+            {
+                case 1:
+                    t=CheckpointType.ENTRY;
+                    break;
+                case 2:
+                    t=CheckpointType.EXIT;
+                    break;
+                case 3:
+                    t = CheckpointType.INFO;
+                    break;
+                default:
+                    System.out.println("Please enter valid choice. Assuming Entrypoint");
+                    t = CheckpointType.ENTRY;  
+
+            }
+            e = new Checkpoint(pl , id , name, t, floorNo);
+            if(pl.addCheckpoint(e))
+                System.out.println("Checkpoint added successfully");
+        }
+        catch(Exception ex)
+        {
+            System.out.println("Please enter Valid input and try again");
+        }
+        
+    }
+    private void removeCheck() {
+        int id;
+        //show name corresponding to id of the employee
+        System.out.println("Enter the ID of the checkpoint to remove");
+        try
+        {
+            id = Integer.parseInt(sc.nextLine());
+            if(pl.returnCheckpointByID(id)!=null)
+            {
+                pl.removeCheckpoint(pl.returnCheckpointByID(id));
+                System.out.println("Checkpoint removed successfully");
+            }
+        }
+        catch(Exception e)
+        {
+            System.out.println("Please enter Valid input and try again");
+        }
+        
+    }
+    private void addOrRemoveCheckpoint()
+    {
+        try{
+            System.out.println("Press 1: To add Checkpoint\nPress 2: To remove Checkpoint");
+            int i = Integer.parseInt(sc.nextLine());
+            switch(i)
+            {
+                case 1: addCheck();
+                    break;
+                case 2: removeCheck();
+                    break;
+                default:
+                    System.out.println("Please Enter Valid option");
+            }
+        }
+        catch(Exception e)
+        {
+            System.out.println(e);
+            System.out.println("Please enter Valid input and try again");
+        }
+    }
     void menu(){
         
             System.out.println("Welcome Admin.");
-            System.out.println("Press 1: To Login\nPress 2: To Change Admin Options of Parking Lot\nPress 3: To Add/Remove Employees\nPress 4: To View Floor Display\nPress 5: To LogOut");
+            System.out.println("Press 1: To Login\nPress 2: To Change Admin Options of Parking Lot\nPress 3: To Add/Remove Employees\nPress 4: To add/Remove Checkpoints\nPress 5: To View Floor Display\nPress 6: To LogOut");
             switch (sc.nextInt()) {
                 case 1 : 
                     LoginGUI l = new LoginGUI(pl);
@@ -109,8 +190,10 @@ public class Admin extends Employee {
                 case 3 : 
                     addOrRemoveEmployee();
                     break;
+                case 4:
+                    addOrRemoveCheckpoint();
                 
-                case 4 : 
+                case 5 : 
                     System.out.println("Total Number of Floors ="+pl.getAllFloors().size());
                     System.out.println("Please enter the Floor Number of the display you want to see");
                     try
@@ -131,7 +214,7 @@ public class Admin extends Employee {
                     }
                     break;
                     
-                case 5 : 
+                case 6 : 
                     this.setLoginStatus(false);
                     break;
                 

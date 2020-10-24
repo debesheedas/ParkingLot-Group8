@@ -50,14 +50,17 @@ class EntryPoint extends Checkpoint {
             case 5:
                 return ParkingSpotType.HANDICAPPED;
                 //break;  
-            default:System.out.println("INVALID NUMBER !!");
+            default:System.out.println("INVALID NUMBER !! Assuming COMPACT!!");
+                return ParkingSpotType.COMPACT;
                 //break;        
             }
+            
 
         }
         catch(Exception e)
         {
             System.out.println("Please enter some valid input and try again");
+            return ParkingSpotType.COMPACT;
         }
         
     }
@@ -65,7 +68,9 @@ class EntryPoint extends Checkpoint {
     {
         int n = super.getFloorNumber();
         int total = pl.getAllFloors().size();
-        Floor f;
+        if(total<=0)
+        return null;
+        Floor f = pl.getAllFloors().get(0);
         int counter=0;
         for(int i=n; counter<total; i++, counter++)
         {

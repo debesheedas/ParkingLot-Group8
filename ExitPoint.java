@@ -43,7 +43,7 @@ class ExitPoint extends Checkpoint
         }
         catch(Exception e)
         {
-            System.out.println("Please enter a valid choice");
+            System.out.println("please enter a valid choice");
         }
         
         return null;
@@ -69,6 +69,7 @@ class ExitPoint extends Checkpoint
             int n = Integer.parseInt(sc.next());
             t.changeIsPaid(true);
             t.getSpot().setIsAvailable(true);
+
         }
         catch(Exception e)
         {

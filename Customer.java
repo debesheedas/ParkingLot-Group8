@@ -22,18 +22,26 @@ public class Customer
                 case 3:
                     System.out.println("Please enter the ID of the Checkpoint you would like to go to");
                     int id = Integer.parseInt(sc.nextLine());
-                    Checkpoint c = pl.searchCheckpointByID(id);
+                    Checkpoint c = pl.returnCheckpointByID(id);
+                    int i = pl.getAllCheckpoints().indexOf(c);
                     if(c!=null)
                     {
-                        //c.run();
-                        /*
                         CheckpointType t = c.getCheckpointType();
                         switch(t)
                         {
                             case ENTRY:
-                                EntryPoint p = t;
-                                p.run();
-                        }*/
+                                EntryPoint p1 = new EntryPoint(pl, id, c.getName(), c.getFloorNumber());
+                                p1.run();
+                                break;
+                            case EXIT:
+                                ExitPoint p2 = new ExitPoint(pl, id, c.getName(), c.getFloorNumber());
+                                p2.run();
+                            case INFO:
+                                InfoPortal p3 = new InfoPortal(pl, id, c.getName(), c.getFloorNumber());
+                                p3.run();
+                            default:
+                                break;
+                        }
                     }
                     else
                     {
@@ -45,10 +53,10 @@ public class Customer
                     System.out.println("Please enter the Floor Number of the display you want to see");
                     try
                     {
-                        int i = Integer.parseInt(sc.nextLine());
-                        if(i>0 && i<=pl.getAllFloors().size())
+                        int j = Integer.parseInt(sc.nextLine());
+                        if(j>0 && j<=pl.getAllFloors().size())
                         {
-                            FloorDisplayGUI fd = new FloorDisplayGUI(pl.getAllFloors().get(i-1));
+                            FloorDisplayGUI fd = new FloorDisplayGUI(pl.getAllFloors().get(j-1));
                         }
                         else
                         {

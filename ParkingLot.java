@@ -178,7 +178,7 @@ public class ParkingLot
     void setCheckpoints(ArrayList<Checkpoint> c){
         allCheckpoints = c;
     }
-    boolean removeChekpoint(Checkpoint c){
+    boolean removeCheckpoint(Checkpoint c){
         for(Checkpoint i: allCheckpoints)
         {
             if(c.getID()==i.getID())
@@ -201,7 +201,7 @@ public class ParkingLot
         allCheckpoints.add(c);
         return true;
     }
-    Checkpoint searchCheckpointByID(int id)
+    Checkpoint returnCheckpointByID(int id)
     {
         for(Checkpoint i: allCheckpoints)
         {

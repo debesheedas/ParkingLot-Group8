@@ -1,6 +1,6 @@
 //Admin Options 
 import java.util.*;
-import java.util.concurrent.atomic.DoubleAdder;
+//import java.util.concurrent.atomic.DoubleAdder;
 import javax.swing.*;
 //import jdk.javadoc.internal.doclets.formats.html.PackageWriterImpl;
 import java.awt.*;
@@ -432,7 +432,7 @@ public class AdminOptionsGUI implements ActionListener
         {
             if(i.getFloorNumber()>n)
             {
-                p.removeChekpoint(i);
+                p.removeCheckpoint(i);
             }
         }
     }        
@@ -454,6 +454,7 @@ public class AdminOptionsGUI implements ActionListener
             saveFloorMatrix(numberOfFloors);
             removeDeletedCheckpoints(numberOfFloors);
             //checkUpdate();
+            p.getDatabase().updateDatabase();
             save_success.setText("Changes Saved Successfully!");
            
         }

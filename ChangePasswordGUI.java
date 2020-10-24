@@ -1,14 +1,16 @@
 import javax.swing.*;
-import java.awt.*;
+//import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.*;
+//import java.util.*;
 
 //call this class using the following statements by passing an Employee object IF AND ONLY IF Employee is logged in
 //ChangePasswordGUI c = new ChangePasswordGUI();
 //c.run(r);//where r is the Employee object
 class ChangePasswordGUI implements ActionListener 
 {
+	ParkingLot pl;
+	Employee emp;
     private static JFrame frame;
 	private static JPanel panel;
 	private static JLabel label1;
@@ -16,9 +18,14 @@ class ChangePasswordGUI implements ActionListener
 	private static JLabel label2;
 	private static JPasswordField password2;
 	private static JButton button;
-    private static JLabel success;
+	private static JLabel success;
+	ChangePasswordGUI(ParkingLot p, Employee e)
+	{
+		pl=p;
+		emp=e;
+	}
 
-    public void run(Employee e)
+    public void run()
     {
         frame = new JFrame();
 		panel = new JPanel();
@@ -47,7 +54,7 @@ class ChangePasswordGUI implements ActionListener
 		
 		button = new JButton("Change Password");
 		button.setBounds(100, 80, 170, 25);
-		button.addActionListener(new ChangePasswordGUI());
+		button.addActionListener(new ChangePasswordGUI(pl, emp));
 		panel.add(button);
 		
 		success = new JLabel();
@@ -71,7 +78,8 @@ class ChangePasswordGUI implements ActionListener
         if(p1.equals(p2))
 		{
             success.setText("Password changed successfully!");
-            //e.setPassword(p1);//method provided im Employee class
+			emp.setPassword(p1);//method provided im Employee class
+			pl.getDatabase().updateDatabase();
         }
 		else
 		{
