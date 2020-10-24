@@ -85,7 +85,7 @@ public class Admin extends Employee {
                     break;
                 }
                 case 3 : {
-                    addRemoveEmployee();
+                    //addRemoveEmployee();
                     break;
                 }
                 case 4 : {
@@ -102,7 +102,7 @@ public class Admin extends Employee {
                     break;
                 }
                 case 5 : {
-                    logOut();
+                    //logOut();
                     break;
                 }
                 default : {
