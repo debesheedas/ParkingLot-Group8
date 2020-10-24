@@ -54,9 +54,9 @@ public class Test4 {
     }
     static void test4(ParkingLot p)
     {
-        p.getDatabase().loadDatabase();
+        //p.getDatabase().loadDatabase();
         p.getAdmin().menu();
-        p.getDatabase().updateDatabase();
+        //p.getDatabase().updateDatabase();
     }
     
 }

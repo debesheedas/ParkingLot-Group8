@@ -5,7 +5,7 @@ import javax.xml.crypto.Data;
 public class ParkingLot
 {
     Database db = new Database(this);
-    Admin admin = new Admin(this);//consider making this static
+    Admin admin = new Admin(this, false);//consider making this static
     private ArrayList<Employee>  employeeList = new ArrayList<Employee>();
     private ArrayList<Ticket> allTickets = new ArrayList<>();
     private ArrayList<Checkpoint> allCheckpoints = new ArrayList<>();
@@ -155,12 +155,20 @@ public class ParkingLot
         }
         return false;
     }
+
+    Ticket returnTicketbyID(int id){
+        for(Ticket i: allTickets){
+            if(id == i.getID())
+                return i;
+        }
+        return null;
+    }
     //probably wont need this, not tested yet
-    int returnTicketByID (Ticket t){
+    /*int returnTicketByID (Ticket t){
         if (searchTicketbyID(t.getID()))
             return t.getID();
         return 0;
-    }
+    }*/
 
 
     ArrayList<Checkpoint> getAllCheckpoints() {

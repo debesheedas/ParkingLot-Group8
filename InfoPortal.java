@@ -2,7 +2,7 @@ import java.util.*;
 public class InfoPortal extends Checkpoint
 {
     //double t;
-    //Scanner sc = new Scanner(System.in);
+    Scanner sc = new Scanner(System.in);
     //boolean isPaid = true;
     //int id;
     ParkingLot pl;
@@ -19,54 +19,57 @@ public class InfoPortal extends Checkpoint
 
 
     }
-/*
+
     void run()
     {
         //call userInput()
-        id = userInput();
-        checkTicket(id);
+    
+        checkTicket(userInput());
+        
     }
-    int userInput()
+    Ticket userInput()
     {
         //take in ticket ID via Scanner
         //return corresponding Ticket object after searching instance variable Ticket arraylist to calling method
         System.out.println("Enter your Ticket ID");
-        id = sc.nextInt();
+        try
+        {
+            int id = Integer.parseInt(sc.nextInt());
+            return pl.returnTicketbyID(id);
+        }
+        
         return id;
     }
-    void checkTicket(int id)
+    void checkTicket(Ticket t)
     {
-        for(Ticket tk : p.getAllTickets())
+        
+        if(t.getIsPaid==false)
         {
-            if(id == tk.getID())
-            {
-                isPaid = false;
-                tk.changeIsPaid(false);
-            }
+            payTicket(t);
         }
         //call userInput
         //call payTicket if ticket exists and is not paid yet
         // use scanner to ask for how many hours user wishes to pay...prepaid basically
-        if(!isPaid)
-        {
-            payTicket();
-            System.out.println("For how many hours you want to pay?");
-            t = sc.nextDouble();
-        }
     }
     //compute bill - write a local method here called double computeBill(double hours) which takes input as number of hours entered by user
-    void payTicket()
+    void payTicket(Ticket t)
     {
+        System.out.println("For how many hours you want to pay?");
+        try
+        {
+            double b = Double.parseDouble(sc.nextLine());
+            System.out.println("Your bill amount is: "+t.computeBill(b));
+            t.changeIsPaid(true);
+        
+        }
+        catch(Exception e)
+        {
+            System.out.println("Please enter valid number of hours");
+        }
+
         //call computeBill method
         //change paid status
-        computeBill(t);
-        isPaid = true;
-        tk.changeIsPaid(true);
+        
     }
-    double computeBill(double hours)
-    {
-        //Copy-paste from computeBill in Ticket class;
-        return 0.0;
-    }
-    */
+   
 }

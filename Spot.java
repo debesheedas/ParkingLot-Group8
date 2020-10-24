@@ -69,7 +69,7 @@ public class Spot//write a parameterized constructor for  this to initialize the
     boolean isAvailable(){
         return isAvailable;
     }
-    void isAvailable(boolean iA){
+    void setIsAvailable(boolean iA){
         isAvailable = iA;
     }
 }

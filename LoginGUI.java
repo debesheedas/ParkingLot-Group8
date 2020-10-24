@@ -5,12 +5,16 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.*;
-
+/*
+interface Callback
+{
+	void execute(boolean status);
+}*/
 
 //to call Login for both admin or Employee, call this class and run method as the following statements
 //LoginGUI l = new LoginGUI();
 //l.run();
-public class LoginGUI implements ActionListener 
+public class LoginGUI implements ActionListener
 {
 	ParkingLot pl;
 	LoginGUI(ParkingLot p)
@@ -83,14 +87,20 @@ public class LoginGUI implements ActionListener
 		{
 			success.setText("Login Successful!");
 			pl.getAdmin().setLoginStatus(true);
+			//pl.getDatabase().updateDatabase();
+
+			//execute(true);
             //Admin a = super.getAdmin();//getter method for admin instance variable available in ParkingLot class
             //a.setLoginStatus(true);//setter method provided in Admin class...we could consider making admin a static variable
         }
         else if(pl.searchEmployeeByUsername(username, password))
         {
             success.setText("Login Successful!");
-            Employee emp = pl.returnEmployeeByUsername(username, password);//method present in ParkingLot class
-            emp.setLoginStatus(true);//setter method of Employee class
+			Employee emp = pl.returnEmployeeByUsername(username, password);//method present in ParkingLot class
+			
+			emp.setLoginStatus(true);//setter method of Employee class
+			//pl.getDatabase().updateDatabase();
+			
             //search for employee and set login status as true
         }
 		else

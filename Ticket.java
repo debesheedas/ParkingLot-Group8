@@ -90,9 +90,42 @@ public class Ticket
             billAmount = difference * arr[2];
         return billAmount;//use appropriate information from instance variables and calculate bill
     }
+    double computeBill(double hours)
+    {
+        double difference = hours;
+        double billAmount;
+        ParkingSpotType t= s.getSpotType(); 
+        double[] arr = new double[3];
+        switch(t)
+        {
+            case COMPACT: arr = pl.getCompactPrices();
+                break;
+            case LARGE: arr = pl.getLargePrices();
+                break;
+            case ELECTRIC: arr = pl.getElectricPrices();
+                break;
+            case TWOWHEELER: arr = pl.getTwowheelerPrices();
+                break;
+            case HANDICAPPED: arr = pl.getHandicappedPrices();
+                break;
+            default: System.out.println("Invalid Spot Type");
+                break;
+        }
+        if (difference <= 1)
+            billAmount = difference * arr[0];
+        else if (difference > 1 && difference <= 3)
+            billAmount = difference * arr[1];
+        else
+            billAmount = difference * arr[2];
+        return billAmount;//use appropriate information from instance variables and calculate bill
+    }
     void changeIsPaid(boolean status)
     {
         isPaid = status;
+    }
+    boolean getIsPaid()
+    {
+        return isPaid;
     }
     int getID()
     {
