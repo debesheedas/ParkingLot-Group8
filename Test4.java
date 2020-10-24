@@ -7,7 +7,7 @@ public class Test4 {
         test4(pl);
         /*Database db = new Database(pl);
 
-        pl.addEmployee(new Employee(pl, 3, "cooper", "djnkjfsk",45.5));
+        pl.addEmployee(new Employee(pl, 3, "cooper", "djnkjfsk",45.5 , true));
         Checkpoint cp = new Checkpoint(pl, 5, "west wing", CheckpointType.ENTRY, 5);
         cp.setAssigned(1001);
         pl.addCheckpoint(cp);
@@ -42,6 +42,7 @@ public class Test4 {
             System.out.println(employee.getDues());
             System.out.println(employee.getUsername());
             System.out.println(employee.getPassword());
+            System.out.println(employee.loginstatus);
         }
         ArrayList<Ticket> tickets = pl.getAllTickets();
         for(Ticket  t: tickets){

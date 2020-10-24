@@ -51,7 +51,7 @@ public class Database{
             Statement s = c.createStatement();
          ){
 
-            s.executeUpdate("create table if not exists employees (id int primary key not null , name text not null , pswd text not null , due real not null)");
+            s.executeUpdate("create table if not exists employees (id int primary key not null , name text not null , pswd text not null , due real not null , loginStatus text not null)");
             s.executeUpdate("create table if not exists floors (floorNo int primary key not null , tcs int not null , acs int not null , tls int not null , als int not null , ths int not null , ahs int not null , ttws int not null , atws int not null , tes int not null , aes int not null )");
             s.executeUpdate("create table if not exists tickets (id int primary key not null , startTime text not null , spotID int not null , floorNo int not null , vnp text not null )");
             s.executeUpdate("create table if not exists checkpoints (id int primary key  not null, name text not null, type text not null, floorNo int not null, assignedEmployeeID int not null)");
@@ -93,8 +93,9 @@ public class Database{
                String name = rs.getString("name");
                String pswd = rs.getString("pswd");
                double due = rs.getDouble("due");
+               String loginstatus = rs.getString("loginStatus");
 
-               Employee e = new Employee(this.pl ,id,name,pswd,due);
+               Employee e = new Employee(this.pl ,id,name,pswd,due , loginstatus.equals("yes"));
                employees.add(e);
             }
 
@@ -289,16 +290,18 @@ public class Database{
    //=========================================================================================================================================================
 
 
-   private void addEmployee(int id , String name , String pswd , double due){
+   private void addEmployee(int id , String name , String pswd , double due , String loginStatus ){
 
       try(Connection c = this.connect();
-          PreparedStatement ps = c.prepareStatement("insert into employees values (?,?,?,?)");
+          PreparedStatement ps = c.prepareStatement("insert into employees values (?,?,?,?,?)");
        ){
 
           ps.setInt(1, id);
           ps.setString(2, name);
           ps.setString(3, pswd);
           ps.setDouble(4, due);
+          ps.setString(5 , loginStatus);
+
           ps.executeUpdate();
           
        }catch(Exception e){
@@ -411,7 +414,7 @@ public class Database{
       
 
       for(Employee e:employees){
-         addEmployee(e.getID(), e.getUsername(), e.getPassword(), e.getDues());
+         addEmployee(e.getID(), e.getUsername(), e.getPassword(), e.getDues() ,(String)((e.loginstatus) ? "yes" : "no" ));
       }
       for(Floor f:floors){
          addFloor(f.getFloorNo(), f.getTotalNumberOfCompactSpots(), f.getNumberOfAvailableCompactSpots(), f.getTotalNumberOfLargeSpots() , f.getNumberOfAvailableLargeSpots() , f.getTotalNumberOfHandicappedSpots() , f.getNumberOfAvailableHandicappedSpots() , f.getTotalNumberOfTwowheelerSpots() , f.getNumberOfAvailableTwowheelerSpots() , f.getTotalNumberOfElectricalSpots() , f.getNumberOfAvailableElectricalSpots());
