@@ -1,5 +1,7 @@
 import java.util.*;
 
+import javax.xml.crypto.Data;
+
 public class ParkingLot
 {
     Database db = new Database(this);
@@ -26,6 +28,10 @@ public class ParkingLot
     Admin getAdmin()
     {
         return admin;
+    }
+    Database getDatabase()
+    {
+        return db;
     }
     double getPriceOfElectricityPerHour()
     {

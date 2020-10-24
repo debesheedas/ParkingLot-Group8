@@ -4,7 +4,8 @@ public class Test4 {
 
     public static void main(String[] args) {
         ParkingLot pl = new ParkingLot();
-        Database db = new Database(pl);
+        test4(pl);
+        /*Database db = new Database(pl);
 
         pl.addEmployee(new Employee(pl, 3, "cooper", "djnkjfsk",45.5));
         Checkpoint cp = new Checkpoint(pl, 5, "west wing", CheckpointType.ENTRY, 5);
@@ -48,7 +49,13 @@ public class Test4 {
             System.out.println(t.getVehicleNumberPlate());
             System.out.println(t.getSpot().getFloorNo());
             System.out.println(t.getSpot().getSpotType());
-        }
+        }*/
+    }
+    static void test4(ParkingLot p)
+    {
+        p.getDatabase().loadDatabase();
+        p.getAdmin().menu();
+        p.getDatabase().updateDatabase();
     }
     
 }
