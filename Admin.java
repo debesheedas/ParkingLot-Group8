@@ -38,7 +38,7 @@ public class Admin extends Employee {
             name = sc.nextLine();
             System.out.println("Create a password");
             password = sc.nextLine();
-            e = new Employee(pl , id, name, password, 0, false);
+            e = new Employee(pl , id, name, password, 0,false);
             if(pl.addEmployee(e))
                 System.out.println("Employee added successfully");
         }
@@ -70,7 +70,7 @@ public class Admin extends Employee {
     private void addOrRemoveEmployee()
     {
         try{
-            System.out.println("Press 1: To add Employee\n Press 2: To remove Employee");
+            System.out.println("Press 1: To add Employee\nPress 2: To remove Employee");
             int i = Integer.parseInt(sc.nextLine());
             switch(i)
             {
@@ -84,19 +84,20 @@ public class Admin extends Employee {
         }
         catch(Exception e)
         {
+            System.out.println(e);
             System.out.println("Please enter Valid input and try again");
         }
     }
     void menu(){
-        do {
-            System.out.println("Welcome Admin. Note: Please select Logout to exit the loop.");
+        
+            System.out.println("Welcome Admin.");
             System.out.println("Press 1: To Login\nPress 2: To Change Admin Options of Parking Lot\nPress 3: To Add/Remove Employees\nPress 4: To View Floor Display\nPress 5: To LogOut");
             switch (sc.nextInt()) {
                 case 1 : 
                     LoginGUI l = new LoginGUI(pl);
                     l.run(pl);//both not required, check later
                     //changeSettings();
-                    System.out.println(loginstatus);
+                    //System.out.println(loginstatus);
                     break;
                 
                 case 2 : 
@@ -138,7 +139,8 @@ public class Admin extends Employee {
                     System.out.println("Invalid Option");
                 }
             }
-        }while(loginstatus);
+            pl.getDatabase().updateDatabase();
+        
     }
     
     /*

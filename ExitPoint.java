@@ -3,7 +3,7 @@ import java.util.Scanner;
 //Anand
 class ExitPoint extends Checkpoint
 {
-    //Scanner sc = new Scanner(System.in);
+    Scanner sc = new Scanner(System.in);
     
     //Ticket t = new Ticket(0,null, null);
     ParkingLot pl;
@@ -24,59 +24,56 @@ class ExitPoint extends Checkpoint
 
     }
 
-    /*
     void run()
     {
-        //call userInput
-        //call checkTicket
-        //if not paid, based on check Ticket, call payTicket
-        int id = userInput();
-        checkTicket(id);
+        //call userInput()
+    
+        checkTicket(userInput());
+        
     }
-    int userInput()
+    Ticket userInput()
     {
         //take in ticket ID via Scanner
         //return corresponding Ticket object after searching instance variable Ticket arraylist to calling method
         System.out.println("Enter your Ticket ID");
-        id = sc.nextInt();
-        return id;
+        try
+        {
+            int id = Integer.parseInt(sc.nextLine());
+            return pl.returnTicketbyID(id);
+        }
+        catch(Exception e)
+        {
+            System.out.println("Please enter a valid choice");
+        }
+        
+        return null;
     }
-
-    void checkTicket(int id)
+    void checkTicket(Ticket t)
     {
-        for(Ticket ts : p.getAllTickets())
+        
+        if(t.getIsPaid()==false)
         {
-            if(id == ts.getID())
-            {
-                isPaid = false;
-                t.changeIsPaid(false);
-            }
+            payTicket(t);
         }
-        //check if ticket is paid, if not paid, call pay ticket and change isPaid status of ticket, if paid, modify available spots - free the spot
-        //update corresponding database tables by calling the corresponding method
-        //arraylist of all floors
-        //check in your spot which belongs to your ticket, which floor it is, x , spot has an ID, and it should be there in this floor - remove it
-        if(isPaid)
-        {
-            //check which floor this spot is on, let it be f
-            //call f.freeSpot(spot obj)
-            //int f = t.getSpot().getFloorNo();
-            //f.freeSpot(t.getSpot());
-        }
-        else
-        {
-            payTicket();
-        }
+
     }
-    void payTicket()
+    
+    void payTicket(Ticket t)
     {
         //call computeBill method
         //change paid status
         //modify spots, free the corresponding spot by modifying the instance variables of ParkingLot -  Floor list and Ticket List
-        t.computeBill();
-        isPaid = true;
-        t.changeIsPaid(true);
-        int f = t.s.floor;
-        f.freeSpot(t.s);
-    }*/
+        System.out.println("Your bill amount is: "+t.computeBill());
+        System.out.println("Press 1: To Pay by Cash\nPress 2: To Pay with Card");
+        try{
+            int n = Integer.parseInt(sc.next());
+            t.changeIsPaid(true);
+            t.getSpot().setIsAvailable(true);
+        }
+        catch(Exception e)
+        {
+            System.out.println("Please enter a valid choice");
+        }
+        
+    }
 }

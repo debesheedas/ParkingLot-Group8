@@ -425,14 +425,24 @@ public class AdminOptionsGUI implements ActionListener
                 System.out.println();
             }
         }  
-            
+    void removeDeletedCheckpoints(int n)
+    {
+        ArrayList<Checkpoint> all = p.getAllCheckpoints();
+        for(Checkpoint i:all)
+        {
+            if(i.getFloorNumber()>n)
+            {
+                p.removeChekpoint(i);
+            }
+        }
+    }        
 
     
     
     @Override
 	public void actionPerformed(ActionEvent e) {
 
-        System.out.println("Some Button clicked");
+        //System.out.println("Some Button clicked");
         if(e.getSource().equals(save_button))
         {
             
@@ -442,7 +452,8 @@ public class AdminOptionsGUI implements ActionListener
             updatePrices();
             updateFloorMatrix(numberOfFloors);
             saveFloorMatrix(numberOfFloors);
-            checkUpdate();
+            removeDeletedCheckpoints(numberOfFloors);
+            //checkUpdate();
             save_success.setText("Changes Saved Successfully!");
            
         }

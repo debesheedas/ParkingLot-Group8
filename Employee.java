@@ -50,7 +50,7 @@ public class Employee extends Customer{
     {
         this.loginstatus = status;
     }
-    /*
+    
     void run()
     {
         //menu driven, login method
@@ -60,41 +60,68 @@ public class Employee extends Customer{
         //think about how to implement the keeping record of the employees bill amount...we probably cannot use the customer methods
         //probably writing completely different methods might be better
         //check for password of corresponding ID
-        l.run();
-        do {
-            System.out.println("Press 1: Pay dues\nPress 2: Park Vehicle\nPress 3: Check/Exit Point\nPress 4: Info Portal\nPress 5: Change Password\nPress 6: LogOut");
-            switch (sc.nextInt()) {
-                case 1 : {
-                    payAmountDue();
+        //l.run();
+        //could add check floor display to this also
+        
+        
+            System.out.println("Press 1: LogIn\nPress 2: Get assigned to Checkpoint to start Working\nPress 3: Pay dues\nPress 4: Change Password\nPress 5: Park Car (Non-duty hours)\nPress 6: LogOut");
+            try
+            {
+                switch (sc.nextInt()) {
+                    case 1 : 
+                        LoginGUI l = new LoginGUI(pl);
+                        l.run(pl);//both not required, check later
+                    
+                        System.out.println(loginstatus);
+                        break;
+                    
+                    case 2 : 
+                        System.out.println("Please enter the ID of the Checkpoint you would like to go to");
+                        int id = Integer.parseInt(sc.nextLine());
+                        Checkpoint c = pl.searchCheckpointByID(id);
+                        if(c!=null)
+                        {
+                            c.setAssigned(id);
+                            System.out.println("You have been assigned to the checkpoint "+c.getName());
+                        }
+                        else
+                        {
+                            System.out.println("No such checkpoint exists");
+                        }
+                        break;
+                        
+                    
+                    case 3 : 
+                        dues=0;
+                        System.out.println("Dues paid");
+                    case 4 : 
+                        ChangePasswordGUI cp = new ChangePasswordGUI();
+                        cp.run(this);
                     break;
+                
+                    case 5 : 
+                        super.run();
+                        break;    
+                    
+                    case 6 : 
+                        this.setLoginStatus(false);
+                        System.out.println("Logged out successfully");
+                        break;
+                    
+                    default : {
+                        System.out.println("Invalid Input");
+                    }
                 }
-                case 2 : {
-                    super.run();
-                    break;
-                }
-                case 3 : {
-                    panel();
-                    break;
-                }
-                case 4 : {
-                    infoPortal();
-                    break;
-                }
-                case 5 : {
-                    changePassword();
-                    break;
-                }
-                case 6 : {
-                    logout();
-                    break;
-                }
-                default : {
-                    System.out.println("Invalid Input");
-                }
+            
             }
-        }while(loginstatus);
+            catch(Exception e)
+            {
+                System.out.println("Please enter a valid choice");
+            }
+        
     }
-
+    
+    /*
     private void panel() {
         int n;
         System.out.println("Press 1: Entry Point\nPress 2: Exit Point");
