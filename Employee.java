@@ -1,13 +1,9 @@
 import java.util.*;
 
+import javax.lang.model.util.ElementScanner6;
+
 public class Employee extends Customer{
-    //Scanner sc = new Scanner(System.in);
-
-    //ParkingLot p = new ParkingLot();
-    //Checkpoint cp = new Checkpoint();
-    //LoginGUI l = new LoginGUI();
-    //ChangePasswordGUI c = new ChangePasswordGUI();
-
+    
     boolean loginstatus;
     private int id;
     protected String username;
@@ -81,7 +77,9 @@ public class Employee extends Customer{
                         break;
                     
                     case 2 : 
-                        System.out.println("Please enter the ID of the Checkpoint you would like to go to");
+                        if(loginstatus)
+                        {
+                            System.out.println("Please enter the ID of the Checkpoint you would like to go to");
                         int id = Integer.parseInt(sc.nextLine());
                         Checkpoint c = pl.returnCheckpointByID(id);
                         if(c!=null)
@@ -94,11 +92,24 @@ public class Employee extends Customer{
                             System.out.println("No such ch1eckpoint exists");
                         }
                         break;
+                        }
+                        else
+                        {
+                            System.out.println("Please Login before trying to get assigned to Checkpoint for your duty");
+                        }
                         
                     
                     case 3 : 
-                        dues=0;
-                        System.out.println("Dues paid");
+                        if(loginstatus)//this case is kept in for paying dues of Employee which can be accumulated when Employee parks car in the parkingLot during duty hours, for which he gets partial compensation from company
+                        {
+                            dues=0;
+                            System.out.println("Dues paid");
+                        }
+                        else
+                        {
+                            System.out.println("Please Login before trying to pay dues");   
+                        }
+                        
                         break;
                     case 4 : 
                         if(loginstatus)
@@ -134,87 +145,4 @@ public class Employee extends Customer{
             }
         
     }
-    
-    /*
-    private void panel() {
-        int n;
-        System.out.println("Press 1: Entry Point\nPress 2: Exit Point");
-        switch(sc.nextInt()){
-            case 1: {
-                System.out.println("Select a Entry Point");
-                n=sc.nextInt();
-                cp.setID(id);
-                cp.setName(username);
-                cp.setAssigned(n);
-                //dues() dummy method
-                break;
-            }
-            case 2: {
-                System.out.println("Select a Exit Point");
-                n=sc.nextInt();
-                cp.setID(id);
-                cp.setName(username);
-                cp.setAssigned(n);
-                //dues() dummy method
-                break;
-            }
-            default: {
-                System.out.println("Invalid Option");
-            }
-        }
-    }
-    private void infoPortal() {
-        System.out.println("Your Due is: " + getDues());
-    }
-    private void changePassword()
-    {
-        int id, flag=0;
-        System.out.println("Enter your ID");
-        id = sc.nextInt();
-        for (Employee i : p.getAllEmployees() ) 
-        {
-            if (id == i.getID()) {
-                c.run(i);
-                flag = 1;
-            }
-        }
-        if(flag==0)     System.out.println("Employee not found");
-    }
-    
-    void payAmountDue()
-    {
-        //ask if paying by cash or card
-        //update the database for the particular employee
-        System.out.println("Your Bill Amount is " + getDues());
-        System.out.println("Press 1: Cash\nPress 2: Card");
-        switch (sc.nextInt()) {
-            case 1 : {
-                System.out.println("Amount successfully paid");
-                break;
-            }
-            case 2 : {
-                System.out.println("Amount successfully paid");
-                break;
-            }
-            default : {
-                System.out.println("Invalid Input");
-            }
-        }
-        setDues(0.0);
-    }
-    private void logout() {
-        setLoginStatus(false);
-        System.out.println("LogOut Successful");
-    }
-}
-/*
-class Dues{
-    int d=0;        //Should be made array and initialise in PMCS1 where every index should be for every employee
-    public int dues(){      //Whenever it called d should be increased by one
-        setD();
-        return d*50;
-    }
-    setD(){d++;}
-}*/
-
-}
+   

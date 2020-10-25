@@ -202,10 +202,16 @@ public class Admin extends Employee {
                     }
                     break;
                 case 3 : 
+                    if(loginstatus)
                     addOrRemoveEmployee();
+                    else
+                    System.out.println("Please Login as Admin before trying to change settings");
                     break;
                 case 4:
+                    if(loginstatus)
                     addOrRemoveCheckpoint();
+                    else
+                    System.out.println("Please Login as Admin before trying to change settings");
                     break;
                 case 5 : 
                     System.out.println("Total Number of Floors ="+pl.getAllFloors().size());
