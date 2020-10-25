@@ -13,7 +13,7 @@ public class TestingModule3
     static void test3(ParkingLot p)
     {
         Database db = new Database(p);
-        db.deleteAllTables();
+        db.deleteDatabase();;
         db.setupDatabase();
         AdminOptionsGUI ao = new AdminOptionsGUI(p);
         ao.run();
