@@ -5,7 +5,7 @@ import javax.xml.crypto.Data;
 public class ParkingLot
 {
     Database db = new Database(this);
-    Admin admin = new Admin(this, false);//consider making this static
+    private Admin admin = new Admin(this, false);//consider making this static
     private ArrayList<Employee>  employeeList = new ArrayList<Employee>();
     private ArrayList<Ticket> allTickets = new ArrayList<>();
     private ArrayList<Checkpoint> allCheckpoints = new ArrayList<>();
@@ -28,6 +28,9 @@ public class ParkingLot
     Admin getAdmin()
     {
         return admin;
+    }
+    void setAdmin(Admin a){
+        this.admin = a;
     }
     Database getDatabase()
     {
