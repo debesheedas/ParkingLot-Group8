@@ -72,6 +72,7 @@ public class Customer
                     }
                     break;
                 case 5:
+                    //System.out.println("Please enter valid Ticket ID of Electric Spot type");
                     ElectricPanelGUI e = new ElectricPanelGUI(pl);
                     e.run();
                     break;

@@ -2,6 +2,12 @@ import java.util.*;
 
 public class Time//try ot figure out how to generate a Date object from String
 {
+    /*public static void main(String args[])
+    {
+        Time t1 = new Time();
+        Time t2 = new Time();
+        System.out.println(t2.diff(t1));
+    }*/
     Date d = new Date(System.currentTimeMillis());
     String time = d.toString();
     double diff(Time entry)//this method returns the difference in time between the 2 date objects as a double data type, useful for calculating bill amounts

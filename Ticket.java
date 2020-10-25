@@ -64,6 +64,7 @@ public class Ticket
     double computeBill()
     {
         double difference = exit.diff(entry);
+        System.out.println(difference);
         double billAmount;
         ParkingSpotType t= s.getSpotType(); 
         double[] arr = new double[3];
@@ -85,15 +86,15 @@ public class Ticket
         if (difference <= 1)
             billAmount = difference * arr[0];
         else if (difference > 1 && difference <= 3)
-            billAmount = difference * arr[1];
+            billAmount = arr[0]+(difference-1) * arr[1];
         else
-            billAmount = difference * arr[2];
+            billAmount = arr[0]+ 2*arr[1]+(difference-3) * arr[2];
         return billAmount;//use appropriate information from instance variables and calculate bill
     }
     double computeBill(double hours)
     {
         double difference = hours;
-        double billAmount;
+        double billAmount=0;
         ParkingSpotType t= s.getSpotType(); 
         double[] arr = new double[3];
         switch(t)
@@ -114,9 +115,9 @@ public class Ticket
         if (difference <= 1)
             billAmount = difference * arr[0];
         else if (difference > 1 && difference <= 3)
-            billAmount = difference * arr[1];
+            billAmount = arr[0]+(difference-1) * arr[1];
         else
-            billAmount = difference * arr[2];
+            billAmount = arr[0]+ 2*arr[1]+(difference-3) * arr[2];
         return billAmount;//use appropriate information from instance variables and calculate bill
     }
     void changeIsPaid(boolean status)

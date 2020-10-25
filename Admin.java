@@ -191,16 +191,27 @@ public class Admin extends Employee {
                     break;
                 
                 case 2 : 
-                    AdminOptionsGUI ao = new AdminOptionsGUI(pl);
-                    ao.run();
-                    //changePassword();
+                    if(loginstatus)
+                    {
+                        AdminOptionsGUI ao = new AdminOptionsGUI(pl);
+                         ao.run();
+                    }
+                    else
+                    {
+                        System.out.println("Please Login as Admin before trying to change settings");
+                    }
                     break;
-                
                 case 3 : 
+                    if(loginstatus)
                     addOrRemoveEmployee();
+                    else
+                    System.out.println("Please Login as Admin before trying to change settings");
                     break;
                 case 4:
+                    if(loginstatus)
                     addOrRemoveCheckpoint();
+                    else
+                    System.out.println("Please Login as Admin before trying to change settings");
                     break;
                 case 5 : 
                     System.out.println("Total Number of Floors ="+pl.getAllFloors().size());

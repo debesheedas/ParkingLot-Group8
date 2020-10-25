@@ -4,7 +4,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.*;
+//import java.util.*;
 
 //to run ElectricPanelGUI, run the following commands where p is ParkingLot object
 //ElectricPanelGUI e = new ElectricPanelGUI();
@@ -21,13 +21,17 @@ class ElectricPanelGUI implements ActionListener
     private static JButton cash_button;
     private static JButton card_button;
     private static JLabel payment_success;
-    private Time start;
+    private static Time start;
+    private static Time stop;
     private static boolean flag;
     private static double price;
     
     ElectricPanelGUI(ParkingLot pl)
     {
+        start = new Time();
+        stop = new Time();
         p=pl;
+        price = pl.getPriceOfElectricityPerHour();
     }
     void run()
     {//Pass ParkingLot object p - void run(ParkingLot p)
@@ -80,7 +84,7 @@ class ElectricPanelGUI implements ActionListener
     public void actionPerformed(ActionEvent e) 
     {
 
-        System.out.println("Some Button clicked");
+        //System.out.println("Some Button clicked");
         if(e.getSource().equals(start_button))
         {
             System.out.println("Start Button clicked");
@@ -94,12 +98,13 @@ class ElectricPanelGUI implements ActionListener
         else if(e.getSource().equals(stop_button) && flag==true)
         {
             double bill=0;
-            Time stop = new Time();
+            stop = new Time();
             //double d = 3;
+            System.out.println(start.getTime());
             double d = stop.diff(start);
             bill = d*price;
             System.out.println("Stop Button clicked");
-            amount_due.setText("The Bill Amount is "+bill+" rupees and the time charged is "+d+" hours");//replace X with bill. could considered showing time charged also
+            amount_due.setText("The Bill Amount is "+bill+" rupees and the time charged is "+d*60+" minutes");//replace X with bill. could considered showing time charged also
             cash_button.setVisible(true);
             card_button.setVisible(true);
             flag=false;
