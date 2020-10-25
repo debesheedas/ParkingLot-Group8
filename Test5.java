@@ -1,3 +1,21 @@
+// public class Test5 {
+
+//     public static void main(String[] args) {
+
+//         ParkingLot pl = new ParkingLot();
+//         pl.addFloor(new Floor(pl, new int[]{3,3,3,3,3,3,3,3,3,3}, 1));
+//         pl.addCheckpoint(new EntryPoint(pl, 5, "main Entry", 1));
+//         Customer c = new Customer(pl);
+//         c.run();
+//         pl.getDatabase().updateDatabase();
+
+
+
+//     }  
+    
+// }
+
+
 import java.util.*;
 
 public class Test5
@@ -11,8 +29,9 @@ public class Test5
     {
         Scanner sc = new Scanner(System.in);
         p.getDatabase().loadDatabase();
-        //Customer c = new Customer(p);
-        //c.run();
+        p.getAdmin().menu();
+        Customer c = new Customer(p);
+        c.run();
         System.out.println("Welcome Employee\nPlease Enter your unique Employee ID");
         try
         {
@@ -29,7 +48,7 @@ public class Test5
         }
         catch(Exception e)
         {
-            System.out.println("Please enter a valid number and try again");
+            System.out.println(e.getMessage() + "  Please enter a valid number and try again");
         }
         p.getDatabase().updateDatabase();
         sc.close();
