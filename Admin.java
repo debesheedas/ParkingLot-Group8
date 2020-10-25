@@ -101,10 +101,16 @@ public class Admin extends Employee {
             id = Integer.parseInt(sc.nextLine());
             System.out.println("Enter name of the Checkpoint");
             name = sc.nextLine();
-            System.out.println("Enter floor number");
+            System.out.println("Enter floor number within range "+pl.getAllFloors().size());
             floorNo = Integer.parseInt(sc.nextLine());
             System.out.println("Press 1: for EntryPoint\nPress 2: for ExitPoint\nPress 3: for InforPortal");
             int input = Integer.parseInt(sc.nextLine());
+            if(floorNo>pl.getAllFloors().size())
+            {
+                System.out.println("Cannot add checkpoint on this floor because this floor does not exist");
+                return;
+            }
+            
             switch(input)
             {
                 case 1:
@@ -195,7 +201,7 @@ public class Admin extends Employee {
                     break;
                 case 4:
                     addOrRemoveCheckpoint();
-                
+                    break;
                 case 5 : 
                     System.out.println("Total Number of Floors ="+pl.getAllFloors().size());
                     System.out.println("Please enter the Floor Number of the display you want to see");

@@ -71,7 +71,8 @@ public class Employee extends Customer{
             System.out.println("Press 1: LogIn\nPress 2: Get assigned to Checkpoint to start Working\nPress 3: Pay dues\nPress 4: Change Password\nPress 5: Park Car (Non-duty hours)\nPress 6: LogOut");
             try
             {
-                switch (sc.nextInt()) {
+                int n = Integer.parseInt(sc.nextLine());
+                switch (n) {
                     case 1 : 
                         LoginGUI l = new LoginGUI(pl);
                         l.run(pl);//both not required, check later
@@ -98,9 +99,18 @@ public class Employee extends Customer{
                     case 3 : 
                         dues=0;
                         System.out.println("Dues paid");
+                        break;
                     case 4 : 
-                        ChangePasswordGUI cp = new ChangePasswordGUI(pl, this);
-                        cp.run();
+                        if(loginstatus)
+                        {
+                            ChangePasswordGUI cp = new ChangePasswordGUI(pl, this);
+                            cp.run();
+                        }
+                        else
+                        {
+                            System.out.println("Please Login before trying to change password.");
+                        }
+                        
                     break;
                 
                     case 5 : 

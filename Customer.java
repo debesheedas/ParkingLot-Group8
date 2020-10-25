@@ -12,7 +12,7 @@ public class Customer
     Scanner sc = new Scanner(System.in);
     void run()
     {
-        System.out.println("Press 1: Entry Point\nPress 2: Exit Point\nPress 3: Info Portal\n Press 4: To view Floor Display\n Press 5: To charge Electric Vehicle");
+        System.out.println("Press 1: Entry Point\nPress 2: Exit Point\nPress 3: Info Portal\nPress 4: To view Floor Display\nPress 5: To charge Electric Vehicle");
         try{
             int n = Integer.parseInt(sc.nextLine());
             switch(n)
@@ -31,13 +31,16 @@ public class Customer
                         {
                             case ENTRY:
                                 EntryPoint p1 = new EntryPoint(pl, id, c.getName(), c.getFloorNumber());
+                                System.out.println("Welcome to EntryPoint "+p1.getName());
                                 p1.run();
                                 break;
                             case EXIT:
                                 ExitPoint p2 = new ExitPoint(pl, id, c.getName(), c.getFloorNumber());
+                                System.out.println("Welcome to ExitPoint "+p2.getName());
                                 p2.run();
                             case INFO:
                                 InfoPortal p3 = new InfoPortal(pl, id, c.getName(), c.getFloorNumber());
+                                System.out.println("Welcome to InfoPortal "+p3.getName());
                                 p3.run();
                             default:
                                 break;
