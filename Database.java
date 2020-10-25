@@ -54,7 +54,7 @@ public class Database{
 
             s.executeUpdate("create table if not exists employees (id int  not null , name text not null , pswd text not null , due real not null , loginStatus text not null)");
             s.executeUpdate("create table if not exists floors (floorNo int not null , tcs int not null , acs int not null , tls int not null , als int not null , ths int not null , ahs int not null , ttws int not null , atws int not null , tes int not null , aes int not null )");
-            s.executeUpdate("create table if not exists tickets (id int not null , startTime text not null , spotID int not null , floorNo int not null , vnp text not null )");
+            s.executeUpdate("create table if not exists tickets (id int not null , startTime text not null , spotID int not null , floorNo int not null , vnp text not null  , isPaid text not null)");
             s.executeUpdate("create table if not exists checkpoints (id int not null, name text not null, type text not null, floorNo int not null, assignedEmployeeID int not null)");
             s.executeUpdate("create table if not exists spotprices (type text not null , firsthour real not null , secondhour real not null , remaininghours real not null)");
             s.executeUpdate("create table if not exists electricityPricePerHour (price real not null)");
@@ -199,6 +199,7 @@ public class Database{
              int spotID = rs.getInt("spotID");
              int floorNo = rs.getInt("floorNo");
              String vnp = rs.getString("vnp");
+             String isPaid = rs.getString("isPaid");
 
              Ticket t =null;
 
@@ -210,7 +211,8 @@ public class Database{
                       if(spot.getID() == spotID){
                          Time time = new Time();
                          time.setTime(startTime);
-                           t = new Ticket(pl,id, spot,time , vnp);
+                           t = new Ticket(pl,id, spot,time , vnp );
+                           t.changeIsPaid(isPaid.equals("yes"));
                       }
                    }
                 }
@@ -399,10 +401,10 @@ public class Database{
    }
 
     
-   private void addTicket(int id ,String startTime, int spotID,int floorNo,String vnp){
+   private void addTicket(int id ,String startTime, int spotID,int floorNo,String vnp , String isPaid ){
 
         try(Connection c = this.connect();
-            PreparedStatement ps = c.prepareStatement("insert into tickets values (?,?,?,?,?)");
+            PreparedStatement ps = c.prepareStatement("insert into tickets values (?,?,?,?,?,?)");
          ){
 
             ps.setInt(1, id);
@@ -410,6 +412,7 @@ public class Database{
             ps.setInt(3, spotID);
             ps.setInt(4, floorNo);
             ps.setString(5, vnp);
+            ps.setString(6, isPaid);
             ps.executeUpdate();
             
          }catch(Exception e){
@@ -514,7 +517,7 @@ public class Database{
          addFloor(f.getFloorNo(), f.getTotalNumberOfCompactSpots(), f.getNumberOfAvailableCompactSpots(), f.getTotalNumberOfLargeSpots() , f.getNumberOfAvailableLargeSpots() , f.getTotalNumberOfHandicappedSpots() , f.getNumberOfAvailableHandicappedSpots() , f.getTotalNumberOfTwowheelerSpots() , f.getNumberOfAvailableTwowheelerSpots() , f.getTotalNumberOfElectricalSpots() , f.getNumberOfAvailableElectricalSpots());
       }
       for(Ticket t:tickets){
-         addTicket(t.getID(), t.getStartTime(), t.getSpot().getID() , t.getSpot().getFloorNo() , t.getVehicleNumberPlate());
+         addTicket(t.getID(), t.getStartTime(), t.getSpot().getID() , t.getSpot().getFloorNo() , t.getVehicleNumberPlate() , (String)((t.getIsPaid()) ? "yes" : "no"));
       }
       for(Checkpoint c:checkPoints){
          addCheckPoint(c.getID(), c.getName(), c.getCheckpointType().toString(), c.getFloorNumber() , c.getAssigned());
