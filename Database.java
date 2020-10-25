@@ -51,11 +51,11 @@ public class Database{
             Statement s = c.createStatement();
          ){
 
-            s.executeUpdate("create table if not exists employees (id int primary key not null , name text not null , pswd text not null , due real not null , loginStatus text not null)");
-            s.executeUpdate("create table if not exists floors (floorNo int primary key not null , tcs int not null , acs int not null , tls int not null , als int not null , ths int not null , ahs int not null , ttws int not null , atws int not null , tes int not null , aes int not null )");
-            s.executeUpdate("create table if not exists tickets (id int primary key not null , startTime text not null , spotID int not null , floorNo int not null , vnp text not null )");
-            s.executeUpdate("create table if not exists checkpoints (id int primary key  not null, name text not null, type text not null, floorNo int not null, assignedEmployeeID int not null)");
-            s.executeUpdate("create table if not exists spotprices (type text primary key not null , firsthour real not null , secondhour real not null , remaininghours real not null)");
+            s.executeUpdate("create table if not exists employees (id int  not null , name text not null , pswd text not null , due real not null , loginStatus text not null)");
+            s.executeUpdate("create table if not exists floors (floorNo int not null , tcs int not null , acs int not null , tls int not null , als int not null , ths int not null , ahs int not null , ttws int not null , atws int not null , tes int not null , aes int not null )");
+            s.executeUpdate("create table if not exists tickets (id int not null , startTime text not null , spotID int not null , floorNo int not null , vnp text not null )");
+            s.executeUpdate("create table if not exists checkpoints (id int not null, name text not null, type text not null, floorNo int not null, assignedEmployeeID int not null)");
+            s.executeUpdate("create table if not exists spotprices (type text not null , firsthour real not null , secondhour real not null , remaininghours real not null)");
 
          }catch(Exception e){
             System.out.println(e.getClass().getName() +" : "+e.getMessage());
