@@ -66,8 +66,8 @@ public class AdminOptionsGUI implements ActionListener
         tp = p.getTwowheelerPrices();
         ep = p.getElectricPrices();
         inputFloorMatrix = p.getAllFloors();
-        setUpFloorMatrix();
-
+        
+        System.out.println("i am in  constructor");
     }
     void setUpFloorMatrix()
     {
@@ -91,9 +91,12 @@ public class AdminOptionsGUI implements ActionListener
     }
     
 	void run(){
-        
+        setUpFloorMatrix(); 
+
 		frame = new JFrame();
         panel = new JPanel();
+
+        System.out.println("check");
         
 		frame.setTitle("Admin Options");
 		frame.setSize(1000,3000);
