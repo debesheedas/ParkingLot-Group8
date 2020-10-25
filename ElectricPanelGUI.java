@@ -93,13 +93,13 @@ class ElectricPanelGUI implements ActionListener
         {
             double bill=0;
             stop = new Time();
-            //double d = 3;
-            //System.out.println(price);
-            //System.out.println(start.getTime());
             double d = stop.diff(start);
             bill = d*price;
+            bill = Math.round(bill*100)/100;
+            d = (Math.round(d*6000)/100);
+            System.out.println(d);
             System.out.println("Stop Button clicked");
-            amount_due.setText("The Bill Amount is "+bill+" rupees and the time charged is "+d*60+" minutes");//replace X with bill. could considered showing time charged also
+            amount_due.setText("The Bill Amount is "+bill+" rupees and the time charged is "+d+" minutes");//replace X with bill. could considered showing time charged also
             cash_button.setVisible(true);
             card_button.setVisible(true);
             flag=false;

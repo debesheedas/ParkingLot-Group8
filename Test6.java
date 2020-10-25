@@ -1,5 +1,5 @@
 //Please use this testing code to interact with the system as a Customer
-import java.util.*;
+//import java.util.*;
 
 public class Test6
 {

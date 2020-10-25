@@ -17,7 +17,7 @@ public class TestingModule1
     {
         System.out.println("Enter test1");
         p.getDatabase().loadDatabase();
-        /*Employee e = new Employee(p, 1, "Sheldon Cooper", "Bazinga!", 100.4, false);
+        Employee e = new Employee(p, 1, "Sheldon Cooper", "Bazinga!", 100.4, false);
         System.out.println(p.addEmployee(e));
         Employee e1 = new Employee(p, 2, "Leonard", "Sheldon!", 205, false);
         System.out.println(p.addEmployee(e1));
@@ -37,6 +37,8 @@ public class TestingModule1
         p.addCheckpoint(c3);
         Checkpoint c4 = new Checkpoint(p, 4, "Main Exit", CheckpointType.EXIT, 3);
         p.addCheckpoint(c4);
+        Checkpoint c5 = new Checkpoint(p, 6, "Central Info Point", CheckpointType.INFO, 4);
+        p.addCheckpoint(c5);
         
         Customer c = new Customer(p);
         System.out.println(c);
@@ -60,10 +62,10 @@ public class TestingModule1
         
         //FloorDisplayGUI fd = new FloorDisplayGUI(f);
         //System.out.println(fd);
-        LoginGUI l = new LoginGUI(p);
-        System.out.println(l);
-        ChangePasswordGUI chp = new ChangePasswordGUI();
-        System.out.println(chp);
+        //LoginGUI l = new LoginGUI(p);
+        //System.out.println(l);
+        //ChangePasswordGUI chp = new ChangePasswordGUI();
+        //System.out.println(chp);
         
         //ElectricPanelGUI elec = new ElectricPanelGUI(p);
         //elec.run();
