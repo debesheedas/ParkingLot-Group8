@@ -6,6 +6,7 @@ import java.sql.*;
 import java.util.*;
 
 // Driver path   -------->   ".;JDBC/sqlite-jdbc-3.7.2.jar"
+//Driver path ----> For Non - Windows  ".:JDBC/sqlite-jdbc-3.7.2.jar"
 public class Database{
     
     private String db_name = "parkinglot.db";

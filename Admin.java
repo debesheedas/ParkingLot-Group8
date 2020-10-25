@@ -41,6 +41,8 @@ public class Admin extends Employee {
             e = new Employee(pl , id, name, password, 0,false);
             if(pl.addEmployee(e))
                 System.out.println("Employee added successfully");
+            else
+                System.out.println("Unsuccessful. Employee not added becausethis ID already exists.");
         }
         catch(Exception ex)
         {
@@ -173,7 +175,8 @@ public class Admin extends Employee {
         
             System.out.println("Welcome Admin.");
             System.out.println("Press 1: To Login\nPress 2: To Change Admin Options of Parking Lot\nPress 3: To Add/Remove Employees\nPress 4: To add/Remove Checkpoints\nPress 5: To View Floor Display\nPress 6: To LogOut");
-            switch (sc.nextInt()) {
+            int n = Integer.parseInt(sc.nextLine());
+            switch (n) {
                 case 1 : 
                     LoginGUI l = new LoginGUI(pl);
                     l.run(pl);//both not required, check later

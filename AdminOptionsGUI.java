@@ -43,7 +43,7 @@ public class AdminOptionsGUI implements ActionListener
     private static JButton add_floor_button;
     private static JButton remove_floor_button;
 
-    private final int maxNumberOfFloors = 15;
+    private final int maxNumberOfFloors = 8;
     private double pe=3;
     private double[] cp = {20, 10, 5};
     private double[] lp = {30, 20, 10};
@@ -58,6 +58,7 @@ public class AdminOptionsGUI implements ActionListener
 
     AdminOptionsGUI(ParkingLot pl)
     {
+        //System.out.println("constructor");
         p=pl;
         pe = p.getPriceOfElectricityPerHour();
         cp = p.getCompactPrices();
@@ -66,11 +67,17 @@ public class AdminOptionsGUI implements ActionListener
         tp = p.getTwowheelerPrices();
         ep = p.getElectricPrices();
         inputFloorMatrix = p.getAllFloors();
+        numberOfFloors = inputFloorMatrix.size();
         
-        System.out.println("i am in  constructor");
+        //System.out.println("constructor");
+        setUpFloorMatrix();
+
+        
+        //System.out.println("i am in  constructor");
     }
     void setUpFloorMatrix()
     {
+        //System.out.println("Setting up");
         int n = inputFloorMatrix.size();int m=0;
         for(Floor i: inputFloorMatrix)
         {            
@@ -78,6 +85,7 @@ public class AdminOptionsGUI implements ActionListener
             for(int j=0; j<10; j++)
             {
                 floorMatrix[m][j] = arr[j];
+                //System.out.print(floorMatrix[m][j]);
             }
             m++;
         }
@@ -91,7 +99,10 @@ public class AdminOptionsGUI implements ActionListener
     }
     
 	void run(){
-        setUpFloorMatrix(); 
+        //setUpFloorMatrix();
+        //System.out.println("Check");
+        
+        //setUpFloorMatrix(); 
 
 		frame = new JFrame();
         panel = new JPanel();
@@ -184,7 +195,7 @@ public class AdminOptionsGUI implements ActionListener
         FloorNumbers= new JLabel[numberOfFloors];
         FloorFields = new JTextField[numberOfFloors][10];
         //initializing floorMatrix
-        initializeFloorMatrix(numberOfFloors);
+        //initializeFloorMatrix(numberOfFloors);
         initializeFloorDisplay(numberOfFloors);
         /*for(int i=0; i<numberOfFloors; i++)
         {
@@ -390,7 +401,7 @@ public class AdminOptionsGUI implements ActionListener
             }
 
             p.setFloors(temp);
-            for(int i=0; i<maxNumberOfFloors; i++)
+            /*for(int i=0; i<maxNumberOfFloors; i++)
             {
                 for(int j=0; j<10; j=j+2)
                 {
@@ -405,14 +416,15 @@ public class AdminOptionsGUI implements ActionListener
                     }
                 }
 
-            }  
+            }*/  
         }
         void checkUpdate()
         {
             System.out.println(p.getPriceOfElectricityPerHour());
-            System.out.println(p.getCompactPrices().toString());
+            System.out.println(p.getCompactPrices());
             System.out.println(p.getLargePrices());
             System.out.println(p.getHandicappedPrices());
+            System.out.println(p.getTwowheelerPrices());
             System.out.println(p.getElectricPrices());
     
             System.out.println(p.getAllFloors());
@@ -438,7 +450,18 @@ public class AdminOptionsGUI implements ActionListener
                 p.removeCheckpoint(i);
             }
         }
-    }        
+    } 
+    void removeDeletedTickets(int n)
+    {
+        ArrayList<Ticket> all = p.getAllTickets();
+        for(Ticket i:all)
+        {
+            if(i.getSpot().getFloorNo()>n)
+            {
+                p.removeTicket(i);
+            }
+        }
+    }             
 
     
     
@@ -451,6 +474,7 @@ public class AdminOptionsGUI implements ActionListener
             
             pe = Double.parseDouble("0"+electricityPrice.getText());
             //System.out.println("save Button clicked"+pe);
+            removeDeletedTickets(numberOfFloors);
             p.setPriceOfElectricityPerHour(pe);
             updatePrices();
             updateFloorMatrix(numberOfFloors);

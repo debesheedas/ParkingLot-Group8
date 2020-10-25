@@ -87,7 +87,7 @@ public class LoginGUI implements ActionListener
 		{
 			success.setText("Login Successful!");
 			pl.getAdmin().setLoginStatus(true);
-			//pl.getDatabase().updateDatabase();
+			pl.getDatabase().updateDatabase();
 
 			//execute(true);
             //Admin a = super.getAdmin();//getter method for admin instance variable available in ParkingLot class
@@ -99,8 +99,8 @@ public class LoginGUI implements ActionListener
 			Employee emp = pl.returnEmployeeByUsername(username, password);//method present in ParkingLot class
 			
 			emp.setLoginStatus(true);//setter method of Employee class
-			//pl.getDatabase().updateDatabase();
-			
+			pl.getDatabase().updateDatabase();
+
             //search for employee and set login status as true
         }
 		else

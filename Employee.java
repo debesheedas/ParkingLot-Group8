@@ -76,7 +76,7 @@ public class Employee extends Customer{
                         LoginGUI l = new LoginGUI(pl);
                         l.run(pl);//both not required, check later
                     
-                        System.out.println(loginstatus);
+                        //System.out.println(loginstatus);
                         break;
                     
                     case 2 : 
@@ -90,7 +90,7 @@ public class Employee extends Customer{
                         }
                         else
                         {
-                            System.out.println("No such checkpoint exists");
+                            System.out.println("No such ch1eckpoint exists");
                         }
                         break;
                         
