@@ -41,6 +41,8 @@ public class Admin extends Employee {
             e = new Employee(pl , id, name, password, 0,false);
             if(pl.addEmployee(e))
                 System.out.println("Employee added successfully");
+            else
+                System.out.println("Unsuccessful. Employee not added becausethis ID already exists.");
         }
         catch(Exception ex)
         {

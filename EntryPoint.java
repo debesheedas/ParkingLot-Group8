@@ -146,8 +146,15 @@ class EntryPoint extends Checkpoint {
                 //update corresponding instance variables of ParkingLot class and all other classes- whichever has been changed
             System.out.println("Enter the number of vehicleNumberPlate : ");
             String vehicleNumberPlate = Ep.nextLine();
-            Ticket last = pl.getAllTickets().get(pl.getAllTickets().size()-1);
-            int id = last.getID()+1;
+            int id;
+            if(pl.getAllTickets().size()==0)
+                id=1;
+            else
+            {
+                Ticket last = pl.getAllTickets().get(pl.getAllTickets().size()-1);
+                id = last.getID()+1;
+            }
+            
             Ticket T = new Ticket(pl, id, spot, vehicleNumberPlate);
             //int id = pl.returnTicketByID(tc);
             
