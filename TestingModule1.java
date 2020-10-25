@@ -1,15 +1,18 @@
 import java.util.*;
-
+/*
+This TestingModule demonstrates some of the functionalities of How the Admin can interact with the system. 
+It sets up the Database with some basic data of the ParkingLot for further tetsing
+*/
 public class TestingModule1
 {
 
-    /*public static void main(String[] args)
+    public static void main(String[] args)
     {
         System.out.println("Hello");
         ParkingLot obj = new ParkingLot();
         test1(obj);       
 
-    }*/
+    }
     
     static void test1(ParkingLot p)
     {
