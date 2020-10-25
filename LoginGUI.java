@@ -1,19 +1,12 @@
-//Debeshee
-
 import javax.swing.*;
-import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.*;
 /*
 interface Callback
 {
 	void execute(boolean status);
 }*/
 
-//to call Login for both admin or Employee, call this class and run method as the following statements
-//LoginGUI l = new LoginGUI();
-//l.run();
 public class LoginGUI implements ActionListener
 {
 	ParkingLot pl;
@@ -67,12 +60,9 @@ public class LoginGUI implements ActionListener
 		success = new JLabel();
 		success.setBounds(20, 110, 300, 25);
 		panel.add(success);
-		//set Text if credentials are correct
-		
-		
+		//set Text if credentials are correct		
         frame.setVisible(true);
-        //System.out.println();
-        //return true;
+    
     }
     @Override
 	public void actionPerformed(ActionEvent e) {
@@ -82,7 +72,6 @@ public class LoginGUI implements ActionListener
 		password = new String(password2.getPassword());
         //System.out.println(username + " "+ password);
         
-        
         if(username.equals("admin")&&password.equals("password"))
 		{
 			success.setText("Login Successful!");
@@ -90,8 +79,6 @@ public class LoginGUI implements ActionListener
 			pl.getDatabase().updateDatabase();
 
 			//execute(true);
-            //Admin a = super.getAdmin();//getter method for admin instance variable available in ParkingLot class
-            //a.setLoginStatus(true);//setter method provided in Admin class...we could consider making admin a static variable
         }
         else if(pl.searchEmployeeByUsername(username, password))
         {
@@ -100,7 +87,6 @@ public class LoginGUI implements ActionListener
 			
 			emp.setLoginStatus(true);//setter method of Employee class
 			pl.getDatabase().updateDatabase();
-
             //search for employee and set login status as true
         }
 		else

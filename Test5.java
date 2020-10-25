@@ -1,20 +1,4 @@
-// public class Test5 {
-
-//     public static void main(String[] args) {
-
-//         ParkingLot pl = new ParkingLot();
-//         pl.addFloor(new Floor(pl, new int[]{3,3,3,3,3,3,3,3,3,3}, 1));
-//         pl.addCheckpoint(new EntryPoint(pl, 5, "main Entry", 1));
-//         Customer c = new Customer(pl);
-//         c.run();
-//         pl.getDatabase().updateDatabase();
-
-
-
-//     }  
-    
-// }
-
+//Please use this testing code to interact with the system as an Employee
 
 import java.util.*;
 
@@ -29,9 +13,7 @@ public class Test5
     {
         Scanner sc = new Scanner(System.in);
         p.getDatabase().loadDatabase();
-        p.getAdmin().menu();
-        Customer c = new Customer(p);
-        c.run();
+        
         System.out.println("Welcome Employee\nPlease Enter your unique Employee ID");
         try
         {

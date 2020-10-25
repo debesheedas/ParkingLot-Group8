@@ -1,11 +1,9 @@
 import java.util.*;
 
-import javax.xml.crypto.Data;
-
 public class ParkingLot
 {
     Database db = new Database(this);
-    private Admin admin = new Admin(this, false);//consider making this static
+    private Admin admin = new Admin(this, false);
     private ArrayList<Employee>  employeeList = new ArrayList<Employee>();
     private ArrayList<Ticket> allTickets = new ArrayList<>();
     private ArrayList<Checkpoint> allCheckpoints = new ArrayList<>();
@@ -16,14 +14,6 @@ public class ParkingLot
     private double[] handicappedPrices = new double[3];
     private double[] twowheelerPrices = new double[3];
     private double[] electricPrices = new double[3];
-
-    //get full employee list method should return an array or arraylist of employee objects
-    //search by id and return employee method get
-    //add employee method - set
-    //delete employee - set
-    //Array list of entry points exit points and info portals basically an arraylist of all checkpoints
-    //write getter and setter methods for each of the instance variables of this class
-    
 
     Admin getAdmin()
     {
@@ -57,24 +47,20 @@ public class ParkingLot
 
     boolean addEmployee(Employee e)
     {
-        //first check if employee with this ID already exists - method to search by id
         if (searchEmployeeByID(e))
             return false;
-        //if it already exists return false
-        //if it does not exist already, then
+
         employeeList.add(e);
         return true;
     }
     boolean removeEmployee(Employee e)
     {
-        //first check if employee with this ID already exists - method to search by id
         if (searchEmployeeByID(e))
         {
             employeeList.remove(e); 
             return true;  
         }
-            return false;
-        
+            return false; 
     }
     boolean searchEmployeeByID(Employee e)
     {
@@ -166,14 +152,7 @@ public class ParkingLot
         }
         return null;
     }
-    //probably wont need this, not tested yet
-    /*int returnTicketByID (Ticket t){
-        if (searchTicketbyID(t.getID()))
-            return t.getID();
-        return 0;
-    }*/
-
-
+   
     ArrayList<Checkpoint> getAllCheckpoints() {
 
         return allCheckpoints;
@@ -313,12 +292,16 @@ public class ParkingLot
             electricPrices[i] = p[i];
         }
     }
+}
 
+
+
+/*
     void run()
     {
         System.out.println("Enter run");
         //db.loadDatabase(this);//loading data into objects from existing database if exists, else setting up database
-        /*Spot s = new Spot(this, 1, ParkingSpotType.COMPACT, 1, true);
+        Spot s = new Spot(this, 1, ParkingSpotType.COMPACT, 1, true);
         System.out.println(s);
         //Scanner scan = new Scanner(System.in);
         //boolean y = scan.nextBoolean();
@@ -327,21 +310,15 @@ public class ParkingLot
         Employee e = new Employee(this, 1,"Username", "pass", 0.0);
         employeeList.add(e);
         System.out.println(e.toString());
-        */
+        
         //db.updateDatabase(this); //updates database before terminating the program
 
         
     
-    }
-   
-}
-
-
-
 
 
 //write a menu driven program, while loop to test the program
-        /*
+        
         boolean y;//take input through Scanner
         while(y)
         {

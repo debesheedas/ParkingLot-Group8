@@ -13,7 +13,7 @@ public class Floor
         this.pl=pl;
         this.NumberOfSpots = NumberOfSpots;
         this.floorNo = floorNo;
-        //initialize this by creating all the spot objects of appropriate types
+       
         for(int i=0; i<NumberOfSpots[0]; i++, id++)
         {
             allSpotsOnthisFloor.add(new Spot(pl, id,ParkingSpotType.COMPACT , this.floorNo, true));
@@ -34,19 +34,6 @@ public class Floor
         {
             allSpotsOnthisFloor.add(new Spot(pl, id,ParkingSpotType.ELECTRIC , this.floorNo, true));
         }
-        /*
-        for(int i=1;i<=5;i++){
-            if(i==1)
-                allSpotsOnthisFloor.add(new Spot(pl, i,ParkingSpotType.COMPACT , this.floorNo, true));
-            else if(i==2)
-                allSpotsOnthisFloor.add(new Spot(pl, i,ParkingSpotType.LARGE , this.floorNo, true));
-            else if(i==3)
-                allSpotsOnthisFloor.add(new Spot(pl, i,ParkingSpotType.ELECTRIC , this.floorNo, true));   
-            else if(i==4)
-                allSpotsOnthisFloor.add(new Spot(pl, i,ParkingSpotType.TWOWHEELER , this.floorNo, true));
-            else if(i==5)
-                allSpotsOnthisFloor.add(new Spot(pl, i,ParkingSpotType.HANDICAPPED , this.floorNo, true));        
-        }*/
 
     }
     public int getTotalNumberOfCompactSpots(){
@@ -126,6 +113,53 @@ public class Floor
     }
     public void setNumberOfSpots(int[] numberOfSpots) {
         NumberOfSpots = numberOfSpots;
+    }
+
+    void incrementAvailableSpots(ParkingSpotType t)
+    {
+        switch(t)
+        {
+            case COMPACT:
+                NumberOfSpots[1]++;
+                break;
+            case LARGE:
+                NumberOfSpots[3]++;
+                break;
+            case HANDICAPPED:
+                NumberOfSpots[5]++;
+                break;
+            case TWOWHEELER:
+                NumberOfSpots[7]++;
+                break;
+            case ELECTRIC:
+                NumberOfSpots[9]++;
+                break;
+            default:
+                break;
+        }
+    }
+    void decrementAvailableSpots(ParkingSpotType t)
+    {
+        switch(t)
+        {
+            case COMPACT:
+                NumberOfSpots[1]--;
+                break;
+            case LARGE:
+                NumberOfSpots[3]--;
+                break;
+            case HANDICAPPED:
+                NumberOfSpots[5]--;
+                break;
+            case TWOWHEELER:
+                NumberOfSpots[7]--;
+                break;
+            case ELECTRIC:
+                NumberOfSpots[9]--;
+                break;
+            default:
+                break;
+        }
     }
 
     /*

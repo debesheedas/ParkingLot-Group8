@@ -1,20 +1,16 @@
-//Jaswanth
 import java.util.*;
-
-public class Spot//write a parameterized constructor for  this to initialize the variables as follows
+public class Spot
 {
-    ParkingLot pl;
+    private ParkingLot pl;
     private int id; 
     private String name;//generate an alphanumeric sequence such as 5C04 where 5 stands for 5th floor, C stands for compact and 04 is the id number of the spot, use L for large, H for handicapped, T for Twowheeler and E for electric
     private ParkingSpotType t;
-    //double[] prices;
     private int floor;
     private boolean isAvailable;
 
     Spot(ParkingLot p, int id, ParkingSpotType t, int floor, boolean status)
     {
         pl=p;
-        //assign all values as directed
         char c ='\0';
         this.id = id;
         this.t = t;

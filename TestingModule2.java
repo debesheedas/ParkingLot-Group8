@@ -1,14 +1,17 @@
+//Please ignore this file. It was used in initial rounds of testing
+
+/*
 import java.util.*;
 
 public class TestingModule2
 {
-    /*public static void main(String[] args)
+    public static void main(String[] args)
     {
         System.out.println("Hello");
         ParkingLot obj = new ParkingLot();
         test2(obj);       
 
-    }*/
+    }
     static void test2(ParkingLot p)
     {
         p.run();
@@ -124,9 +127,10 @@ public class TestingModule2
         ChangePasswordGUI chp = new ChangePasswordGUI();
         System.out.println(chp);
         p.run();
-        */
+        
         
 
 
     }
 }
+*/

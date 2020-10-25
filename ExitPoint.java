@@ -1,40 +1,21 @@
 import java.util.Scanner;
 
-//Anand
 class ExitPoint extends Checkpoint
 {
     Scanner sc = new Scanner(System.in);
-    
-    //Ticket t = new Ticket(0,null, null);
     ParkingLot pl;
-    //Floor f = new Floor(null, 0);
-    //int id;
-    //boolean isPaid = true;
     ExitPoint(ParkingLot p, int id, String nm, int floorNo)
     {
         super(p, id, nm, CheckpointType.EXIT, floorNo);
         pl=p;
-        /*super.pl=p;
-        super.ID = id;
-        super.name = nm;
-        super.type = Checkpoint.EXIT;
-        super.assignedEmployeeID=0;
-        super.floorNumber = floorNo;*/
-
-
     }
 
     void run()
     {
-        //call userInput()
-    
         checkTicket(userInput());
-        
     }
     Ticket userInput()
     {
-        //take in ticket ID via Scanner
-        //return corresponding Ticket object after searching instance variable Ticket arraylist to calling method
         System.out.println("Enter your Ticket ID");
         try
         {
@@ -50,7 +31,7 @@ class ExitPoint extends Checkpoint
     }
     void checkTicket(Ticket t)
     {
-        
+        //If the ticket is already paid previously at the Infor Portal, then the Spot availability will be modified and Ticket will be removed from the System   
         if(t.getIsPaid()==false)
         {
             payTicket(t);
@@ -64,9 +45,6 @@ class ExitPoint extends Checkpoint
     
     void payTicket(Ticket t)
     {
-        //call computeBill method
-        //change paid status
-        //modify spots, free the corresponding spot by modifying the instance variables of ParkingLot -  Floor list and Ticket List
         System.out.println("Your bill amount is: "+t.computeBill());
         System.out.println("Press 1: To Pay by Cash\nPress 2: To Pay with Card");
         try{
@@ -95,6 +73,9 @@ class ExitPoint extends Checkpoint
     void freeSpot(Ticket t)
     {
         t.getSpot().setIsAvailable(true);
+        int n = t.getSpot().getFloorNo();
+        Floor f = pl.getAllFloors().get(n-1);
+        f.incrementAvailableSpots(t.getSpot().getSpotType());
         pl.removeTicket(t);
 
     }

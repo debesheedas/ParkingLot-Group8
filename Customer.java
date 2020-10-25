@@ -1,4 +1,3 @@
-//Anand
 import java.util.*;
 public class Customer
 {
@@ -23,7 +22,7 @@ public class Customer
                     System.out.println("Please enter the ID of the Checkpoint you would like to go to");
                     int id = Integer.parseInt(sc.nextLine());
                     Checkpoint c = pl.returnCheckpointByID(id);
-                    int i = pl.getAllCheckpoints().indexOf(c);
+                    
                     if(c!=null)
                     {
                         CheckpointType t = c.getCheckpointType();
@@ -73,6 +72,7 @@ public class Customer
                     break;
                 case 5:
                     //System.out.println("Please enter valid Ticket ID of Electric Spot type");
+                    //A check can be added here to allow Customer to use electric Panel only if he holds Ticket with Electric Type Spot allotted to him
                     ElectricPanelGUI e = new ElectricPanelGUI(pl);
                     e.run();
                     break;

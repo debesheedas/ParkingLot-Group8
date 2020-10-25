@@ -1,13 +1,11 @@
 import java.util.*;
 public class Admin extends Employee {
-    //Scanner sc = new Scanner(System.in);
     ParkingLot pl;
     private String username = "admin";
-    //FloorDisplayGUI e = new FloorDisplayGUI(null);
     private String password = "password";
     boolean loginstatus;
     Scanner sc = new Scanner(System.in);
-    //private String agn;
+    
 
     Admin(ParkingLot p, boolean status)
     {
@@ -185,9 +183,7 @@ public class Admin extends Employee {
             switch (n) {
                 case 1 : 
                     LoginGUI l = new LoginGUI(pl);
-                    l.run(pl);//both not required, check later
-                    //changeSettings();
-                    //System.out.println(loginstatus);
+                    l.run(pl);
                     break;
                 
                 case 2 : 

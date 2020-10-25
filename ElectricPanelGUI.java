@@ -1,14 +1,8 @@
-//Debeshee
-
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-//import java.util.*;
 
-//to run ElectricPanelGUI, run the following commands where p is ParkingLot object
-//ElectricPanelGUI e = new ElectricPanelGUI();
-//e.run(p);
 class ElectricPanelGUI implements ActionListener
 {
     ParkingLot p;
@@ -34,7 +28,7 @@ class ElectricPanelGUI implements ActionListener
         price = pl.getPriceOfElectricityPerHour();
     }
     void run()
-    {//Pass ParkingLot object p - void run(ParkingLot p)
+    {
 		
 		frame = new JFrame();
 		panel = new JPanel();
@@ -100,7 +94,8 @@ class ElectricPanelGUI implements ActionListener
             double bill=0;
             stop = new Time();
             //double d = 3;
-            System.out.println(start.getTime());
+            //System.out.println(price);
+            //System.out.println(start.getTime());
             double d = stop.diff(start);
             bill = d*price;
             System.out.println("Stop Button clicked");

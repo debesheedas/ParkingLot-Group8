@@ -15,7 +15,7 @@ public class Ticket
         ID=id;
         s=spot;
         entry= new Time();
-        exit=new Time();//dummy value
+        exit=new Time();//dummy value just for cnstrutor purposes
         isPaid=false;
         VehicleNumberPlate = vnp;
     }
@@ -28,16 +28,7 @@ public class Ticket
         exit = new Time();//dummy value
         isPaid=false;
         VehicleNumberPlate = vnp;
-
-
-
     }
-    /*void AddtoDatabase()
-    {
-            //whenever a ticket is created it is added to the database in case the program is closed before the the car leaves the parking lot
-    }*/
-
-        //whenever you need the difference between two time objects t1 and t2 in hours, then just call double difference = exit.diff(entry);
     public Spot getSpot()
     {
         return s;
@@ -52,10 +43,6 @@ public class Ticket
     void setStopTime(Time t)
     {
         exit = t;
-    }
-    void setStopTime(String s)
-    {
-        //figure out how to convert String to date type...convert it into time object and assign to exit
     }
     String getStartTime()
     {
@@ -118,7 +105,7 @@ public class Ticket
             billAmount = arr[0]+(difference-1) * arr[1];
         else
             billAmount = arr[0]+ 2*arr[1]+(difference-3) * arr[2];
-        return billAmount;//use appropriate information from instance variables and calculate bill
+        return billAmount;
     }
     void changeIsPaid(boolean status)
     {
@@ -141,6 +128,4 @@ public class Ticket
     void setVehicleNumberPlate(String vnp){
         VehicleNumberPlate = vnp;
     }
-        //pay ticket - after payment, delete ticket from database
-
 }
