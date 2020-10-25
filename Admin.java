@@ -191,11 +191,16 @@ public class Admin extends Employee {
                     break;
                 
                 case 2 : 
-                    AdminOptionsGUI ao = new AdminOptionsGUI(pl);
-                    ao.run();
-                    //changePassword();
+                    if(loginstatus)
+                    {
+                        AdminOptionsGUI ao = new AdminOptionsGUI(pl);
+                         ao.run();
+                    }
+                    else
+                    {
+                        System.out.println("Please Login as Admin before trying to change settings");
+                    }
                     break;
-                
                 case 3 : 
                     addOrRemoveEmployee();
                     break;
