@@ -65,7 +65,7 @@ public class Customer
                     }
                     catch(Exception e)
                     {
-                        System.out.println("Please enter Valid input and try again");
+                        System.out.println(e.getMessage() + "  Please enter Valid input and try again");
                     }
                     break;
                 case 5:
@@ -79,7 +79,7 @@ public class Customer
         }
         catch(Exception e)
         {
-            System.out.println("Please enter a valid choice");
+            System.out.println(e.getMessage() +  "  Please enter a valid choice");
         }
     }
 }
