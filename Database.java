@@ -300,7 +300,7 @@ public class Database{
             this.setupDatabase();                        // if not create db and tables in it
          }
 
-         pl.admin = getAdmin();
+         pl.setAdmin(this.getAdmin());
          pl.setEmployees(fillEmployees(new ArrayList<Employee>()));
          pl.setFloors(fillFloors(new ArrayList<Floor>()));
          pl.setTickets(fillTickets(new ArrayList<Ticket>()));
