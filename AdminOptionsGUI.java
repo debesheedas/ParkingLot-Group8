@@ -58,6 +58,7 @@ public class AdminOptionsGUI implements ActionListener
 
     AdminOptionsGUI(ParkingLot pl)
     {
+        System.out.println("constructor");
         p=pl;
         pe = p.getPriceOfElectricityPerHour();
         cp = p.getCompactPrices();
@@ -66,11 +67,13 @@ public class AdminOptionsGUI implements ActionListener
         tp = p.getTwowheelerPrices();
         ep = p.getElectricPrices();
         inputFloorMatrix = p.getAllFloors();
-        setUpFloorMatrix();
+        System.out.println("constructor");
+        //setUpFloorMatrix();
 
     }
     void setUpFloorMatrix()
     {
+        System.out.println("Setting up");
         int n = inputFloorMatrix.size();int m=0;
         for(Floor i: inputFloorMatrix)
         {            
@@ -78,6 +81,7 @@ public class AdminOptionsGUI implements ActionListener
             for(int j=0; j<10; j++)
             {
                 floorMatrix[m][j] = arr[j];
+                System.out.print(floorMatrix[m][j]);
             }
             m++;
         }
@@ -91,6 +95,8 @@ public class AdminOptionsGUI implements ActionListener
     }
     
 	void run(){
+        setUpFloorMatrix();
+        System.out.println("Check");
         
 		frame = new JFrame();
         panel = new JPanel();
@@ -387,7 +393,7 @@ public class AdminOptionsGUI implements ActionListener
             }
 
             p.setFloors(temp);
-            for(int i=0; i<maxNumberOfFloors; i++)
+            /*for(int i=0; i<maxNumberOfFloors; i++)
             {
                 for(int j=0; j<10; j=j+2)
                 {
@@ -402,14 +408,15 @@ public class AdminOptionsGUI implements ActionListener
                     }
                 }
 
-            }  
+            }*/  
         }
         void checkUpdate()
         {
             System.out.println(p.getPriceOfElectricityPerHour());
-            System.out.println(p.getCompactPrices().toString());
+            System.out.println(p.getCompactPrices());
             System.out.println(p.getLargePrices());
             System.out.println(p.getHandicappedPrices());
+            System.out.println(p.getTwowheelerPrices());
             System.out.println(p.getElectricPrices());
     
             System.out.println(p.getAllFloors());
@@ -435,7 +442,18 @@ public class AdminOptionsGUI implements ActionListener
                 p.removeCheckpoint(i);
             }
         }
-    }        
+    } 
+    void removeDeletedTickets(int n)
+    {
+        ArrayList<Ticket> all = p.getAllTickets();
+        for(Ticket i:all)
+        {
+            if(i.getSpot().getFloorNo()>n)
+            {
+                p.removeTicket(i);
+            }
+        }
+    }             
 
     
     
@@ -448,6 +466,7 @@ public class AdminOptionsGUI implements ActionListener
             
             pe = Double.parseDouble("0"+electricityPrice.getText());
             //System.out.println("save Button clicked"+pe);
+            removeDeletedTickets(numberOfFloors);
             p.setPriceOfElectricityPerHour(pe);
             updatePrices();
             updateFloorMatrix(numberOfFloors);
