@@ -48,6 +48,17 @@ public class Database{
      }
 
      public void setupDatabase(){
+
+         deleteDatabase();
+         File db = new File("db/parkinglot.bd");
+
+         try{
+            db.createNewFile();
+         }catch(Exception e){
+            System.out.println(e.getMessage());
+         }
+         
+
          try(Connection c = this.connect();
             Statement s = c.createStatement();
          ){
@@ -65,17 +76,14 @@ public class Database{
          }
      }
 
-     public void deleteAllTables(){
-         try(Connection c = this.connect();
-            Statement s = c.createStatement();
-         ){
-            s.executeUpdate("drop table if exists 'employees' ");
-            s.executeUpdate("drop table if exists 'floors' ");
-            s.executeUpdate("drop table if exists 'tickets' ");
-            s.executeUpdate("drop table if exists 'checkpoints' ");
-            s.executeUpdate("drop table if exists 'spotprices' ");
-         }catch(Exception e){
-            System.out.println(e.getClass().getName() +" : "+e.getMessage());
+     public void deleteDatabase(){
+         
+         File db = new File("db/parkinglot.db") ;
+
+         if(db.delete()){
+            System.out.println("Database deleted successfully.");
+         }else{
+            System.out.println("Failed to delete the database.");
          }
      }
 
@@ -327,7 +335,7 @@ public class Database{
 
          File f = new File("db/parkinglot.db");  
 
-         if(!(f.isFile() && this.count_tables() == 5)){   // checking if db file exists and has 5 tables in it 
+         if(!(f.isFile())){   // checking if db file exists and has 5 tables in it 
             System.out.println("ParkingLot is being created for first time. Please enter initial settings of ParkingLot");
             this.setupDatabase();                        // if not create db and tables in it
             pl.getAdmin().menu();;                         // call admin options    
@@ -488,7 +496,7 @@ public class Database{
 
    public void updateDatabase(){
 
-      deleteAllTables(); // deleting all existing tables 
+      deleteDatabase(); // deleting  current database
       setupDatabase();  // again creating all empty tables
 
       ArrayList<Employee> employees = pl.getAllEmployees();

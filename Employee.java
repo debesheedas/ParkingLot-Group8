@@ -86,7 +86,8 @@ public class Employee extends Customer{
                         Checkpoint c = pl.returnCheckpointByID(id);
                         if(c!=null)
                         {
-                            c.setAssigned(id);
+                            c.setAssigned(this.getID());
+
                             System.out.println("You have been assigned to the checkpoint "+c.getName());
                         }
                         else
