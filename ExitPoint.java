@@ -16,7 +16,11 @@ class ExitPoint extends Checkpoint
     }
     Ticket userInput()
     {
+        //take in ticket ID via Scanner
+        //return corresponding Ticket object after searching instance variable Ticket arraylist to calling method
+        
         System.out.println("Enter your Ticket ID");
+        
         try
         {
             int id = Integer.parseInt(sc.nextLine());
@@ -24,16 +28,17 @@ class ExitPoint extends Checkpoint
         }
         catch(Exception e)
         {
-            System.out.println("please enter a valid choice");
+            System.out.println("please enter a valid choice ");
         }
         
         return null;
     }
     void checkTicket(Ticket t)
     {
-        //If the ticket is already paid previously at the Infor Portal, then the Spot availability will be modified and Ticket will be removed from the System   
-        if(t.getIsPaid()==false)
+        
+        if(!t.getIsPaid())
         {
+            System.out.println("paying ticket");
             payTicket(t);
         }
         else
@@ -66,7 +71,7 @@ class ExitPoint extends Checkpoint
         }
         catch(Exception e)
         {
-            System.out.println("Please enter a valid choice");
+            System.out.println(e.getMessage() + "  Please enter a valid choice  yessss");
         }
         
     }
