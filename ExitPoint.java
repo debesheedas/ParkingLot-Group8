@@ -35,7 +35,9 @@ class ExitPoint extends Checkpoint
     {
         //take in ticket ID via Scanner
         //return corresponding Ticket object after searching instance variable Ticket arraylist to calling method
+        
         System.out.println("Enter your Ticket ID");
+        
         try
         {
             int id = Integer.parseInt(sc.nextLine());
@@ -43,7 +45,7 @@ class ExitPoint extends Checkpoint
         }
         catch(Exception e)
         {
-            System.out.println("please enter a valid choice");
+            System.out.println("please enter a valid choice ");
         }
         
         return null;
@@ -51,8 +53,9 @@ class ExitPoint extends Checkpoint
     void checkTicket(Ticket t)
     {
         
-        if(t.getIsPaid()==false)
+        if(!t.getIsPaid())
         {
+            System.out.println("paying ticket");
             payTicket(t);
         }
         else
@@ -88,7 +91,7 @@ class ExitPoint extends Checkpoint
         }
         catch(Exception e)
         {
-            System.out.println("Please enter a valid choice");
+            System.out.println(e.getMessage() + "  Please enter a valid choice  yessss");
         }
         
     }

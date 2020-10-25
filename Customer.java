@@ -38,10 +38,12 @@ public class Customer
                                 ExitPoint p2 = new ExitPoint(pl, id, c.getName(), c.getFloorNumber());
                                 System.out.println("Welcome to ExitPoint "+p2.getName());
                                 p2.run();
+                                break;
                             case INFO:
                                 InfoPortal p3 = new InfoPortal(pl, id, c.getName(), c.getFloorNumber());
                                 System.out.println("Welcome to InfoPortal "+p3.getName());
                                 p3.run();
+                                break;
                             default:
                                 break;
                         }
@@ -83,7 +85,7 @@ public class Customer
         }
         catch(Exception e)
         {
-            System.out.println(e.getMessage() +  "  Please enter a valid choice");
+            System.out.println(e.getStackTrace() +"  ,  " + e.getSuppressed() +  "  Please enter a valid choice Noooo");
         }
     }
 }

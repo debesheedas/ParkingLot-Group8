@@ -334,7 +334,7 @@ public class Database{
          if(!(f.isFile())){   // checking if db file exists and has 5 tables in it 
             System.out.println("ParkingLot is being created for first time. Please enter initial settings of ParkingLot");
             this.setupDatabase();                        // if not create db and tables in it
-            pl.getAdmin().menu();;                         // call admin options    
+            pl.getAdmin().menu();                      // call admin options    
          }
 
          pl.setAdmin(this.getAdmin());
