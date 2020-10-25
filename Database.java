@@ -57,6 +57,8 @@ public class Database{
             s.executeUpdate("create table if not exists tickets (id int not null , startTime text not null , spotID int not null , floorNo int not null , vnp text not null )");
             s.executeUpdate("create table if not exists checkpoints (id int not null, name text not null, type text not null, floorNo int not null, assignedEmployeeID int not null)");
             s.executeUpdate("create table if not exists spotprices (type text not null , firsthour real not null , secondhour real not null , remaininghours real not null)");
+            s.executeUpdate("create table if not exists electricityPricePerHour (price real not null)");
+
 
          }catch(Exception e){
             System.out.println(e.getClass().getName() +" : "+e.getMessage());
@@ -118,13 +120,18 @@ public class Database{
             ResultSet rs = s.executeQuery("select * from employees");
             while(rs.next()){
                int id = rs.getInt("id");
-               String name = rs.getString("name");
-               String pswd = rs.getString("pswd");
-               double due = rs.getDouble("due");
-               String loginstatus = rs.getString("loginStatus");
+               if(id != 0){
 
-               Employee e = new Employee(this.pl ,id,name,pswd,due , loginstatus.equals("yes"));
-               employees.add(e);
+                  String name = rs.getString("name");
+                  String pswd = rs.getString("pswd");
+                  double due = rs.getDouble("due");
+                  String loginstatus = rs.getString("loginStatus");
+
+                  Employee e = new Employee(this.pl ,id,name,pswd,due , loginstatus.equals("yes"));
+                  employees.add(e);
+
+               }
+               
             }
 
             return employees;
@@ -292,13 +299,36 @@ public class Database{
       }
    }
 
+   private double getElectricityPricePerHour(){
+   
+      try(Connection c = this.connect();
+          PreparedStatement ps = c.prepareStatement("select * from electricityPricePerHour ");
+      ){
+
+         ResultSet rs = ps.executeQuery();
+
+         while(rs.next()){
+            double price = rs.getDouble("price");
+            return price;
+         }
+         
+         return 0;
+
+      }catch(Exception e){
+          System.out.println(e.getClass().getName() +" : "+e.getMessage());
+          return 0;
+      }
+   }
+
 
    public void loadDatabase(){
 
          File f = new File("db/parkinglot.db");  
 
-         if(!(f.isFile() && this.count_tables() == 5)){  // checking if db file exists and has 5 tables in it 
+         if(!(f.isFile() && this.count_tables() == 5)){   // checking if db file exists and has 5 tables in it 
+            System.out.println("ParkingLot is being created for first time. Please enter initial settings of ParkingLot");
             this.setupDatabase();                        // if not create db and tables in it
+            pl.getAdmin().menu();;                         // call admin options    
          }
 
          pl.setAdmin(this.getAdmin());
@@ -312,6 +342,8 @@ public class Database{
          pl.setHandicappedPrices(getSpotPrices("HANDICAPPED"));
          pl.setTwowheelerPrices(getSpotPrices("TWOWHEELER"));
          pl.setElectricPrices(getSpotPrices("ELECTRIC"));
+
+         pl.setPriceOfElectricityPerHour(getElectricityPricePerHour());
 
 
    }
@@ -425,6 +457,32 @@ public class Database{
 
    }
 
+   private void addElectricityPricePerHour(double price){
+
+
+         try(Connection c = this.connect();
+            PreparedStatement ps = c.prepareStatement("delete from electricityPricePerHour");
+         ){
+
+            ps.executeUpdate();
+            
+         }catch(Exception e){
+            System.out.println(e.getClass().getName() +" : "+e.getMessage());
+         }
+
+         try(Connection c = this.connect();
+            PreparedStatement ps = c.prepareStatement("insert into electricityPricePerHour values (?)");
+         ){
+
+            ps.setDouble(1, price);
+
+            ps.executeUpdate();
+            
+         }catch(Exception e){
+            System.out.println(e.getClass().getName() +" : "+e.getMessage());
+         }
+   }
+
    public void updateDatabase(){
 
       deleteAllTables(); // deleting all existing tables 
@@ -441,10 +499,13 @@ public class Database{
       double[] handiCappedPrices = pl.getHandicappedPrices();
       double[] twoWheelerPrices = pl.getTwowheelerPrices();
       double[] electricPrices = pl.getElectricPrices();
+
+      double electricityPerHour = pl.getPriceOfElectricityPerHour();
       
       addEmployee(admin.getID(), admin.getUsername(), admin.getPassword(), admin.getDues(), (String)((admin.getLoginStatus()) ? "yes" : "no" ) );
 
       for(Employee e:employees){
+
          addEmployee(e.getID(), e.getUsername(), e.getPassword(), e.getDues() ,(String)((e.loginstatus) ? "yes" : "no" ));
       }
 
@@ -464,6 +525,8 @@ public class Database{
       addSpotPrice("HANDICAPPED", handiCappedPrices[0], handiCappedPrices[1], handiCappedPrices[2]);
       addSpotPrice("TWOWHEELER", twoWheelerPrices[0], twoWheelerPrices[1], twoWheelerPrices[2]);
       addSpotPrice("ELECTRIC", electricPrices[0], electricPrices[1], electricPrices[2]);
+
+      addElectricityPricePerHour(electricityPerHour);
 
 
       
