@@ -49,16 +49,8 @@ public class Database{
 
      public void setupDatabase(){
 
-         deleteDatabase();
-         File db = new File("db/parkinglot.bd");
-
-         try{
-            db.createNewFile();
-         }catch(Exception e){
-            System.out.println(e.getMessage());
-         }
+         deleteAllTables();
          
-
          try(Connection c = this.connect();
             Statement s = c.createStatement();
          ){
@@ -76,16 +68,20 @@ public class Database{
          }
      }
 
-     public void deleteDatabase(){
-         
-         File db = new File("db/parkinglot.db") ;
-
-         if(db.delete()){
-            System.out.println("Database deleted successfully.");
-         }else{
-            System.out.println("Failed to delete the database.");
-         }
-     }
+     public void deleteAllTables(){	     
+      try(Connection c = this.connect();	
+         Statement s = c.createStatement();	        
+      ){	
+         s.executeUpdate("drop table if exists 'employees' ");	         
+         s.executeUpdate("drop table if exists 'floors' ");	            
+         s.executeUpdate("drop table if exists 'tickets' ");	         
+         s.executeUpdate("drop table if exists 'checkpoints' ");	          
+         s.executeUpdate("drop table if exists 'spotprices' ");	
+      }catch(Exception e){	
+         System.out.println(e.getClass().getName() +" : "+e.getMessage());	
+      }	        
+    }
+  
 
 
    //=======================================================================================================================
@@ -496,7 +492,7 @@ public class Database{
 
    public void updateDatabase(){
 
-      deleteDatabase(); // deleting  current database
+      deleteAllTables(); // deleting  current database
       setupDatabase();  // again creating all empty tables
 
       ArrayList<Employee> employees = pl.getAllEmployees();
