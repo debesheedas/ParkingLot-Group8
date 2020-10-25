@@ -1,7 +1,15 @@
+//Please use this testing code to interact with the system as th Admin
+
 import java.util.*;
 
 public class Test4 {
 
+    static void test4(ParkingLot p)
+    {
+        p.getDatabase().loadDatabase();
+        p.getAdmin().menu();
+        p.getDatabase().updateDatabase();
+    }
     public static void main(String[] args) {
         ParkingLot pl = new ParkingLot();
         test4(pl);
@@ -52,16 +60,6 @@ public class Test4 {
             System.out.println(t.getSpot().getSpotType());
         }*/
     }
-    static void test4(ParkingLot p)
-    {
-        p.getDatabase().loadDatabase();
-        /*ArrayList<Floor> floors = p.getAllFloors();
-        for(Floor f : floors){
-            System.out.println(f.getFloorNo());
-        }
-*/
-        p.getAdmin().menu();
-        p.getDatabase().updateDatabase();
-    }
+    
     
 }

@@ -1,7 +1,3 @@
-import java.util.*;
-
-import javax.lang.model.util.ElementScanner6;
-
 public class Employee extends Customer{
     
     boolean loginstatus;
@@ -13,7 +9,6 @@ public class Employee extends Customer{
     Employee(ParkingLot pl, int id, String name, String password, double dues, boolean status) 
     {
         super(pl);
-        //super.pl=pl;
         loginstatus=status;
         this.id = id;
         this.username = name;
@@ -53,17 +48,6 @@ public class Employee extends Customer{
     
     void run()
     {
-        //menu driven, login method
-        //if successful, ask if they want to park or pay
-        //if they want to pay, call amount due
-        //if they want to park, call super.run
-        //think about how to implement the keeping record of the employees bill amount...we probably cannot use the customer methods
-        //probably writing completely different methods might be better
-        //check for password of corresponding ID
-        //l.run();
-        //could add check floor display to this also
-        
-        
             System.out.println("Press 1: LogIn\nPress 2: Get assigned to Checkpoint to start Working\nPress 3: Pay dues\nPress 4: Change Password\nPress 5: Park Car (Non-duty hours)\nPress 6: LogOut");
             try
             {
@@ -71,11 +55,8 @@ public class Employee extends Customer{
                 switch (n) {
                     case 1 : 
                         LoginGUI l = new LoginGUI(pl);
-                        l.run(pl);//both not required, check later
-                    
-                        //System.out.println(loginstatus);
+                        l.run(pl);
                         break;
-                    
                     case 2 : 
                         if(loginstatus)
                         {

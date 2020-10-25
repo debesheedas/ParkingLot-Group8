@@ -1,16 +1,4 @@
-//Debeshee
-
 import javax.swing.*;
-//import java.awt.*;
-//import java.awt.event.ActionEvent;
-//import java.awt.event.ActionListener;
-//import java.util.*;
-
-
-
-//pass Floor object into this(Floor floor)
-//to run this GUI program for a particular Floor object floor, write the following statement
-// FloorDisplayGUI e = new FloorDisplayGUI(floor);
 public class FloorDisplayGUI
 {    
     JFrame f;    

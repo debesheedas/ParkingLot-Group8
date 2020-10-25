@@ -1,12 +1,7 @@
 import javax.swing.*;
-//import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-//import java.util.*;
 
-//call this class using the following statements by passing an Employee object IF AND ONLY IF Employee is logged in
-//ChangePasswordGUI c = new ChangePasswordGUI();
-//c.run(r);//where r is the Employee object
 class ChangePasswordGUI implements ActionListener 
 {
 	ParkingLot pl;
@@ -60,11 +55,8 @@ class ChangePasswordGUI implements ActionListener
 		success = new JLabel();
 		success.setBounds(20, 110, 300, 25);
 		panel.add(success);
-		//set Text if credentials are correct
 		
         frame.setVisible(true);
-        //System.out.println();
-        //return true;
     }
     @Override
 	public void actionPerformed(ActionEvent e) {
@@ -72,9 +64,7 @@ class ChangePasswordGUI implements ActionListener
 		//System.out.println("Button clicked");
 		String p1 = new String(password1.getPassword());
 		String p2  = new String(password2.getPassword());
-        //System.out.println(username + " "+ password);
-        
-        
+                
         if(p1.equals(p2))
 		{
             success.setText("Password changed successfully!");
