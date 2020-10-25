@@ -55,6 +55,10 @@ class ExitPoint extends Checkpoint
         {
             payTicket(t);
         }
+        else
+        {
+            freeSpot(t);
+        }
 
     }
     
@@ -66,9 +70,20 @@ class ExitPoint extends Checkpoint
         System.out.println("Your bill amount is: "+t.computeBill());
         System.out.println("Press 1: To Pay by Cash\nPress 2: To Pay with Card");
         try{
-            int n = Integer.parseInt(sc.next());
+            int n = Integer.parseInt(sc.nextLine());
+            switch(n)
+            {
+                case 1:
+                System.out.println("Paying with Cash");
+                break;
+                case 2:
+                System.out.println("Paying with Card");
+                break;
+                default:
+                System.out.println("Invalid Option. Assuming payment by cash");
+            }
             t.changeIsPaid(true);
-            t.getSpot().setIsAvailable(true);
+            freeSpot(t);
 
         }
         catch(Exception e)
@@ -76,5 +91,11 @@ class ExitPoint extends Checkpoint
             System.out.println("Please enter a valid choice");
         }
         
+    }
+    void freeSpot(Ticket t)
+    {
+        t.getSpot().setIsAvailable(true);
+        pl.removeTicket(t);
+
     }
 }

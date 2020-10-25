@@ -55,11 +55,11 @@ public class Test4 {
     static void test4(ParkingLot p)
     {
         p.getDatabase().loadDatabase();
-        ArrayList<Floor> floors = p.getAllFloors();
+        /*ArrayList<Floor> floors = p.getAllFloors();
         for(Floor f : floors){
             System.out.println(f.getFloorNo());
         }
-
+*/
         p.getAdmin().menu();
         p.getDatabase().updateDatabase();
     }
